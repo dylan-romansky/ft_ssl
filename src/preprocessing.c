@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:29:52 by dromansk          #+#    #+#             */
-/*   Updated: 2019/02/28 21:42:21 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/05 18:18:33 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,20 +86,51 @@ char			*append_len(char *fixed, int i, long num)
 	return (fixed);
 }
 
-void			pad_input(char *input)
+int				padding(char *input)
 {
 	size_t			len;
 	size_t			i;
 	char			*fixed;
 
+	words->a0 = 0x67452301;
+	words->b0 = 0xefcdab89;
+	words->c0 = 0x98badcfe;
+	words->d0 = 0x10325476;
+	words->offset = 0;
 	len = ft_strlen(input);
 	i = len;
 	while ((i + 8) % 512 || (i + 8) < 512)
 		i++;
-	fixed = ft_strnew(i + 8);
+	if (!(fixed = ft_strnew(i + 8)))
+		return (-1);
 	fixed = ft_strcpy(fixed, input);
 	fixed[len] = 127;
 	fixed = append_len(fixed, i, 4294967296 % len);
 	ft_print_n(fixed, i + 8);
 	split_input_512(input, i + 8);
 }
+
+int				md5(char *input, size_t len, t_words *words)
+{
+	int i;
+
+	if (padding(input, len, g) == -1)
+		return (-1);
+	while (g->offset < g->adj_len)
+	{
+		words->w = (g->msg + g->offset);
+		words->a = words->a0;
+		words->b = words->b0;
+		words->c = words->c0;
+		words->d = words->d0;
+		i = -1;
+		while (++i < 64)
+			hashing_functions(words, i);
+		words->a0 += words->a;
+		words->b0 += words->b;
+		words->c0 += words->c;
+		words->d0 += words->d;
+		words->offset += 64;
+	}
+	free(words->msg);
+	return (0);

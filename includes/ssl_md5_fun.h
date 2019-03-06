@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:08:20 by dromansk          #+#    #+#             */
-/*   Updated: 2019/02/28 21:14:28 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/05 17:57:47 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,9 @@
 /*
 ** hashing functions
 */
-unsigned char	b_or(unsigned char b, unsigned char c, unsigned char d);
-unsigned char	d_or(unsigned char b, unsigned char c, unsigned char d);
-unsigned char	bcd_xor(unsigned char b, unsigned char c, unsigned char d);
-unsigned char	c_xor_b_or_nd(unsigned char b, unsigned char c, unsigned char d);
 
-/*
-** preprocessing
-*/
-
-void			pad_input(char *input);
+int				ft_md5(char *input);
+void			hashing_functions(t_words *words, int i);
+uint32_t		left_rotate(uint32_t bits, uint32_t rot);
 
 #endif
