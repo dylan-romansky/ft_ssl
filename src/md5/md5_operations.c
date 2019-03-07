@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:55:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/06 19:54:30 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/06 20:11:03 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ uint32_t	leftrotate(uint32_t bits, uint32_t rot)
 	return (((bits) << (rot)) | ((bits) >> (32 - (rot))));
 }
 
-void		hashing_functions_md5(t_words *words, int i, unsigned *chunks)
+void		hashing_functions_md5(t_md5_words *words, int i, unsigned *chunks)
 {
 	int		g;
 

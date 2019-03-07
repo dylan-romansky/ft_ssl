@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:29:52 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/06 19:52:37 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/06 23:04:56 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** will need to verify if this works with binary files
 */
 
-void			print_hash(t_words *words)
+void			print_md5(t_md5_words *words)
 {
 	words->a0 = flip_end_md5(words->a0);
 	words->b0 = flip_end_md5(words->b0);
@@ -26,7 +26,7 @@ void			print_hash(t_words *words)
 	free(words);
 }
 
-void			split_input_32(char *chunk, t_words *word)
+void			split_input_32(char *chunk, t_md5_words *word)
 {
 	unsigned		words[16];
 	int				i;
@@ -50,7 +50,7 @@ void			split_input_32(char *chunk, t_words *word)
 	word->d0 += word->d;
 }
 
-void			split_input_512(char *input, int len, t_words *word)
+void			split_input_512(char *input, int len, t_md5_words *word)
 {
 	char			*process;
 	int				i;
@@ -71,7 +71,7 @@ void			split_input_512(char *input, int len, t_words *word)
 		split_input_32(process, word);
 		free(process);
 	}
-	print_hash(word);
+	print_md5(word);
 }
 
 int				ft_md5(char *input)
@@ -80,9 +80,9 @@ int				ft_md5(char *input)
 	int				flen;
 	size_t			i;
 	char			*fixed;
-	t_words			*words;
+	t_md5_words		*words;
 
-	words = (t_words *)malloc(sizeof(t_words));
+	words = (t_md5_words *)malloc(sizeof(t_md5_words));
 	words->a0 = 0x67452301;
 	words->b0 = 0xefcdab89;
 	words->c0 = 0x98badcfe;
