@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:55:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/05 18:18:35 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/06 16:17:40 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,51 @@ uint32_t	leftrotate(uint32_t bits, uint32_t rot)
 	return (((bits) << (rot)) | ((bits) >> (32 - (rot))));
 }
 
-void		hashing_functions(t_words *words, int i)
+void		hashing_functions_md5(t_words *words, int i, unsigned *chunks)
 {
+	int		g;
+
+	g = 0;
 	if (i < 16)
-		(words->b & words->c) | (~words->b & words->d);
+	{
+		words->f = (words->b & words->c) | (~words->b & words->d);
+		g = i;
+	}
 	else if (i < 32)
-		(words->b & words->d) | (words->c & ~words->d);
+	{
+		words->f = (words->b & words->d) | (words->c & ~words->d);
+		g = (5 * i + 1) % 16;
+	}
 	else if (i < 48)
-		words->b ^ words->c ^ words->d;
+	{
+		words->f = words->b ^ words->c ^ words->d;
+		g = (3 * i + 5) % 16;
+	}
 	else
-		words->c ^ (words->b | ~words->d);
-	words->tmp = words->d;
+	{
+		words->f = words->c ^ (words->b | ~words->d);
+		g = (7 * i) % 16;
+	}
+	words->f = words->f + words->a + g_k[i] + chunks[g];
+	words->a = words->d;
 	words->d = words->c;
 	words->c = words->b;
-	words->b = words->b + leftrotate((words->a + words->f +
-				g_k[i] + words->w[words->g]), g_rot[i]);
-	words->a = words->tmp;
+	words->b = words->b + leftrotate(words->f, g_rot[i]);
+}
+
+unsigned	flip_end(unsigned num)
+{
+	unsigned	bit;
+	unsigned	flipped;
+
+	bit = 1;
+	flipped = 0;
+	while (num;)
+	{
+		flipped <<= 1;
+		if (bit & num)
+			flipped += 1;
+		num >>= 1;
+	}
+	return (flipped);
 }
