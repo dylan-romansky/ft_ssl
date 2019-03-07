@@ -43,10 +43,8 @@ uint32_t	leftrotate(uint32_t bits, uint32_t rot)
 void		hashing_functions_md5(t_words *words, int i, unsigned *chunks)
 {
 	int		g;
-	int		jew;
 
 	g = 0;
-	jew = -1;
 	if (i < 16)
 	{
 		words->f = (words->b & words->c) | (~words->b & words->d);
