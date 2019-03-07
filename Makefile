@@ -6,7 +6,7 @@
 #    By: dromansk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:18:25 by dromansk          #+#    #+#              #
-#    Updated: 2019/02/28 21:35:48 by dromansk         ###   ########.fr        #
+#    Updated: 2019/03/06 19:01:05 by dromansk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,5 +40,8 @@ re: fclean all
 reclean: re
 	make clean
 
-test: reclean
+test: clean
+	gcc -Wall -Werror -Wextra -c $(I) $(SRCS)
+	gcc -Wall -Werror -Wextra -o $(NAME) $(O) $(I) $(L)
+	make clean
 	./$(NAME) butt

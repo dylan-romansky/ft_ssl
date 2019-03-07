@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:55:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/06 16:39:12 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/06 19:33:20 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ uint32_t	leftrotate(uint32_t bits, uint32_t rot)
 void		hashing_functions_md5(t_words *words, int i, unsigned *chunks)
 {
 	int		g;
+	int		jew;
 
 	g = 0;
+	jew = -1;
 	if (i < 16)
 	{
 		words->f = (words->b & words->c) | (~words->b & words->d);
@@ -72,19 +74,8 @@ void		hashing_functions_md5(t_words *words, int i, unsigned *chunks)
 	words->b = words->b + leftrotate(words->f, g_rot[i]);
 }
 
-unsigned	flip_end(unsigned num)
+unsigned	flip_end_md5(unsigned n)
 {
-	unsigned	bit;
-	unsigned	flipped;
-
-	bit = 1;
-	flipped = 0;
-	while (num)
-	{
-		flipped <<= 1;
-		if (bit & num)
-			flipped += 1;
-		num >>= 1;
-	}
-	return (flipped);
+	return ((n >> 24) | ((n & 0xff0000) >> 8) |
+		((n & 0xff00) << 8) | (n << 24));
 }

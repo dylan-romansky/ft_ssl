@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:08:20 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/06 16:36:13 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/06 19:33:32 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@
 int			ft_md5(char *input);
 void		hashing_functions_md5(t_words *words, int i, unsigned *chunks);
 uint32_t	left_rotate(uint32_t bits, uint32_t rot);
-unsigned	flip_end(unsigned unflipped);
+unsigned	flip_end_md5(unsigned unflipped);
 
 #endif
