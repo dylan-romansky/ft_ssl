@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:04:59 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/06 16:17:48 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/06 16:30:51 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ struct	s_words
 	unsigned	d0;
 	int			adj_len;
 	int			offset;
-}
+};
 
 #endif

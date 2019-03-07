@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:55:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/06 16:17:40 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/06 16:39:12 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ unsigned	flip_end(unsigned num)
 
 	bit = 1;
 	flipped = 0;
-	while (num;)
+	while (num)
 	{
 		flipped <<= 1;
 		if (bit & num)
