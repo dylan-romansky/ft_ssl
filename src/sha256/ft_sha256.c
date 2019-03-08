@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 20:39:49 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/07 23:31:17 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/07 23:47:45 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ void	split_padded_512(char *fixed, int len, t_sha_words *words)
 	{
 		chunk = ft_strnew(64);
 		ft_memcpy(chunk, fixed + i, 64);
-		sha_process_chunk(chunk, words);
+		sha_process_chunk(chunk, words);//flaw in this function group. good luck
 		free(chunk);
 		i += 64;
+		printf("%08x\n%08x\n%08x\n%08x\n%08x\n%08x\n%08x\n%08x\n\n", words->h0, words->h1, words->h2, words->h3, words->h4, words->h5, words->h6, words->h7);
 	}
 	print_sha256(words);
 }
@@ -63,7 +64,7 @@ int		sha_pad(char *input, unsigned len, t_sha_words *words)
 	padded = ft_memcpy(padded, input, ft_strlen(input));
 	padded[len] = (unsigned char)128;
 	flen = (len * 8);
-	padded = flip((unsigned *)padded, len + i);//note this, it might be a problem
+	padded = flip((unsigned *)padded, len + i);
 	ft_memcpy(padded + len + i + 4, &flen, 4);
 	split_padded_512(padded, len + i + 8, words);
 	return (0);
