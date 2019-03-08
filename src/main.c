@@ -7,6 +7,14 @@ unsigned	flip_end(unsigned n)
 		((n & 0xff00) << 8) | (n << 24));
 }
 
+void		force_print(char *string, int j)
+{
+	int i = -1;
+
+	while (++i < j)
+		printf("%hhu\n", string[i]);
+}
+
 int		main(int ac, char **av)
 {
 	if (ac == 2)

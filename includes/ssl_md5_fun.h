@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:08:20 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/07 19:16:17 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/07 23:06:29 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 # include "ssl_md5_structs.h"
 
 unsigned	flip_end(unsigned n);
+
+/*
+** debugging functions
+*/
+
+void		force_print(char *s, int j);
 
 /*
 ** md5
@@ -31,6 +37,6 @@ unsigned	flip_end(unsigned unflipped);
 
 int			ft_sha256(char *input);
 uint32_t	rightrotate(uint32_t input, uint32_t amount);
-void		hashing_function_sha(t_sha_words *words, unsigned *w);
+void		sha_process_chunk(char *chunk, t_sha_words *words);
 
 #endif

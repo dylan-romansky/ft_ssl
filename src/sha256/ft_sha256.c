@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 20:39:49 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/07 19:21:33 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/07 23:31:17 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,35 +22,6 @@ void	print_sha256(t_sha_words *words)
 	words->h2, words->h3, words->h4, words->h5, words->h6, words->h7);
 }
 
-void	process_chunk(char *chunk, t_sha_words *words)
-{
-	unsigned		*w;
-	uint32_t		tmp1;
-	uint32_t		tmp2;
-	int				i;
-
-	i = 15;
-	w = (unsigned *)malloc(sizeof(unsigned) * 64);
-	ft_memcpy(w, chunk, 16 * 4);
-	while (++i < 64)
-	{
-		tmp1 = rightrotate(w[i - 15], 7) ^ rightrotate(w[i - 15], 18) ^
-			(w[i-15] >> 3);
-		tmp2 = rightrotate(w[i - 2], 17) ^ rightrotate(w[i - 2], 19) ^
-			(w[i - 2] >> 10);
-		w[i] = w[i - 16] + tmp1 + w[i - 7] + tmp2;
-	}
-	words->a = words->h0;
-	words->b = words->h1;
-	words->c = words->h2;
-	words->d = words->h3;
-	words->e = words->h4;
-	words->f = words->h5;
-	words->g = words->h6;
-	words->h = words->h7;
-	hashing_function_sha(words, w);
-}
-
 void	split_padded_512(char *fixed, int len, t_sha_words *words)
 {
 	char			*chunk;
@@ -60,22 +31,31 @@ void	split_padded_512(char *fixed, int len, t_sha_words *words)
 	while (i < len)
 	{
 		chunk = ft_strnew(64);
-		ft_memcpy(chunk, fixed, 64);
-		process_chunk(chunk, words);
+		ft_memcpy(chunk, fixed + i, 64);
+		sha_process_chunk(chunk, words);
 		free(chunk);
 		i += 64;
 	}
 	print_sha256(words);
 }
 
+char	*flip(unsigned *padded, int len)
+{
+	int				j;
+
+	j = -1;
+	while (++j < ((len) / 4))
+		padded[j] = flip_end(padded[j]);
+	return ((char *)padded);
+}
+
 int		sha_pad(char *input, unsigned len, t_sha_words *words)
 {
 	int				i;
-	unsigned		j;
-	unsigned long	flen;
+	unsigned		flen;
 	char			*padded;
 
-	i = 0;
+	i = 1;
 	while ((len + i + 8) % 64)
 		i++;
 	if (!(padded = ft_strnew(i + len + 8)))
@@ -83,10 +63,8 @@ int		sha_pad(char *input, unsigned len, t_sha_words *words)
 	padded = ft_memcpy(padded, input, ft_strlen(input));
 	padded[len] = (unsigned char)128;
 	flen = (len * 8);
-	j = 0;
-	while (j < (len + i - 1))
-		flip_end(padded[j++]);//issue here, verify how this needs to flip
-	ft_memcpy(padded + len + i, &flen, 8);
+	padded = flip((unsigned *)padded, len + i);//note this, it might be a problem
+	ft_memcpy(padded + len + i + 4, &flen, 4);
 	split_padded_512(padded, len + i + 8, words);
 	return (0);
 }

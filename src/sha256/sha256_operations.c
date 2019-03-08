@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 20:34:09 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/07 19:15:30 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/07 23:31:55 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,33 @@ void		hashing_function_sha(t_sha_words *words, unsigned *w)
 	i = -1;
 	while (++i < 64)
 		hash(words, w, i);
+}
+
+void	sha_process_chunk(char *chunk, t_sha_words *words)
+{
+	unsigned		*w;
+	uint32_t		tmp1;
+	uint32_t		tmp2;
+	int				i;
+
+	i = 15;
+	w = (unsigned *)ft_strnew(sizeof(unsigned) * 64);
+	ft_memcpy(w, chunk, 16 * 4);
+	while (++i < 64)
+	{
+		tmp1 = rightrotate(w[i - 15], 7) ^ rightrotate(w[i - 15], 18) ^
+			(w[i-15] >> 3);
+		tmp2 = rightrotate(w[i - 2], 17) ^ rightrotate(w[i - 2], 19) ^
+			(w[i - 2] >> 10);
+		w[i] = w[i - 16] + tmp1 + w[i - 7] + tmp2;
+	}
+	words->a = words->h0;
+	words->b = words->h1;
+	words->c = words->h2;
+	words->d = words->h3;
+	words->e = words->h4;
+	words->f = words->h5;
+	words->g = words->h6;
+	words->h = words->h7;
+	hashing_function_sha(words, w);
 }

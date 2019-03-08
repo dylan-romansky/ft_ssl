@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:29:52 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/07 19:17:07 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/07 22:59:32 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ void			split_input_32(char *chunk, t_md5_words *word)
 		j += 4;
 	}
 	i = -1;
+	word->a = word->a0;
+	word->b = word->b0;
+	word->c = word->c0;
+	word->d = word->d0;
 	while (++i < 64)
 		hashing_functions_md5(word, i, words);
 	word->a0 += word->a;
@@ -56,10 +60,6 @@ void			split_input_512(char *input, int len, t_md5_words *word)
 	int				i;
 	int				j;
 
-	word->a = word->a0;
-	word->b = word->b0;
-	word->c = word->c0;
-	word->d = word->d0;
 	process = ft_strdup(input);
 	j = 0;
 	while (j < len)
@@ -88,7 +88,7 @@ int				ft_md5(char *input)
 	words->c0 = 0x98badcfe;
 	words->d0 = 0x10325476;
 	len = ft_strlen(input);
-	i = len;
+	i = 1 + len;
 	while ((i + 8) % 64)
 		i++;
 	if (!(fixed = ft_strnew(i + 8)))
