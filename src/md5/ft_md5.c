@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:29:52 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/06 23:04:56 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/07 19:17:07 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 
 void			print_md5(t_md5_words *words)
 {
-	words->a0 = flip_end_md5(words->a0);
-	words->b0 = flip_end_md5(words->b0);
-	words->c0 = flip_end_md5(words->c0);
-	words->d0 = flip_end_md5(words->d0);
+	words->a0 = flip_end(words->a0);
+	words->b0 = flip_end(words->b0);
+	words->c0 = flip_end(words->c0);
+	words->d0 = flip_end(words->d0);
 	ft_printf("%08x%08x%08x%08x", words->a0, words->b0, words->c0, words->d0);
 	free(words);
 }

@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:55:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/06 20:11:03 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/07 19:17:20 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,4 @@ void		hashing_functions_md5(t_md5_words *words, int i, unsigned *chunks)
 	words->d = words->c;
 	words->c = words->b;
 	words->b = words->b + leftrotate(words->f, g_rot[i]);
-}
-
-unsigned	flip_end_md5(unsigned n)
-{
-	return ((n >> 24) | ((n & 0xff0000) >> 8) |
-		((n & 0xff00) << 8) | (n << 24));
 }

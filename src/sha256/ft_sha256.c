@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 20:39:49 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/06 23:06:11 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/07 19:21:33 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	split_padded_512(char *fixed, int len, t_sha_words *words)
 int		sha_pad(char *input, unsigned len, t_sha_words *words)
 {
 	int				i;
+	unsigned		j;
 	unsigned long	flen;
 	char			*padded;
 
@@ -82,6 +83,9 @@ int		sha_pad(char *input, unsigned len, t_sha_words *words)
 	padded = ft_memcpy(padded, input, ft_strlen(input));
 	padded[len] = (unsigned char)128;
 	flen = (len * 8);
+	j = 0;
+	while (j < (len + i - 1))
+		flip_end(padded[j++]);//issue here, verify how this needs to flip
 	ft_memcpy(padded + len + i, &flen, 8);
 	split_padded_512(padded, len + i + 8, words);
 	return (0);
