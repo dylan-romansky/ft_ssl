@@ -6,12 +6,12 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 20:39:49 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/08 23:08:11 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/08 23:48:46 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-** issue with hash but it still functions without faults. check w
+** issue with table generation. figure it out idiot
 */
 
 #include "ft_ssl_md5.h"
@@ -52,7 +52,7 @@ char	*flip_512(unsigned long *padded, int len)
 int		sha_pad_512(char *input, unsigned len, t_512_words *words)
 {
 	int				i;
-	unsigned		flen;
+	unsigned long	flen;
 	char			*padded;
 
 	i = 1;
@@ -64,7 +64,7 @@ int		sha_pad_512(char *input, unsigned len, t_512_words *words)
 	padded[len] = (unsigned char)128;
 	flen = (len * 8);
 	padded = flip_512((unsigned long *)padded, len + i);
-	ft_memcpy(padded + len + i + 4, &flen, 4);
+	ft_memcpy(padded + len + i, &flen, 8);
 	split_padded_1024(padded, len + i + 8, words);
 	return (0);
 }

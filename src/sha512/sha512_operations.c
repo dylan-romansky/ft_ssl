@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 20:34:09 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/08 23:05:46 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/08 23:43:43 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ void	process_chunk_512(char *chunk, t_512_words *words)
 	int				i;
 
 	i = 15;
-	w = (unsigned long *)ft_strnew(sizeof(unsigned) * 64);
-	ft_memcpy(w, chunk, 16 * 4);
+	w = (unsigned long *)ft_strnew(sizeof(unsigned long) * 80);
+	ft_memcpy(w, chunk, 16 * 8);
 	while (++i < 80)
 	{
 		tmp1 = rightrotate(w[i - 15], 1) ^ rightrotate(w[i - 15], 8) ^
@@ -106,6 +106,15 @@ void	process_chunk_512(char *chunk, t_512_words *words)
 		tmp2 = rightrotate(w[i - 2], 19) ^ rightrotate(w[i - 2], 61) ^
 			(w[i - 2] >> 6);
 		w[i] = w[i - 16] + tmp1 + w[i - 7] + tmp2;
+	}
+	int jew = -1;
+	int hit = 0;
+	printf("-----1-----\n");
+	while (++jew < 80)
+	{
+		printf("%016lx\n", w[jew]);
+		if (!(++hit % 16))
+			printf("-----%d-----\n", hit);
 	}
 	words->a = words->h0;
 	words->b = words->h1;
