@@ -6,13 +6,14 @@
 #    By: dromansk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:18:25 by dromansk          #+#    #+#              #
-#    Updated: 2019/03/07 22:40:19 by dromansk         ###   ########.fr        #
+#    Updated: 2019/03/08 22:44:09 by dromansk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = md5_test
 
-SRCS = ./src/*.c ./src/md5/*.c ./src/sha256/*.c
+SRCS = ./src/*.c ./src/md5/*.c ./src/sha256/*.c ./src/sha224/*.c \
+	   ./src/sha512/*.c
 
 I = -I ./includes -I ./libft/includes
 

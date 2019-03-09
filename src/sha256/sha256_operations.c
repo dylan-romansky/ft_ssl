@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 20:34:09 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/07 23:46:25 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/08 21:47:59 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ void		hash(t_sha_words *words, unsigned *w, int i)
 	words->tmp2 = (words->e & words->f) ^ (~words->e & words->g);
 	words->tmp3 = words->h + words->tmp1 + words->tmp2 + g_k2[i] + w[i];
 	words->tmp4 = rightrotate(words->a, 2) ^ rightrotate(words->a, 13) ^
-			rightrotate(words->a, 22);
+		rightrotate(words->a, 22);
 	words->tmp5 = (words->a & words->b) ^ (words->a & words->c) ^
 		(words->b & words->c);
+	words->tmp6 = words->tmp4 + words->tmp5;
 	words->h = words->g;
 	words->g = words->f;
 	words->f = words->e;
@@ -60,7 +61,6 @@ void		hash(t_sha_words *words, unsigned *w, int i)
 	words->c = words->b;
 	words->b = words->a;
 	words->a = words->tmp3 + words->tmp6;
-	add_hash(words);
 }
 
 void		hashing_function_sha(t_sha_words *words, unsigned *w)
@@ -70,6 +70,7 @@ void		hashing_function_sha(t_sha_words *words, unsigned *w)
 	i = -1;
 	while (++i < 64)
 		hash(words, w, i);
+	add_hash(words);
 }
 
 void	sha_process_chunk(char *chunk, t_sha_words *words)

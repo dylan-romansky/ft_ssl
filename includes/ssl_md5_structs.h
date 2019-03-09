@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:04:59 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/06 22:35:30 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/08 22:07:24 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 typedef struct s_md5_words	t_md5_words;
 typedef struct s_sha_words	t_sha_words;
+typedef struct s_512_words	t_512_words;
 
 struct	s_md5_words
 {
@@ -54,6 +55,33 @@ struct	s_sha_words
 	unsigned	tmp4;
 	unsigned	tmp5;
 	unsigned	tmp6;
+};
+
+struct	s_512_words
+{
+	unsigned long	r;
+	unsigned long	a;
+	unsigned long	b;
+	unsigned long	c;
+	unsigned long	d;
+	unsigned long	e;
+	unsigned long	f;
+	unsigned long	g;
+	unsigned long	h;
+	unsigned long	h0;
+	unsigned long	h1;
+	unsigned long	h2;
+	unsigned long	h3;
+	unsigned long	h4;
+	unsigned long	h5;
+	unsigned long	h6;
+	unsigned long	h7;
+	unsigned long	tmp1;
+	unsigned long	tmp2;
+	unsigned long	tmp3;
+	unsigned long	tmp4;
+	unsigned long	tmp5;
+	unsigned long	tmp6;
 };
 
 #endif
