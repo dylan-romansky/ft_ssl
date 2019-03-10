@@ -17,14 +17,14 @@ void		print_task_result(t_task *task, char *verify)
 	static char	commands[10][64];
 
 	init_task_result_names(commands);
-	if ((task->opts | OPTION_Q) != task->opts
-		&& (task->opts | OPTION_R) != task->opts)
-	{
-		ft_putstr(commands[task->cmd]);
-		ft_putstr(" (");
-		print_task_name(task);
-		ft_putstr(") = ");
-	}
+//	if ((task->opts | OPTION_Q) != task->opts
+//		&& (task->opts | OPTION_R) != task->opts)
+//	{
+//		ft_putstr(commands[task->cmd]);
+//		ft_putstr(" (");
+//		print_task_name(task);
+//		ft_putstr(") = ");
+//	}
 	ft_putstr(task->digest);
 	if ((task->opts | OPTION_Q) != task->opts
 		&& (task->opts | OPTION_R) == task->opts)

@@ -12,7 +12,7 @@
 
 #ifndef FT_SSL_CORE_H
 # define FT_SSL_CORE_H
-
+# define uint8_t u_int8_t
 # include <stdlib.h>
 # include <stdint.h>
 # include <errno.h>

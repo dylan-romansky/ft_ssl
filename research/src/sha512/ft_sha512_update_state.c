@@ -78,15 +78,6 @@ void			sha512_transform(t_sha512_state *state)
 		w[i] = w[i - 16] + s0 + w[i - 7] + s1;
 		++i;
 	}
-	int jew = -1;
-	int	hit = 0;
-	printf("\n-----1-----\n");
-	while (++jew < 80)
-	{
-		printf("%016llx\n", w[jew]);
-		if (!(++hit % 16))
-			printf("-----%d-----\n", hit);
-	}
 	ft_memcpy(state_copy, state->state, sizeof(state_copy));
 	sha512_compression(state_copy, w, &s0, &s1);
 	i = -1;

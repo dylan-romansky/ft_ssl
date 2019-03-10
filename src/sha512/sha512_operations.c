@@ -60,12 +60,12 @@ void		add_512_hash(t_512_words *words)
 
 void		hash_512(t_512_words *words, unsigned long *w, int i)
 {
-	words->tmp1 = rightrotate(words->e, 14) ^ rightrotate(words->e, 18) ^
-		rightrotate(words->e, 31);
+	words->tmp1 = rightrotate64(words->e, 14) ^ rightrotate64(words->e, 18) ^
+		rightrotate64(words->e, 31);
 	words->tmp2 = (words->e & words->f) ^ (~words->e & words->g);
 	words->tmp3 = words->h + words->tmp1 + words->tmp2 + g_k3[i] + w[i];
-	words->tmp4 = rightrotate(words->a, 28) ^ rightrotate(words->a, 34) ^
-		rightrotate(words->a, 39);
+	words->tmp4 = rightrotate64(words->a, 28) ^ rightrotate64(words->a, 34) ^
+		rightrotate64(words->a, 39);
 	words->tmp5 = (words->a & words->b) ^ (words->a & words->c) ^
 		(words->b & words->c);
 	words->tmp6 = words->tmp4 + words->tmp5;
@@ -101,20 +101,11 @@ void	process_chunk_512(char *chunk, t_512_words *words)
 	ft_memcpy(w, chunk, 16 * 8);
 	while (++i < 80)
 	{
-		tmp1 = rightrotate(w[i - 15], 1) ^ rightrotate(w[i - 15], 8) ^
+		tmp1 = rightrotate64(w[i - 15], 1) ^ rightrotate64(w[i - 15], 8) ^
 			(w[i-15] >> 7);
-		tmp2 = rightrotate(w[i - 2], 19) ^ rightrotate(w[i - 2], 61) ^
+		tmp2 = rightrotate64(w[i - 2], 19) ^ rightrotate64(w[i - 2], 61) ^
 			(w[i - 2] >> 6);
 		w[i] = w[i - 16] + tmp1 + w[i - 7] + tmp2;
-	}
-	int jew = -1;
-	int hit = 0;
-	printf("-----1-----\n");
-	while (++jew < 80)
-	{
-		printf("%016lx\n", w[jew]);
-		if (!(++hit % 16))
-			printf("-----%d-----\n", hit);
 	}
 	words->a = words->h0;
 	words->b = words->h1;

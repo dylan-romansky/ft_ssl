@@ -25,7 +25,7 @@ all: $(NAME)
 
 $(NAME):
 	make -C ./libft reclean
-	gcc -Wall -Werror -Wextra -c $(I) $(SRCS)
+	gcc -Wall -Werror -Wextra -c $(I) $(SRCS) $(L)
 	gcc -Wall -Werror -Wextra -o $(NAME) $(O) $(I) $(L)
 
 clean:
@@ -42,7 +42,7 @@ reclean: re
 	make clean
 
 test: clean
-	gcc -Wall -Werror -Wextra -c $(I) $(SRCS)
+	gcc -Wall -Werror -Wextra -c $(I) $(SRCS) $(L)
 	gcc -Wall -Werror -Wextra -o $(NAME) $(O) $(I) $(L)
 	make clean
 	./$(NAME) buttbuttbuttbuttbuttbuttbuttbuttbuttbuttbuttbuttbuttbutt
