@@ -74,9 +74,8 @@ void			split_input_512(char *input, int len, t_md5_words *word)
 	print_md5(word);
 }
 
-int				ft_md5(char *input)
+int				ft_md5(char *input, size_t len)
 {
-	size_t			len;
 	int				flen;
 	size_t			i;
 	char			*fixed;
@@ -87,7 +86,6 @@ int				ft_md5(char *input)
 	words->b0 = 0xefcdab89;
 	words->c0 = 0x98badcfe;
 	words->d0 = 0x10325476;
-	len = ft_strlen(input);
 	i = 1 + len;
 	while ((i + 8) % 64)
 		i++;

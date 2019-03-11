@@ -27,7 +27,7 @@ void		force_print(char *s, int j);
 ** md5
 */
 
-int			ft_md5(char *input);
+int			ft_md5(char *input, size_t len);
 void		hashing_functions_md5(t_md5_words *words, int i, unsigned *chunks);
 uint32_t	left_rotate(uint32_t bits, uint32_t rot);
 unsigned	flip_end(unsigned unflipped);
@@ -36,8 +36,8 @@ unsigned	flip_end(unsigned unflipped);
 ** sha256 and sha224
 */
 
-int			ft_sha256(char *input);
-int			ft_sha224(char *input);
+int			ft_sha256(char *input, size_t len);
+int			ft_sha224(char *input, size_t len);
 uint32_t	rightrotate(uint32_t input, uint32_t amount);
 void		sha_process_chunk(char *chunk, t_sha_words *words);
 int			sha_pad(char *input, unsigned len, t_sha_words *words);
@@ -46,7 +46,7 @@ int			sha_pad(char *input, unsigned len, t_sha_words *words);
 ** sha512 and sha384
 */
 
-int			ft_sha512(char *input);
+int			ft_sha512(char *input, size_t len);
 void		process_chunk_512(char *chunk, t_512_words *words);
 
 #endif

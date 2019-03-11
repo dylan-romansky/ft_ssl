@@ -61,7 +61,7 @@ void		add_512_hash(t_512_words *words)
 void		hash_512(t_512_words *words, unsigned long *w, int i)
 {
 	words->tmp1 = rightrotate64(words->e, 14) ^ rightrotate64(words->e, 18) ^
-		rightrotate64(words->e, 31);
+		rightrotate64(words->e, 41);
 	words->tmp2 = (words->e & words->f) ^ (~words->e & words->g);
 	words->tmp3 = words->h + words->tmp1 + words->tmp2 + g_k3[i] + w[i];
 	words->tmp4 = rightrotate64(words->a, 28) ^ rightrotate64(words->a, 34) ^
@@ -77,6 +77,8 @@ void		hash_512(t_512_words *words, unsigned long *w, int i)
 	words->c = words->b;
 	words->b = words->a;
 	words->a = words->tmp3 + words->tmp6;
+	if (i < 3)
+		printf("%016lx\n%016lx\n%016lx\n%016lx\n%016lx\n%016lx\n%016lx\n%016lx\n\n", words->a, words->b, words->c, words->d, words->e, words->f, words->g, words->h);
 }
 
 void		hashing_function_512(t_512_words *words, unsigned long *w)

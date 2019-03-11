@@ -92,10 +92,12 @@ void			sha512_compression(uint64_t copy[8], uint64_t w[80],
 	int			i;
 
 	i = -1;
+	int j = 0;
+	int k = 0;
 	while (++i < 80)
 	{
 		*s1 = rotate_right_64(copy[4], 14) ^ rotate_right_64(copy[4], 18)
-			^ rotate_right_64(copy[4], 41);
+			^ rotate_right_64(copy[4], 31);
 		tmp[0] = (copy[4] & copy[5])
 			^ ((~copy[4]) & copy[6]);
 		tmp[2] = copy[7] + *s1 + tmp[0] + g_sha512_k[i] + w[i];
@@ -112,5 +114,12 @@ void			sha512_compression(uint64_t copy[8], uint64_t w[80],
 		copy[2] = copy[1];
 		copy[1] = copy[0];
 		copy[0] = tmp[2] + tmp[3];
+		if (j++ < 3)
+		{
+			while (k < 8)
+				printf("%016lx\n", copy[k++]);
+			printf("\n");
+			k = 0;
+		}
 	}
 }
