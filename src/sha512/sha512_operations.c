@@ -77,8 +77,6 @@ void		hash_512(t_512_words *words, unsigned long *w, int i)
 	words->c = words->b;
 	words->b = words->a;
 	words->a = words->tmp3 + words->tmp6;
-	if (i < 3)
-		printf("%016lx\n%016lx\n%016lx\n%016lx\n%016lx\n%016lx\n%016lx\n%016lx\n\n", words->a, words->b, words->c, words->d, words->e, words->f, words->g, words->h);
 }
 
 void		hashing_function_512(t_512_words *words, unsigned long *w)
