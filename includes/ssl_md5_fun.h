@@ -18,12 +18,6 @@ unsigned	flip_end(unsigned n);
 unsigned long	flip_end_512(unsigned long n);
 
 /*
-** debugging functions
-*/
-
-void		force_print(char *s, int j);
-
-/*
 ** md5
 */
 
