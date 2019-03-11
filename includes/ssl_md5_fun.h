@@ -47,6 +47,8 @@ int			sha_pad(char *input, unsigned len, t_sha_words *words);
 */
 
 int			ft_sha512(char *input, size_t len);
+int			ft_sha384(char *input, size_t len);
 void		process_chunk_512(char *chunk, t_512_words *words);
+int			sha_pad_512(char *input, unsigned len, t_512_words *words);
 
 #endif

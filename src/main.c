@@ -27,7 +27,7 @@ int		main(int ac, char **av)
 {
 	if (ac == 2)
 	{
-		ft_sha512(av[1], ft_strlen(av[1]));
+		ft_sha384(av[1], ft_strlen(av[1]));
 		ft_putchar('\n');
 	}
 	return (0);

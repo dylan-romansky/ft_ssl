@@ -13,7 +13,7 @@
 NAME = md5_test
 
 SRCS = ./src/*.c ./src/md5/*.c ./src/sha256/*.c ./src/sha224/*.c \
-	   ./src/sha512/*.c
+	   ./src/sha512/*.c ./src/sha384/*.c
 
 I = -I ./includes -I ./libft/includes
 
