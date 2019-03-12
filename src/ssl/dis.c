@@ -1,6 +1,6 @@
 #include "printf.h"
 #include "ft_ssl_md5.h"
-#include "ssl_dispatch.h"
+#include "ssl_md5_dispatch.h"
 
 void			do_ssl(int flags, char *input, int dis)
 {
@@ -26,7 +26,7 @@ void			do_ssl(int flags, char *input, int dis)
 	ft_printf("\n");
 }
 
-int				flag_val(char *flags)
+int				flag_val(char *flags, char *fun)
 {
 	int				i;
 	int				j;
@@ -34,16 +34,16 @@ int				flag_val(char *flags)
 
 	i = -1;
 	j = 0;
-
+	sum = 0;
 	if (flags[0] == '-')
 		i++;
 	while (flags[++i])
 	{
-		while (g_sslflags[j].flag != flags[i])
+		while (g_sslflags[j].flag && g_sslflags[j].flag != flags[i])
 			j++;
 		if (!g_sslflags[j].flag)
-			return (-1);
-		sum += g_sslflags[j].value;
+			flag_error(fun, flags[i]);
+		sum |= g_sslflags[j].value;
 		if (sum & s)
 			return (sum);
 	}
@@ -62,11 +62,7 @@ void			check_stdin(char **av, int ac, int dis)
 	while (j < ac)
 	{
 		if (av[j][0] == '-')
-		{
-			flags += flag_val(av[j] + 1);
-			if (flags == -1)
-				flag_error(g_sslfuns[dis].print);
-		}
+			flags |= flag_val(av[j] + 1, g_sslfuns[dis].print);
 		else
 			break ;
 		j++;
@@ -86,7 +82,6 @@ int				handle_string(char **av, int ac, int j, int flags, int dis)
 	int			i;
 
 	i = 0;
-	printf("here\n");
 	while (av[j][i] != 's')
 		i++;
 	if (av[j][i + 1])
@@ -111,15 +106,13 @@ void			ssl_flags(char **av, int ac)
 	while (g_sslfuns[dis].name && ft_strcmp(av[1], g_sslfuns[dis].name))
 		dis++;
 	if (!g_sslfuns[dis].name)
-		error_nodis();
+		error_nodis(av[1]);
 	check_stdin(av, ac, dis);
 	while (++j < ac)
 	{
 		if (av[j][0] == '-')
 		{
-			flags += flag_val(av[j]);
-			if (flags == -1)
-				flag_error(av[j]);
+			flags |= flag_val(av[j] + 1, g_sslfuns[dis].print);
 			if (flags & s)
 			{
 				j += handle_string(av, ac, j, flags, dis);
@@ -127,9 +120,8 @@ void			ssl_flags(char **av, int ac)
 			}
 		}
 		else if (av[j][0] != '-')
-		{
 			do_ssl(flags, av[j], dis);
-			flags = 0; //verify that this resets otherwise make sure to remove s flag if necessary
-		}
 	}
+	while (j < ac)
+		do_ssl(flags, av[j++], dis);
 }

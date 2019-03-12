@@ -1,5 +1,5 @@
-#ifndef SSL_DISPATCH_H
-# define SSL_DISPATCH_H
+#ifndef SSL_MD5_DISPATCH_H
+# define SSL_MD5_DISPATCH_H
 
 typedef enum	e_sslfenums	t_sslfenums;
 typedef struct	s_sslflags	t_sslflags;
@@ -29,7 +29,7 @@ t_sslflags g_sslflags[] =
 	{'q', q},
 	{'r', r},
 	{'s', s},
-	{0, 0},
+	{'\0', 0},
 };
 
 t_sslfuns g_sslfuns[] =
