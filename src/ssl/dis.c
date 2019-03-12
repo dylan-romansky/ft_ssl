@@ -12,12 +12,12 @@ void			do_ssl(int flags, char *input, int dis)
 	{
 		if (flags & r)
 		{
-			g_sslfuns[dis].hash(input, len);
+			g_sslfuns[dis].hash(file, len);
 			ft_printf(" %s", input);
 		}
 		else
 		{
-			ft_printf("%s (%s) = ", g_sslfuns[dis].print, file);
+			ft_printf("%s (%s) = ", g_sslfuns[dis].print, input);
 			g_sslfuns[dis].hash(file, len);
 		}
 	}
@@ -107,7 +107,7 @@ void			ssl_flags(char **av, int ac)
 		dis++;
 	if (!g_sslfuns[dis].name)
 		error_nodis(av[1]);
-	check_stdin(av, ac, dis);
+	//check_stdin(av, ac, dis); currently borked
 	while (++j < ac)
 	{
 		if (av[j][0] == '-')

@@ -9,8 +9,8 @@ void	flag_error(char *name, char flag)
 
 void	error_nodis(char *input)
 {
-	ft_printf("ft_ssl: Error: '%s' is an invalid command.\n\nStandard");
+	ft_printf("ft_ssl: Error: '%s' is an invalid command.\n\nStandard", input);
 	ft_printf("commands:\n\nMessage Digest commands:\nmd5\nsha224\nsha256\n");
-	ft_printf("sha384\nsha512\n\nCipher commands:\n", input);
+	ft_printf("sha384\nsha512\n\nCipher commands:\n");
 	exit (1);
 }

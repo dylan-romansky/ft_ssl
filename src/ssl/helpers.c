@@ -42,5 +42,6 @@ int				get_input(int fd, int flags, char *input, char **file)
 		*file = NULL;
 		return (0);
 	}
+	*file = content;
 	return (len);
 }
