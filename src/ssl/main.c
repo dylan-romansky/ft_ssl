@@ -4,7 +4,7 @@ int				main(int ac, char **av)
 {
 	if (ac >= 2)
 	{
-		ssl_flags(av, ac, dis);
+		ssl_flags(av, ac);
 	}
 	return (0);
 }

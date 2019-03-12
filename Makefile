@@ -10,9 +10,9 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = md5_test
+NAME = ft_ssl_md5
 
-SRCS = ./src/*.c ./src/md5/*.c ./src/sha256/*.c ./src/sha224/*.c \
+SRCS = ./src/ssl/*.c ./src/md5/*.c ./src/sha256/*.c ./src/sha224/*.c \
 	   ./src/sha512/*.c ./src/sha384/*.c
 
 I = -I ./includes -I ./libft/includes
@@ -45,7 +45,7 @@ test: clean
 	gcc -Wall -Werror -Wextra -c $(I) $(SRCS) $(L)
 	gcc -Wall -Werror -Wextra -o $(NAME) $(O) $(I) $(L)
 	make clean
-	./$(NAME) buttbuttbuttbuttbuttbuttbuttbuttbuttbuttbuttbuttbuttbutt
+	./$(NAME) md5 -s buttbuttbuttbuttbuttbuttbuttbuttbuttbuttbuttbuttbuttbutt
 
 comptest: fclean all
 	make test

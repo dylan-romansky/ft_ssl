@@ -21,7 +21,7 @@ int				get_input(int fd, int flags, char *input, char **file)
 	char			buf[BUFF_SIZE + 1];
 	char			*content;
 
-	if (flags & s)
+	if (flags & 8)
 	{
 		*file = ft_strdup(input);
 		return (ft_strlen(input));
@@ -43,20 +43,4 @@ int				get_input(int fd, int flags, char *input, char **file)
 		return (0);
 	}
 	return (len);
-}
-
-int				handle_string(char **av, int j, int flags, int dis)
-{
-	int			i;
-	char		*file;
-
-	i = 0;
-	while (av[j][i] != 's')
-		i++;
-	if (av[j][i + 1])
-		get_input(0, flags, av[j] + i + 1, &file);
-	else
-		get_input(0, flags, av[j + 1], &file);
-	g_sslfuns[dis].hash(file, ft_strlen(file));
-	return (s);
 }

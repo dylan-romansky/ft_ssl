@@ -14,8 +14,12 @@
 # define SSL_MD5_FUN_H
 # include "ssl_md5_structs.h"
 
-unsigned	flip_end(unsigned n);
+unsigned		flip_end(unsigned n);
 unsigned long	flip_end_512(unsigned long n);
+int				get_input(int fd, int flags, char *input, char **file);
+void			flag_error(char *name);
+void			error_nodis(void);
+void			ssl_flags(char **av, int ac);
 
 /*
 ** md5
