@@ -114,7 +114,7 @@ void			ssl_flags(char **av, int ac)
 		dis++;
 	if (!g_sslfuns[dis].name)
 		error_nodis(av[1]);
-	check_stdin(av, ac, dis);
+//	check_stdin(av, ac, dis);
 	while (++j < ac)
 	{
 		if (av[j][0] == '-')
