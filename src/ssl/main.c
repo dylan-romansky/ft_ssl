@@ -6,6 +6,8 @@ int				main(int ac, char **av)
 	{
 		ssl_flags(av, ac);
 	}
+	else
+		ft_printf("usage: ft_ssl command [command opts] [command args]\n");
 	return (0);
 }
 
