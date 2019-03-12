@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 20:39:49 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/08 23:48:46 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/12 14:02:44 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		sha_pad_512(char *input, unsigned len, t_512_words *words)
 		i++;
 	if (!(padded = ft_strnew(i + len + 8)))
 		return (-1);
-	padded = ft_memcpy(padded, input, ft_strlen(input));
+	padded = ft_memcpy(padded, input, len);
 	padded[len] = (unsigned char)128;
 	flen = (len * 8);
 	padded = flip_512((unsigned long *)padded, len + i);

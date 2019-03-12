@@ -73,7 +73,8 @@ void			check_stdin(char **av, int ac, int dis)
 			break ;
 		j++;
 	}
-	len = get_input(0, flags, NULL, &file);
+	if (stdin_check())
+		len = get_input(0, flags, NULL, &file);
 	if (len)
 	{
 		if (flags & p)
@@ -113,7 +114,7 @@ void			ssl_flags(char **av, int ac)
 		dis++;
 	if (!g_sslfuns[dis].name)
 		error_nodis(av[1]);
-//	check_stdin(av, ac, dis);// currently borked
+	check_stdin(av, ac, dis);
 	while (++j < ac)
 	{
 		if (av[j][0] == '-')

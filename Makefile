@@ -6,7 +6,7 @@
 #    By: dromansk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:18:25 by dromansk          #+#    #+#              #
-#    Updated: 2019/03/11 22:27:24 by dromansk         ###   ########.fr        #
+#    Updated: 2019/03/12 13:54:50 by dromansk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ test: clean
 	gcc -Wall -Werror -Wextra -c $(I) $(SRCS)	
 	gcc -Wall -Werror -Wextra -o $(NAME) $(O) $(I) $(L)
 	make clean
-	./$(NAME) md5 butt
+	./$(NAME) md5 testbin
 
 comptest: fclean all
 	make test

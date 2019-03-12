@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:29:52 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/07 22:59:32 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/12 14:15:27 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void			split_input_512(char *input, int len, t_md5_words *word)
 	int				i;
 	int				j;
 
-	process = ft_strdup(input);
+	process = NULL;
 	j = 0;
 	while (j < len)
 	{
@@ -91,7 +91,7 @@ int				ft_md5(char *input, size_t len)
 		i++;
 	if (!(fixed = ft_strnew(i + 8)))
 		return (-1);
-	fixed = ft_memcpy(fixed, input, ft_strlen(input));
+	fixed = ft_memcpy(fixed, input, len);
 	fixed[len] = (unsigned char)128;
 	flen = (int)(len * 8);
 	ft_memcpy(fixed + i, &flen, 4);

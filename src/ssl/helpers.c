@@ -14,6 +14,18 @@ unsigned long	flip_end_512(unsigned long n)
 			((n & 0xff00) << 40) | (n << 56));
 }
 
+int				stdin_check(void)
+{
+	char			buf[80];
+	int				number;
+
+	number = 0;
+	scanf("%79s", buf);
+	if (sscanf(buf, "%d", &number) == 1)
+		return (1);
+	return (0);
+}
+
 int				get_input(int fd, int flags, char *input, char **file)
 {
 	int				len;
