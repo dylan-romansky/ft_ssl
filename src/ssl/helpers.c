@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   helpers.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/12 19:18:19 by dromansk          #+#    #+#             */
+/*   Updated: 2019/03/12 19:33:24 by dromansk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ssl_md5.h"
 
 unsigned		flip_end(unsigned n)
@@ -26,6 +38,23 @@ int				stdin_check(void)
 	return (0);
 }
 
+int				handle_string(char **av, int j, int flags, int dis)
+{
+	int			i;
+
+	i = 0;
+	while (av[j][i] != 's')
+		i++;
+	if (av[j][i + 1])
+	{
+		do_ssl(flags, av[j] + i + 1, dis);
+		return (0);
+	}
+	else
+		do_ssl(flags, av[j + 1], dis);
+	return (1);
+}
+
 int				get_input(int fd, int flags, char *input, char **file)
 {
 	int				len;
@@ -49,11 +78,7 @@ int				get_input(int fd, int flags, char *input, char **file)
 		len += ret;
 	}
 	if (ret < 0)
-	{
 		free(content);
-		*file = NULL;
-		return (0);
-	}
 	*file = content;
 	return (len);
 }

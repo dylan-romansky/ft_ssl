@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 20:39:49 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/12 14:02:22 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/12 19:22:25 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 void	print_sha256(t_sha_words *words)
 {
-	ft_printf("%08x%08x%08x%08x%08x%08x%08x%08x", words->h0, words->h1, 
+	ft_printf("%08x%08x%08x%08x%08x%08x%08x%08x", words->h0, words->h1,
 	words->h2, words->h3, words->h4, words->h5, words->h6, words->h7);
 }
 
@@ -32,7 +32,7 @@ void	split_padded_512(char *fixed, int len, t_sha_words *words)
 	{
 		chunk = ft_strnew(64);
 		ft_memcpy(chunk, fixed + i, 64);
-		sha_process_chunk(chunk, words);//flaw in this function group. good luck
+		sha_process_chunk(chunk, words);
 		free(chunk);
 		i += 64;
 	}

@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:08:20 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/12 19:08:11 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/12 19:32:00 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void			error_nodis(char *input);
 void			ssl_flags(char **av, int ac);
 int				stdin_check(void);
 void			bad_input(char *input);
+int				handle_string(char **av, int j, int flags, int dis);
+void			do_ssl(int flags, char *input, int dis);
 
 /*
 ** md5

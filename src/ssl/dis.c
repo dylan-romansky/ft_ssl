@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dis.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/12 19:34:06 by dromansk          #+#    #+#             */
+/*   Updated: 2019/03/12 19:35:10 by dromansk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "printf.h"
 #include "ft_ssl_md5.h"
 #include "ssl_md5_dispatch.h"
 
-void			do_ssl(int flags, char *input, int dis)
+void			print_ssl(int flags, char *input, char *file, int dis)
 {
-	char			*file;
 	int				len;
 
+	len = 0;
 	if (!(len = get_input(open(input, O_RDONLY), flags, input, &file)))
 	{
 		bad_input(input);
@@ -32,6 +44,14 @@ void			do_ssl(int flags, char *input, int dis)
 	}
 	else
 		g_sslfuns[dis].hash(file, len);
+}
+
+void			do_ssl(int flags, char *input, int dis)
+{
+	char			*file;
+
+	print_ssl(flags, input, file, dis);
+	free(file);
 	ft_printf("\n");
 }
 
@@ -89,23 +109,6 @@ int				check_stdin(char **av, int ac, int dis)
 	return (p);
 }
 
-int				handle_string(char **av, int ac, int j, int flags, int dis)
-{
-	int			i;
-
-	i = 0;
-	while (av[j][i] != 's')
-		i++;
-	if (av[j][i + 1])
-	{
-		do_ssl(flags, av[j] + i + 1, dis);
-		return (0);
-	}
-	else if (j + 1 < ac)
-		do_ssl(flags, av[j + 1], dis);
-	return (1);
-}
-
 void			ssl_flags(char **av, int ac)
 {
 	char			flags;
@@ -124,9 +127,9 @@ void			ssl_flags(char **av, int ac)
 		if (av[j][0] == '-')
 		{
 			flags |= flag_val(av[j] + 1, g_sslfuns[dis].print);
-			if (flags & s)
+			if (flags & s && (j + 1 < ac || av[j][chr_index(av[j], 's') + 1]))
 			{
-				j += handle_string(av, ac, j, flags, dis);
+				j += handle_string(av, j, flags, dis);
 				flags -= s;
 			}
 			if (flags & p)
