@@ -67,10 +67,10 @@ int				get_input(int fd, int flags, char *input, char **file)
 		*file = ft_strdup(input);
 		return (ft_strlen(input));
 	}
-	content = ft_strnew(0);
 	len = 0;
 	if (fd == -1)
 		return (0);
+	content = ft_strnew(0);
 	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
 	{
 		buf[ret] = '\0';
