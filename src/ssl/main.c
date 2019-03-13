@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 19:34:06 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/13 14:03:58 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/13 15:17:26 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void			ssl_flags(char **av, int ac, int dis, int j)
 	flags = 0;
 	while (++j < ac)
 	{
-		if (av[j][0] == '-')
+		if (av[j][0] == '-' && (av[j][1] == 's' || ft_strlen(av[j]) == 2))
 		{
 			flags |= flag_val(av[j] + 1, g_sslfuns[dis].print);
 			if (flags & s && (j + 1 < ac || av[j][chr_index(av[j], 's') + 1]))
@@ -113,7 +113,7 @@ void			ssl_flags(char **av, int ac, int dis, int j)
 			if (flags & p)
 				flags -= check_stdin(av, ac, dis);
 		}
-		else if (av[j][0] != '-')
+		else
 		{
 			while (j < ac)
 				do_ssl(flags, av[j++], dis);
