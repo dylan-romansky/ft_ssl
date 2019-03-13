@@ -33,7 +33,7 @@ int				get_input(int fd, int flags, char *input, char **file)
 	char			buf[BUFF_SIZE + 1];
 	char			*content;
 
-	if (flags & 8)
+	if (flags & 8 && fd != 0)
 	{
 		*file = ft_strdup(input);
 		return (ft_strlen(input));

@@ -6,7 +6,7 @@
 #    By: dromansk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:18:25 by dromansk          #+#    #+#              #
-#    Updated: 2019/03/12 13:54:50 by dromansk         ###   ########.fr        #
+#    Updated: 2019/03/12 19:01:44 by dromansk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ test: clean
 	gcc -Wall -Werror -Wextra -c $(I) $(SRCS)	
 	gcc -Wall -Werror -Wextra -o $(NAME) $(O) $(I) $(L)
 	make clean
-	./$(NAME) md5 testbin
+	echo "one more thing" | ./ft_ssl md5 -r -p -s "foo" file -s "bar"
 
 comptest: fclean all
 	make test

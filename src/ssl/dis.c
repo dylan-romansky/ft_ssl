@@ -7,7 +7,11 @@ void			do_ssl(int flags, char *input, int dis)
 	char			*file;
 	int				len;
 
-	len = get_input(open(input, O_RDONLY), flags, input, &file);
+	if (!(len = get_input(open(input, O_RDONLY), flags, input, &file)))
+	{
+		bad_input(input);
+		return ;
+	}
 	if (!(flags & q))
 	{
 		if (flags & r)
@@ -55,7 +59,7 @@ int				flag_val(char *flags, char *fun)
 	return (sum);
 }
 
-void			check_stdin(char **av, int ac, int dis)
+int				check_stdin(char **av, int ac, int dis)
 {
 	char			*file;
 	int				len;
@@ -73,8 +77,8 @@ void			check_stdin(char **av, int ac, int dis)
 			break ;
 		j++;
 	}
-	if (stdin_check())
-		len = get_input(0, flags, NULL, &file);
+	fcntl(0, F_SETFL, O_NONBLOCK);
+	len = get_input(0, flags, NULL, &file);
 	if (len)
 	{
 		if (flags & p)
@@ -82,6 +86,7 @@ void			check_stdin(char **av, int ac, int dis)
 		g_sslfuns[dis].hash(file, len);
 		ft_printf("\n");
 	}
+	return (p);
 }
 
 int				handle_string(char **av, int ac, int j, int flags, int dis)
@@ -114,7 +119,6 @@ void			ssl_flags(char **av, int ac)
 		dis++;
 	if (!g_sslfuns[dis].name)
 		error_nodis(av[1]);
-//	check_stdin(av, ac, dis);
 	while (++j < ac)
 	{
 		if (av[j][0] == '-')
@@ -125,10 +129,15 @@ void			ssl_flags(char **av, int ac)
 				j += handle_string(av, ac, j, flags, dis);
 				flags -= s;
 			}
+			if (flags & p)
+				flags -= check_stdin(av, ac, dis);
 		}
 		else if (av[j][0] != '-')
-			do_ssl(flags, av[j], dis);
+		{
+			while (j < ac)
+				do_ssl(flags, av[j++], dis);
+			return ;
+		}
 	}
-	while (j < ac)
-		do_ssl(flags, av[j++], dis);
+	check_stdin(av, ac, dis);
 }
