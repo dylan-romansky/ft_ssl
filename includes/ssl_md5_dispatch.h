@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ssl_md5_dispatch.h                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/13 14:29:03 by dromansk          #+#    #+#             */
+/*   Updated: 2019/03/13 14:29:12 by dromansk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SSL_MD5_DISPATCH_H
 # define SSL_MD5_DISPATCH_H
 
-typedef enum	e_sslfenums	t_sslfenums;
-typedef struct	s_sslflags	t_sslflags;
-typedef struct	s_sslfuns	t_sslfuns;
+typedef enum e_sslfenums	t_sslfenums;
+typedef struct s_sslflags	t_sslflags;
+typedef struct s_sslfuns	t_sslfuns;
 
 enum	e_sslfenums
 {

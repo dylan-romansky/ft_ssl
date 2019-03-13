@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:29:52 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/12 14:15:27 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/13 14:24:41 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void			print_md5(t_md5_words *words)
 
 void			split_input_32(char *chunk, t_md5_words *word)
 {
-	unsigned		words[16];
+	unsigned		chunks[16];
 	int				i;
 	int				j;
 	int				num;
@@ -38,7 +38,7 @@ void			split_input_32(char *chunk, t_md5_words *word)
 	while (j < 64)
 	{
 		memcpy(&num, chunk + j, 4);
-		words[i++] = num;
+		chunks[i++] = num;
 		j += 4;
 	}
 	i = -1;
@@ -47,7 +47,7 @@ void			split_input_32(char *chunk, t_md5_words *word)
 	word->c = word->c0;
 	word->d = word->d0;
 	while (++i < 64)
-		hashing_functions_md5(word, i, words);
+		hashing_functions_md5(word, i, chunks);
 	word->a0 += word->a;
 	word->b0 += word->b;
 	word->c0 += word->c;

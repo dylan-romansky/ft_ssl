@@ -6,13 +6,13 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 20:34:09 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/08 23:43:43 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/13 14:06:40 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl_md5.h"
 
-const unsigned long g_k3[] ={
+const unsigned long g_k3[] = {
 	0x428a2f98d728ae22, 0x7137449123ef65cd, 0xb5c0fbcfec4d3b2f,
 	0xe9b5dba58189dbbc, 0x3956c25bf348b538, 0x59f111f1b605d019,
 	0x923f82a4af194f9b, 0xab1c5ed5da6d8118, 0xd807aa98a3030242,
@@ -46,7 +46,7 @@ unsigned long	rightrotate64(unsigned long input, unsigned long amount)
 	return ((((unsigned long)input >> amount)) | (input << (64 - amount)));
 }
 
-void		add_512_hash(t_512_words *words)
+void			add_512_hash(t_512_words *words)
 {
 	words->h0 += words->a;
 	words->h1 += words->b;
@@ -58,7 +58,7 @@ void		add_512_hash(t_512_words *words)
 	words->h7 += words->h;
 }
 
-void		hash_512(t_512_words *words, unsigned long *w, int i)
+void			hash_512(t_512_words *words, unsigned long *w, int i)
 {
 	words->tmp1 = rightrotate64(words->e, 14) ^ rightrotate64(words->e, 18) ^
 		rightrotate64(words->e, 41);
@@ -79,7 +79,7 @@ void		hash_512(t_512_words *words, unsigned long *w, int i)
 	words->a = words->tmp3 + words->tmp6;
 }
 
-void		hashing_function_512(t_512_words *words, unsigned long *w)
+void			hashing_function_512(t_512_words *words, unsigned long *w)
 {
 	int	i;
 
@@ -89,7 +89,7 @@ void		hashing_function_512(t_512_words *words, unsigned long *w)
 	add_512_hash(words);
 }
 
-void	process_chunk_512(char *chunk, t_512_words *words)
+void			process_chunk_512(char *chunk, t_512_words *words)
 {
 	unsigned long	*w;
 	unsigned long	tmp1;
@@ -102,7 +102,7 @@ void	process_chunk_512(char *chunk, t_512_words *words)
 	while (++i < 80)
 	{
 		tmp1 = rightrotate64(w[i - 15], 1) ^ rightrotate64(w[i - 15], 8) ^
-			(w[i-15] >> 7);
+			(w[i - 15] >> 7);
 		tmp2 = rightrotate64(w[i - 2], 19) ^ rightrotate64(w[i - 2], 61) ^
 			(w[i - 2] >> 6);
 		w[i] = w[i - 16] + tmp1 + w[i - 7] + tmp2;

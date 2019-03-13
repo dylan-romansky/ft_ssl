@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:04:59 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/08 22:07:24 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/13 14:30:07 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,42 +19,42 @@ typedef struct s_512_words	t_512_words;
 
 struct	s_md5_words
 {
-	unsigned	f;
-	unsigned	a;
-	unsigned	b;
-	unsigned	c;
-	unsigned	d;
-	unsigned	a0;
-	unsigned	b0;
-	unsigned	c0;
-	unsigned	d0;
+	unsigned		f;
+	unsigned		a;
+	unsigned		b;
+	unsigned		c;
+	unsigned		d;
+	unsigned		a0;
+	unsigned		b0;
+	unsigned		c0;
+	unsigned		d0;
 };
 
 struct	s_sha_words
 {
-	unsigned	r;
-	unsigned	a;
-	unsigned	b;
-	unsigned	c;
-	unsigned	d;
-	unsigned	e;
-	unsigned	f;
-	unsigned	g;
-	unsigned	h;
-	unsigned	h0;
-	unsigned	h1;
-	unsigned	h2;
-	unsigned	h3;
-	unsigned	h4;
-	unsigned	h5;
-	unsigned	h6;
-	unsigned	h7;
-	unsigned	tmp1;
-	unsigned	tmp2;
-	unsigned	tmp3;
-	unsigned	tmp4;
-	unsigned	tmp5;
-	unsigned	tmp6;
+	unsigned		r;
+	unsigned		a;
+	unsigned		b;
+	unsigned		c;
+	unsigned		d;
+	unsigned		e;
+	unsigned		f;
+	unsigned		g;
+	unsigned		h;
+	unsigned		h0;
+	unsigned		h1;
+	unsigned		h2;
+	unsigned		h3;
+	unsigned		h4;
+	unsigned		h5;
+	unsigned		h6;
+	unsigned		h7;
+	unsigned		tmp1;
+	unsigned		tmp2;
+	unsigned		tmp3;
+	unsigned		tmp4;
+	unsigned		tmp5;
+	unsigned		tmp6;
 };
 
 struct	s_512_words

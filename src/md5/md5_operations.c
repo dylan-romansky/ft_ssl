@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 01:55:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/07 19:17:20 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/13 14:25:30 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,13 @@ void		hashing_functions_md5(t_md5_words *words, int i, unsigned *chunks)
 
 	g = 0;
 	if (i < 16)
-	{
-		words->f = (words->b & words->c) | (~words->b & words->d);
-		g = i;
-	}
+		g = lessthan16(words, i);
 	else if (i < 32)
-	{
-		words->f = (words->b & words->d) | (words->c & ~words->d);
-		g = (5 * i + 1) % 16;
-	}
+		g = lessthan32(words, i);
 	else if (i < 48)
-	{
-		words->f = words->b ^ words->c ^ words->d;
-		g = (3 * i + 5) % 16;
-	}
+		g = lessthan48(words, i);
 	else
-	{
-		words->f = words->c ^ (words->b | ~words->d);
-		g = (7 * i) % 16;
-	}
+		g = upto64(words, i);
 	words->f = words->f + words->a + g_k[i] + chunks[g];
 	words->a = words->d;
 	words->d = words->c;
