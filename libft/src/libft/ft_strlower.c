@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/27 21:52:27 by dromansk          #+#    #+#             */
-/*   Updated: 2018/12/27 21:52:59 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/29 16:26:16 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,8 @@ char	*ft_strlower(char *s)
 	int		i;
 
 	n = s;
-	i = 0;
-	while (n[i])
-	{
-		if ('A' <= n[i] && n[i] <= 'Z')
-			n[i] = ft_tolower(n[i]);
-		i++;
-	}
+	i = -1;
+	while (n[++i])
+		n[i] = ft_tolower(n[i]);
 	return (n);
 }

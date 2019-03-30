@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 18:18:17 by dromansk          #+#    #+#             */
-/*   Updated: 2018/10/22 19:03:05 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/29 16:41:15 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,8 @@
 
 char	*ft_strcat(char *s1, const char *s2)
 {
-	int a;
-	int b;
+	size_t i;
 
-	a = 0;
-	b = 0;
-	while (s1[a])
-		a++;
-	while (s2[b])
-		s1[a++] = s2[b++];
-	s1[a] = '\0';
-	return (s1);
+	i = ft_strlen(s1);
+	return ((char *)ft_memcpy(s1 + i, s2, ft_strlen(s2))); 
 }

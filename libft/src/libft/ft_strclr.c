@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 15:38:46 by dromansk          #+#    #+#             */
-/*   Updated: 2018/11/08 16:40:43 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/29 16:10:10 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,5 @@
 
 void	ft_strclr(char *s)
 {
-	int i;
-
-	i = 0;
-	if (s != NULL)
-		while (s[i])
-			s[i++] = '\0';
+	ft_bzero(s, ft_strlen(s));
 }

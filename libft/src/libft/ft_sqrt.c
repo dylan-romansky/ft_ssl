@@ -6,20 +6,35 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 20:15:26 by dromansk          #+#    #+#             */
-/*   Updated: 2018/11/29 20:25:03 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/29 15:56:34 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_sqrt(int square)
+long double get_prec(int precision)
 {
-	int		root;
+	long double d;
 
-	root = 0;
-	while (root * root != square && root < square / 2)
-		root++;
-	if (root * root != square)
-		return (0);
-	return (root);
+	d = 1;
+	while (precision--)
+		d /= 10;
+	return (d);
+}
+
+long double	ft_sqrt(int square, int precision)
+{
+	long double input;
+	long double integer;
+	long double decimal;
+
+	input = (long double)square;
+	integer = 0;
+	decimal = get_prec(precision);
+	while (integer * integer <= square)
+		integer++;
+	integer--;
+	while (integer * integer < square)
+		integer += decimal;
+	return (integer);
 }
