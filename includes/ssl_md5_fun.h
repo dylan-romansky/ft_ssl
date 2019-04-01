@@ -58,4 +58,11 @@ int				ft_sha384(char *input, size_t len);
 void			process_chunk_512(char *chunk, t_512_words *words);
 int				sha_pad_512(char *input, unsigned len, t_512_words *words);
 
+/*
+** base64
+*/
+
+void			ft_base64_e(char *input, size_t len);
+void			ft_base64_d(char *input, size_t len);
+
 #endif

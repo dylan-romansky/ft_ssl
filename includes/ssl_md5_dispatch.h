@@ -19,7 +19,7 @@ typedef struct s_sslfuns	t_sslfuns;
 
 enum	e_sslfenums
 {
-	p = 1, q = 2, r = 4, s = 8
+	p = 1, q = 2, r = 4, s = 8, d = 16, e = 32, i = 64, o = 128
 };
 
 struct	s_sslflags
@@ -41,7 +41,11 @@ t_sslflags g_sslflags[] =
 	{'q', q},
 	{'r', r},
 	{'s', s},
-	{'\0', 0},
+	{'d', d},
+	{'e', e},
+	{'i', i},
+	{'o', o},
+	{'\0', 0}
 };
 
 t_sslfuns g_sslfuns[] =
@@ -51,6 +55,8 @@ t_sslfuns g_sslfuns[] =
 	{"sha256", "SHA256", &ft_sha256},
 	{"sha384", "SHA384", &ft_sha384},
 	{"sha512", "SHA512", &ft_sha512},
+	{"base64", "BASE64", &ft_base64_e},
+	{"base64", "BASE64", &ft_base64_d},
 	{NULL, NULL, NULL}
 };
 

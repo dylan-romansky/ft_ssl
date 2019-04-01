@@ -1,5 +1,22 @@
 #include "libft.h"
 
+void	print_chunk(char *chunk, int size, int i)
+{
+	while (size--)
+	{
+		if (*chunk < 26)
+			ft_printf("%c", 'A' + *chunk);
+		else if (*chunk < 52)
+			ft_printf("%c", 'a' + (*chunk - 26));
+		else if (*chunk < 62)
+			ft_printf("%c", '0' + (*chunk - 52));
+		else
+			ft_printf("%c", (*chunk - 62) ? '/' : '+');
+	}
+	if (!(i % 64))
+		ft_printf("\n");
+}
+
 int		get_chunk(char *input, int i, int len, int size)
 {
 	int		chunk;
@@ -15,18 +32,24 @@ int		get_chunk(char *input, int i, int len, int size)
 	return (chunk);
 }
 
-void	print_chunk(int chunk, int size)
+void	change_base(int chunk, int size, int i)
 {
-	int		c;
-	int		point;
+	char	c;
+	char	d[4];
+	int		i;
 
-	c = 0;
-	point = ;
-	point <<= 8 * size;
-	while (size--)
+	i = size
+	while (i--)
+	{
+		c = 0;
+		c |= chunk;
+		d[i] = c;
+		chunk >>= 8;
+	}
+	print_chunk(d, size, i);
 }
 
-int		ft_base64_e(char *input, size_t len)
+void	ft_base64_e(char *input, size_t len)
 {
 	int		chunk;
 	int		i;
@@ -36,12 +59,12 @@ int		ft_base64_e(char *input, size_t len)
 	while (i < len + 4)
 	{
 		chunk = get_chunk(input, i, len, 4);
-		print_chunk(chunk, 3);
+		change_base(chunk, 3, i);
 		i += 4;
 	}
 }
 
-int		ft_base64_d(char *input, size_t len)
+void	ft_base64_d(char *input, size_t len)
 {
 	int		chunk;
 	int		i;
@@ -51,7 +74,7 @@ int		ft_base64_d(char *input, size_t len)
 	while (++i < len + 3)
 	{
 		chunk = get_chunk(input, i, len, 3);
-		print_chunk(chunk, 4);
+		change_base(chunk, 4, i);
 		i += 3;
 	}
 }
