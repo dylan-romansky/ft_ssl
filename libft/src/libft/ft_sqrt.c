@@ -6,13 +6,13 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 20:15:26 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/29 15:56:34 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/31 00:45:54 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long double get_prec(int precision)
+long double	get_prec(int precision)
 {
 	long double d;
 

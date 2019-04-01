@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 17:47:25 by dromansk          #+#    #+#             */
-/*   Updated: 2019/02/28 21:28:56 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/31 17:53:32 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int					chr_index(char *s, int c);
 int					chr_n_index(char *s, int c, size_t len);
 char				*ft_strndup(const char *s1, size_t n);
-int					ft_sqrt(int square);
-int					ft_factorial(int a);
+long double			ft_sqrt(int square, int precision);
+long long			ft_factorial(int a);
 int					ft_permutations(int n, int r);
 char				base_table(int i);
 void				ft_putnbr_base(int value, int base);

@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 17:57:45 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/29 16:11:53 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/31 00:45:34 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 char	*ft_strcpy(char *dst, const char *src)
 {
-	return((char *)ft_memcpy(dst, src, ft_strlen(src)));
+	return ((char *)ft_memcpy(dst, src, ft_strlen(src)));
 }

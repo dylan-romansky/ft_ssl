@@ -6,11 +6,21 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 20:19:02 by dromansk          #+#    #+#             */
-/*   Updated: 2019/01/20 03:08:12 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/03/31 17:50:00 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+char		*floatjoin(char **num, char *dec)
+{
+	char	*res;
+
+	res = ft_strjoin(*num, dec);
+	free(*num);
+	free(dec);
+	return (res);
+}
 
 long long	precision(long double dec, size_t prec)
 {
@@ -46,10 +56,10 @@ char		*ft_ftoa(double f, size_t prec)
 	dec = precision(d, prec);
 	if (dec)
 	{
-		s = ft_strjoin(s, ".");
+		s = swap_n_free(ft_strjoin(s, "."), &s);
 		if (dec < 0)
 			dec = -dec;
-		s = ft_strjoin(s, ft_ltoa_base(dec, 10));
+		s = floatjoin(&s, ft_ltoa_base(dec, 10));
 	}
 	return (s);
 }
