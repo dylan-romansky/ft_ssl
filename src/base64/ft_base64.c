@@ -1,20 +1,44 @@
 #include "libft.h"
 
-void	print_chunk(char *chunk, int size, int i)
+/*
+** decrypt might be fucked up
+*/
+
+void	print_decrypt(char *chunk, int size, int i)
 {
 	while (size--)
 	{
-		if (*chunk < 26)
-			ft_printf("%c", 'A' + *chunk);
-		else if (*chunk < 52)
-			ft_printf("%c", 'a' + (*chunk - 26));
-		else if (*chunk < 62)
-			ft_printf("%c", '0' + (*chunk - 52));
+		if ('A' <= *chunk && *chunk <='Z')
+			ft_printf("%c", *chunk - 'A');
+		else if ('a' <= *chunk && *chunk <= 'z')
+			ft_printf("%c", (*chunk + 26)  - 'a');
+		else if ('0' <= *chunk && *chunk <= '9')
+			ft_printf("%c", (*chunk + 52) - '0');
 		else
-			ft_printf("%c", (*chunk - 62) ? '/' : '+');
+			ft_printf("%c", (*chunk == '/') ? 63 : 62);
 	}
-	if (!(i % 64))
-		ft_printf("\n");
+}
+
+void	print_chunk(char *chunk, int size, int i)
+{
+	if (size == 3)
+	{
+		while (size--)
+		{
+			if (*chunk < 26)
+				ft_printf("%c", 'A' + *chunk);
+			else if (*chunk < 52)
+				ft_printf("%c", 'a' + (*chunk - 26));
+			else if (*chunk < 62)
+				ft_printf("%c", '0' + (*chunk - 52));
+			else
+				ft_printf("%c", (*chunk - 62) ? '/' : '+');
+		}
+		if (!(i % 64))
+			ft_printf("\n");
+	}
+	else
+		print_decrypt(chunk, size, i);
 }
 
 int		get_chunk(char *input, int i, int len, int size)
@@ -34,15 +58,14 @@ int		get_chunk(char *input, int i, int len, int size)
 
 void	change_base(int chunk, int size, int i)
 {
-	char	c;
-	char	d[4];
-	int		i;
+	unsigned char	c;
+	unsigned char	d[4];
+	int				i;
 
 	i = size
 	while (i--)
 	{
-		c = 0;
-		c |= chunk;
+		c = chunk & (size == 3) ? 63 : 127;
 		d[i] = c;
 		chunk >>= 8;
 	}
