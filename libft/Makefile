@@ -6,7 +6,7 @@
 #    By: dromansk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/22 14:53:52 by dromansk          #+#    #+#              #
-#    Updated: 2019/03/06 20:01:11 by dromansk         ###   ########.fr        #
+#    Updated: 2019/03/31 00:41:50 by dromansk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,11 +41,20 @@ re: fclean all
 reclean: re
 	make clean
 
+sreclean:
+	gcc -Wall -Werror -Wextra $(I) $(SRCS) -c -fsanitize=address -g
+	ar rcs $(NAME) $(O)
+	ranlib $(NAME)
+	make clean
+
 compile:
 	gcc main.c $(I) $(L) -o ftest
 
-test: reclean
-	make compile
+scompile:
+	gcc main.c $(I) $(L) -o ftest -fsanitize=address -g
+
+test: sreclean
+	make scompile
 	./ftest
 
 run: clean
