@@ -14,6 +14,10 @@
 #include "ft_ssl_md5.h"
 #include "ssl_md5_dispatch.h"
 
+/*
+** consider moving flag struct into new file and using that for flag funcs
+*/
+
 void			do_ssl(int flags, char *input, int dis)
 {
 	char			*file;
@@ -134,7 +138,7 @@ int				main(int ac, char **av)
 			dis++;
 		if (!g_sslfuns[dis].name)
 			error_nodis(av[1]);
-		ssl_flags(av, ac, dis, 1);
+		dis < 4 ? ssl_flags(av, ac, dis, 1) : cypher_flags(av, ac, dis, 1);
 	}
 	else
 		ft_printf("usage: ft_ssl command [command opts] [command args]\n");
