@@ -43,13 +43,12 @@ unsigned char	remove_chars(char c)
 	return (0);
 }
 
-char			*padding(char *input, size_t len)
+char			*filter_input(char *input)
 {
-	int				i;
+	int		i;
+	char	*filtered;
 
-	i = 0;
-	while ((len + i) % 64)
-		i++;
-	return (ft_memcpy(ft_strnew(len + i), input, len + i));
-
+	i = chr_index(input, '=');
+	if (input[i] == '=')
+		filtered = ft_strndup(input, i);
 }
