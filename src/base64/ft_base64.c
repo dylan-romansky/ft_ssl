@@ -1,4 +1,7 @@
 #include "libft.h"
+/*
+** make base change shove chunk over differently depending on how many chunks it needs to get
+*/
 
 void	print_chunk(char *chunk, int i, int p, int len)
 {
@@ -24,17 +27,13 @@ void	print_chunk(char *chunk, int i, int p, int len)
 
 int		get_chunk(char *input, int i, int len, int size)
 {
-	int		chunk;
-	int		count;
+	int				chunk;
 
 	chunk = 0;
-	count = 0;
-	while (count++ < size)
-	{
-		chunk <<= 8;
-		if (i < len)
-			chunk |= (int)input[i++];
-	}
+	if (i < len)
+		ft_memcpy(&chunk, input, size);
+	else 
+		ft_memcpy(&chunk, input, size - (i - len));
 	return (chunk);
 }
 
@@ -45,15 +44,15 @@ void	change_base(int chunk, int i, int crypt, int len)
 	int				j;
 	int				p;
 
-	j = 4;
+	j = 3;
 	p = 0;
-	while (j--)
+	while (j - p)
 	{
 		c = chunk & 63;
-		if (i < len)
-			d[i++] = crypt ? remove_chars(c) : c;
+		if (i + j < len)
+			d[j--] = crypt ? remove_chars(c) : c;
 		else
-			d[i + p++] = 0;
+			d[j + p++] = 0;
 		chunk >>= 6;
 	}
 	if (crypt)
@@ -71,7 +70,7 @@ void	ft_base64_e(char *input, size_t len)
 	i = 0;
 	while (i < len + 3)
 	{
-		chunk = i < line ? get_chunk(data, i, len, 3) :
+		chunk = get_chunk(data, i, len, 3);
 		change_base(chunk, i, 0, len);
 		i += 3;
 	}
@@ -82,11 +81,9 @@ void	ft_base64_d(char *input, size_t len)
 {
 	int		chunk;
 	int		i;
-	char	*filtered;
 
 	chunk = 0;
 	i = 0;
-	filtered = filter_input(input);
 	while (++i < len + 4)
 	{
 		chunk = get_chunk(input, i, len, 4);

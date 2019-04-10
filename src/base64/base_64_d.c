@@ -42,13 +42,3 @@ unsigned char	remove_chars(char c)
 		return (63);
 	return (0);
 }
-
-char			*filter_input(char *input)
-{
-	int		i;
-	char	*filtered;
-
-	i = chr_index(input, '=');
-	if (input[i] == '=')
-		filtered = ft_strndup(input, i);
-}
