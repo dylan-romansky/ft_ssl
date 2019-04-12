@@ -1,9 +1,10 @@
-#include "libft.h"
+#include "ft_ssl_md5.h"
 /*
 ** make base change shove chunk over differently depending on how many chunks it needs to get
+** possibly scratch that as ints store their numbers backwards so chars need to be flipped
 */
 
-void	print_chunk(char *chunk, int i, int p, int len)
+void	print_chunk(unsigned char *chunk, int i, int p)
 {
 	int size;
 
@@ -16,7 +17,7 @@ void	print_chunk(char *chunk, int i, int p, int len)
 			ft_printf("%c", 'a' + (*chunk - 26));
 		else if (*chunk < 62)
 			ft_printf("%c", '0' + (*chunk - 52));
-		else if (size >= pad && *chunk)
+		else if (size >= p && *chunk)
 			ft_printf("%c", (*chunk - 62) ? '/' : '+');
 		else
 			ft_printf("=");
@@ -44,7 +45,7 @@ void	change_base(int chunk, int i, int crypt, int len)
 	int				j;
 	int				p;
 
-	j = 3;
+	j = crypt ? 3 : 4;
 	p = 0;
 	while (j - p)
 	{
@@ -52,42 +53,43 @@ void	change_base(int chunk, int i, int crypt, int len)
 		if (i + j < len)
 			d[j--] = crypt ? remove_chars(c) : c;
 		else
-			d[j + p++] = 0;
+			p++;
 		chunk >>= 6;
 	}
 	if (crypt)
-		print_chunk(d, i, len, p);
+		print_chunk(d, i, p);
 	else
-		new_chunk(d);
+		decrypt_chunk(d);
 }
 
-void	ft_base64_e(char *input, size_t len)
+int		ft_base64_e(char *input, size_t len)
 {
 	int		chunk;
-	int		i;
+	size_t	i;
 
 	chunk = 0;
 	i = 0;
 	while (i < len + 3)
 	{
-		chunk = get_chunk(data, i, len, 3);
-		change_base(chunk, i, 0, len);
+		chunk = get_chunk(input, i, len, 3);
+		change_base(chunk, i, 1, len);
 		i += 3;
 	}
-	free(data);
+	return (1);
 }
 
-void	ft_base64_d(char *input, size_t len)
+int		ft_base64_d(char *input, size_t len)
 {
 	int		chunk;
-	int		i;
+	size_t	i;
 
 	chunk = 0;
 	i = 0;
-	while (++i < len + 4)
+	while (++i < len + (size_t)4)
 	{
 		chunk = get_chunk(input, i, len, 4);
-		change_base(chunk, i, 1);
+		change_base(chunk, i, 0, len);
 		i += 4;
 	}
+	return (1);
 }

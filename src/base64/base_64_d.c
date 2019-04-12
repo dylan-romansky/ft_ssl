@@ -1,31 +1,29 @@
 #include "ft_ssl_md5.h"
 
-void			print_decrypt(int chunk)
+void			print_decrypt(int chunk, int i)
 {
-	char			d[3];
-	int				i;
+	char			decrypted[3];
 
-	i = 4;
-	while (i--)
-	{
-		d[i] = chunk & 127;
-		chunk  >>= 8;
-	}
-	write(1, d, 3);
+	chunk = flip_end(chunk);
+	ft_memcpy(decrypted, &chunk, 3);
+	write(1, decrypted, i);
 }
 
-void			new_chunk(char *d)
+void			decrypt_chunk(unsigned char *d)
 {
 	int				i;
 	int				chunk;
 
 	i = -1;
+	chunk = 0;
 	while (++i < 4)
 	{
-		chunk |= d[i];
 		chunk <<= 6;
+		if (d[i] == 255)
+			break ;
+		chunk |= d[i];
 	}
-	print_decrypt(chunk);
+	print_decrypt(chunk, --i);
 }
 
 unsigned char	remove_chars(char c)
@@ -40,5 +38,5 @@ unsigned char	remove_chars(char c)
 		return (62);
 	if (c == '/')
 		return (63);
-	return (0);
+	return (255);
 }
