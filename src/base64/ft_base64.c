@@ -44,17 +44,22 @@ void	change_base(int chunk, int i, int crypt, int len)
 	unsigned char	d[4];
 	int				j;
 	int				p;
+	int				k;
 
 	j = crypt ? 3 : 4;
+	k = 0;
 	p = 0;
 	while (j - p)
 	{
 		c = chunk & 63;
 		if (i + j < len)
-			d[j--] = crypt ? remove_chars(c) : c;
+		{
+			j--;
+			d[k++] = crypt ? remove_chars(c) : c;
+		}
 		else
 			p++;
-		chunk >>= 6;
+		chunk >>= crypt ? 8 : 6;
 	}
 	if (crypt)
 		print_chunk(d, i, p);

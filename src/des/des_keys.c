@@ -5,20 +5,69 @@ const int keygen56_k[] = {
 	38, 30, 22, 14, 6, 61, 53, 45, 37, 29, 21, 13, 5,
 	28, 20, 12, 4};
 
-uint32_t	rightrotate(uint32_t input, uint32_t amount)
+const int keyshift56_k[] = {
+	1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1};
+
+const int keycat56_k[] = {
+	14, 17, 11, 24, 1, 5, 3, 28, 15, 6, 21, 10, 23, 19,
+	12, 4, 26, 8, 16, 7, 27, 20, 13, 2, 41, 52, 31, 37,
+	47, 55, 30, 40, 51, 45, 33, 48, 44, 49, 39, 56, 34,
+	53, 46, 42, 50, 36, 29, 32};
+
+uint32_t	key_rotate(uint32_t input, uint32_t amount)
 {
 	return ((((unsigned int)input >> amount)) |
 			(0x0fffffff & (input << (28 - amount))));
 }
+/*
+** consider making struct to hold these tables
+*/
 
-const unsigned long(unsigned long key)
+unsigned long		gen_cat(int c[16], int d[16])
+{
+	unsigned long	k;
+	unsigned long	cat;
+	int				i;
+
+	k = 0;
+	i = 0;
+	cat = c[i];
+	cat <<= 7;
+	cat |= d[i];
+	while (i < 48)
+	{
+		k |= (1 << keycat56_k[i]) | cat ? 1 : 0;
+		k <<= 1;
+	}
+	return (k);
+}
+
+const unsigned long	gen_key(unsigned long key)
 {
 	unsigned long	key56;
-	int				i;
+	unsigned long	i;
+	unsigned long	c[16];
+	unsigned long	d[16];
+	unsigned long	k[16];
 
 	key56 = 0;
 	i = 0;
 	while (i < 56)
-		key = (1 << keygen56_k[i++]) | key;
-	return (key);
+	{
+		key56 |= (1 << keygen56_k[i++]) | key ? 1 : 0;
+		key56 <<= 1;
+	}
+	c[0] = key56 & 0x00fffffff0000000;
+	d[0] = key56 & 0x0fffffff;
+	i = 0;
+	while (i < 16)
+	{
+		c[i] = key_rotate(c[i - 1], keyshift56_k[i - 1]);
+		d[i] = key_rotate(d[i - 1], keyshift56_k[i - 1]);
+		i++;
+	}
+	i = 0;
+	while (i < 16)
+		k[i++] = gen_cat(c, d);
+	return (key56);
 }
