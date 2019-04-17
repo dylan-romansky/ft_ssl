@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:29:52 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/13 14:24:41 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/16 20:14:44 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void			split_input_512(char *input, int len, t_md5_words *word)
 	print_md5(word);
 }
 
-int				ft_md5(char *input, size_t len)
+int				ft_md5(t_ssl_input *input)
 {
 	int				flen;
 	size_t			i;
@@ -86,14 +86,14 @@ int				ft_md5(char *input, size_t len)
 	words->b0 = 0xefcdab89;
 	words->c0 = 0x98badcfe;
 	words->d0 = 0x10325476;
-	i = 1 + len;
+	i = 1 + input->len;
 	while ((i + 8) % 64)
 		i++;
 	if (!(fixed = ft_strnew(i + 8)))
 		return (-1);
-	fixed = ft_memcpy(fixed, input, len);
-	fixed[len] = (unsigned char)128;
-	flen = (int)(len * 8);
+	fixed = ft_memcpy(fixed, input->input, input->len);
+	fixed[input->len] = (unsigned char)128;
+	flen = (int)(input->len * 8);
 	ft_memcpy(fixed + i, &flen, 4);
 	split_input_512(fixed, i + 8, words);
 	free(fixed);

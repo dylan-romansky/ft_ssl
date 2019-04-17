@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 21:49:36 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/08 21:56:30 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/16 20:16:04 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_sha224(t_sha_words *words)
 	words->h2, words->h3, words->h4, words->h5, words->h6);
 }
 
-int		ft_sha224(char *input, size_t len)
+int		ft_sha224(t_ssl_input *input)
 {
 	t_sha_words		*words;
 
@@ -31,7 +31,7 @@ int		ft_sha224(char *input, size_t len)
 	words->h5 = 0x68581511;
 	words->h6 = 0x64f98fa7;
 	words->h7 = 0xbefa4fa4;
-	if (sha_pad(input, (unsigned)len, words) < 0)
+	if (sha_pad(input->input, (unsigned)(input->len), words) < 0)
 	{
 		free(words);
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 20:39:49 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/12 19:22:25 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/16 20:16:46 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		sha_pad(char *input, unsigned len, t_sha_words *words)
 	return (0);
 }
 
-int		ft_sha256(char *input, size_t len)
+int		ft_sha256(t_ssl_input *input)
 {
 	t_sha_words		*words;
 
@@ -81,7 +81,7 @@ int		ft_sha256(char *input, size_t len)
 	words->h5 = 0x9b05688c;
 	words->h6 = 0x1f83d9ab;
 	words->h7 = 0x5be0cd19;
-	if (sha_pad(input, (unsigned)len, words) < 0)
+	if (sha_pad(input->input, (unsigned)(input->len), words) < 0)
 	{
 		free(words);
 		return (-1);

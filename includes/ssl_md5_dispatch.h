@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 14:29:03 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/13 14:29:12 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/16 20:30:06 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ struct	s_sslfuns
 {
 	char	*name;
 	char	*print;
-	int		(*hash)(char *, size_t);
+	int		(*hash)(t_ssl_input *);
 };
 
 t_sslflags g_sslflags[] =
@@ -59,10 +59,9 @@ t_sslfuns g_sslfuns[] =
 	{"sha256", "SHA256", &ft_sha256},
 	{"sha384", "SHA384", &ft_sha384},
 	{"sha512", "SHA512", &ft_sha512},
-	{"base64", "BASE64", &ft_base64_e},
-	{"base64", "BASE64", &ft_base64_d},
+	{"base64", "BASE64", &ft_base64},
 	{"des", "DES", &ft_des_cbc},
-	{"des-cbc", "DES-CBC", &ft_des_cdc},
+	{"des-cbc", "DES-CBC", &ft_des_cbc},
 	{"des-ecb", "DES-ECB", &ft_des_ecb},
 	{NULL, NULL, NULL}
 };

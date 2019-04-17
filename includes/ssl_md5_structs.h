@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:04:59 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/13 14:30:07 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/16 20:41:43 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 typedef struct s_md5_words	t_md5_words;
 typedef struct s_sha_words	t_sha_words;
 typedef struct s_512_words	t_512_words;
+typedef struct s_ssl_input	t_ssl_input;
 
 struct	s_md5_words
 {
@@ -82,6 +83,15 @@ struct	s_512_words
 	unsigned long	tmp4;
 	unsigned long	tmp5;
 	unsigned long	tmp6;
+};
+
+struct	s_ssl_input
+{
+	int				args;
+	char			*input;
+	size_t			len;
+	unsigned long	key;
+	int				flags;
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 20:39:49 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/08 23:48:46 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/16 20:17:36 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_sha384(t_512_words *words)
 			words->h1, words->h2, words->h3, words->h4, words->h5);
 }
 
-int		ft_sha384(char *input, size_t len)
+int		ft_sha384(t_ssl_input *input)
 {
 	t_512_words		*words;
 
@@ -35,7 +35,7 @@ int		ft_sha384(char *input, size_t len)
 	words->h5 = 0x8eb44a8768581511;
 	words->h6 = 0xdb0c2e0d64f98fa7;
 	words->h7 = 0x47b5481dbefa4fa4;
-	if (sha_pad_512(input, (unsigned)len, words) < 0)
+	if (sha_pad_512(input->input, (unsigned)(input->len), words) < 0)
 	{
 		free(words);
 		return (-1);

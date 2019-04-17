@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:08:20 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/13 14:31:31 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/10 22:13:02 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int				get_input(int fd, int flags, char *input, char **file);
 void			flag_error(char *name, char flag);
 void			error_nodis(char *input);
 void			ssl_flags(char **av, int ac, int dis, int j);
+void			cypher_flags(char **av, int ac, int dis, int j);
 int				stdin_check(void);
 void			bad_input(char *input);
 int				handle_string(char **av, int j, int flags, int dis);
@@ -62,7 +63,21 @@ int				sha_pad_512(char *input, unsigned len, t_512_words *words);
 ** base64
 */
 
-void			ft_base64_e(char *input, size_t len);
-void			ft_base64_d(char *input, size_t len);
+int				ft_base64_e(char *input, size_t len);
+int				ft_base64_d(char *input, size_t len);
+unsigned char	remove_chars(char c);
+void			decrypt_chunk(unsigned char *d);
+
+/*
+** des_cdc
+*/
+
+int				ft_des_cbc(char *input, size_t len);
+
+/*
+** des_ecb
+*/
+
+int				ft_des_ecb(char *input, size_t len);
 
 #endif
