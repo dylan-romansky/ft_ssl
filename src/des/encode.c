@@ -1,3 +1,5 @@
+#include "ssl_md5_s_boxes.h"
+
 const int	init_perm_k [] = {
 	58, 50, 42, 34, 26, 18, 10, 2, 60, 52, 44, 36,
 	28, 20, 12, 4, 62, 54, 46, 38, 30, 22, 14, 6,
@@ -12,6 +14,40 @@ const int	expansion_k [] = {
 	19, 20, 21, 20, 21, 22, 23, 24, 25, 24, 25, 26,
 	27, 28, 29, 28, 29, 30, 31, 32, 1};
 
+/*
+** this relies on my being able to index static arrays the way I want
+*/
+
+unsigned		s_boxing(unsigned long expand, int i)
+{
+	char	block;
+	char	row;
+	char	column;
+
+	block = expand & 63;
+	expand >>= 6;
+	row = ((block >> 4) & 2) + (1 & block);
+	column = (block >> 1) & 15;
+	if (!g_boxes[i])
+		return (0);
+	return ((s_boxing(expand, i + 1) << 4) | g_boxes[row][column]);
+}
+
+unsigned		permute_box(unsigned box)
+{
+	int				i;
+	unsigned		perm;
+
+	i = 32;
+	perm = 0;
+	while (--i >= 0)
+	{
+		perm <<= 1;
+		perm |= (1 << (block_perm_k[i] - 1)) & box ? 1 : 0;
+	}
+	return (perm);
+}
+
 unsigned		key_encrypt(unsigned right, unsigned long key)
 {
 	unsigned long	expand;
@@ -24,7 +60,7 @@ unsigned		key_encrypt(unsigned right, unsigned long key)
 		expand <<= 1;
 		expand |= (1 << (init_perm_k[i] - 1)) & right ? 1 : 0;
 	}
-	return (s_boxing(expand ^ key));
+	return (permute_box(s_boxing(expand ^ key, 0)));
 }
 
 unsigned long	init_perm(unsigned long block)
