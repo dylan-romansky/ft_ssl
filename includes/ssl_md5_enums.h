@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_input.c                                       :+:      :+:    :+:   */
+/*   ssl_md5_enums.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/16 20:35:00 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/17 19:16:22 by dromansk         ###   ########.fr       */
+/*   Created: 2019/04/17 16:00:01 by dromansk          #+#    #+#             */
+/*   Updated: 2019/04/17 16:01:17 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl_md5.h"
+#ifndef SSL_MD5_ENUMS_H
+# define SSL_MD5_ENUMS_H
 
-/*
-** write flag getting function for ciphers
-** ciphers default to encryption
-*/
+typedef enum e_sslfenums	t_sslfenums;
+typedef enum e_base64enums	t_base64enums;
+typedef enum e_desenums		t_desenums;
 
-t_ssl_input	*make_input(int ac)
+enum	e_sslfenums
 {
-	t_ssl_input	*input;
+	p = 1, q = 2, r = 4, s = 8
+};
 
-	if (!(input = (t_ssl_input *)malloc(sizeof(t_ssl_input))))
-		return (NULL);
-	input->args = ac;
-	input->input = NULL;
-	input->len = 0;
-	input->flags = 0;
-	input->infd = 0;
-	input->outfd = 0;
-	input->key = 0;
-	return (input);
-}
+enum	e_base64enums
+{
+	d = 16, e = 32, i = 64, o = 128
+};
+
+enum	e_desenums
+{
+	a = 256, k = 512, p2 = 1024, s2 = 2048, v = 4096
+};

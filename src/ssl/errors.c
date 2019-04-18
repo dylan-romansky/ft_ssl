@@ -6,16 +6,24 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 19:17:39 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/31 19:51:17 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/17 14:47:19 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl_md5.h"
 
-void	flag_error(char *name, char flag)
+void	flag_error(char *name, char *flag)
 {
-	ft_printf("%s: illegal option -- %c\n", name, flag);
-	ft_printf("usage: %s [-pqr] [-s string] [files ...]\n", name);
+	ft_printf("%s: illegal option: %s\nusage: %s ", name, flag, name);
+	if (dis <= 4)
+		ft_printf("[-pqr] [-s string] [files ...]\n");
+	else if (dis == 5)
+		ft_printf("[-e | -d] [-i infile] [-o outfile]\n");
+	else if (dis <= 8)
+	{
+		ft_printf("[-e | -d] [-a] [-k key] [-v init vector] [-i infile]");
+		ft_printf(" [-o outfile]\n");
+	}
 	exit(1);
 }
 

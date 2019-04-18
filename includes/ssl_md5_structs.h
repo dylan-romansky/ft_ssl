@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:04:59 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/16 20:41:43 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/17 15:37:16 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,10 @@ struct	s_ssl_input
 	int				args;
 	char			*input;
 	size_t			len;
-	unsigned long	key;
 	int				flags;
+	int				infd;
+	int				outfd;
+	unsigned long	key;
 };
 
 #endif

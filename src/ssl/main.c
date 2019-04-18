@@ -6,17 +6,14 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 19:34:06 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/16 20:51:29 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/17 18:51:16 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 #include "ft_ssl_md5.h"
 #include "ssl_md5_dispatch.h"
-
-/*
-** consider moving flag struct into new file and using that for flag funcs
-*/
+#include "ssl_md5_enums.h"
 
 void			do_ssl(t_ssl_input *input2, char *input, int dis)
 {
@@ -47,55 +44,21 @@ void			do_ssl(t_ssl_input *input2, char *input, int dis)
 	}
 }
 
-int				flag_val(char *flags, char *fun)
+int				check_stdin(t_ssl_input *input, int dis)
 {
-	int				i;
-	int				j;
-	int				sum;
+	char	*file;
 
-	i = -1;
-	j = 0;
-	sum = 0;
-	if (flags[0] == '-')
-		i++;
-	while (flags[++i])
-	{
-		while (g_sslflags[j].flag && g_sslflags[j].flag != flags[i])
-			j++;
-		if (!g_sslflags[j].flag)
-			flag_error(fun, flags[i]);
-		sum |= g_sslflags[j].value;
-		if (sum & s)
-			return (sum);
-	}
-	return (sum);
-}
-
-int				check_stdin(char **av, int ac, int dis)
-{
-	char			*file;
-	int				len;
-	int				j;
-	int				flags;
-
-	j = 1;
-	flags = 0;
-	len = 0;
-	while (++j < ac)
-	{
-		if (av[j][0] == '-')
-			flags |= flag_val(av[j] + 1, g_sslfuns[dis].print);
-		else
-			break ;
-	}
+	file = NULL;
 	fcntl(0, F_SETFL, O_NONBLOCK);
-	len = get_input(0, flags, NULL, &file);
-	if (len)
+	input->len = get_input(0, input->flags, NULL, &file);
+	if (input->len)
 	{
+		input->input = file;
 		if (flags & p)
 			ft_printf("%s", file);
-		g_sslfuns[dis].hash(file, len);
+		g_sslfuns[dis].hash(input);
 		ft_printf("\n");
+		free(file);
 	}
 	return (p);
 }
@@ -107,7 +70,7 @@ void			ssl_flags(char **av, t_ssl_input *input, int dis, int j)
 	{
 		if (av[j][0] == '-' && (av[j][1] == 's' || ft_strlen(av[j]) == 2))
 		{
-			input->flags |= flag_val(av[j] + 1, g_sslfuns[dis].print);
+			input->flags |= flag_val(av[j], dis, g_sslfuns[dis].print);
 			if (input->flags & s && (j + 1 < ac ||
 						av[j][chr_index(av[j], 's') + 1]))
 			{
@@ -115,16 +78,16 @@ void			ssl_flags(char **av, t_ssl_input *input, int dis, int j)
 				input->flags -= s;
 			}
 			if (input->flags & p)
-				input->flags -= check_stdin(av, ac, dis);
+				input->flags -= check_stdin(ac, dis);
 		}
 		else
 		{
-			while (j < ac)
+			while (j < input->args)
 				do_ssl(input, av[j++], dis);
 			return ;
 		}
 	}
-	check_stdin(av, ac, dis);
+	check_stdin(input, dis);
 }
 
 int				main(int ac, char **av)
