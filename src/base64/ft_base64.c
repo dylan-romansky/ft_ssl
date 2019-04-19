@@ -12,7 +12,8 @@ void	print_chunk(unsigned char *chunk, int i, int p)
 	int size;
 
 	size = 4;
-	while (size-- >= 0)
+	
+	while (size-- >= p)
 	{
 		if (*chunk < 26)
 			ft_printf("%c", 'A' + *chunk);
@@ -22,13 +23,16 @@ void	print_chunk(unsigned char *chunk, int i, int p)
 			ft_printf("%c", '0' + (*chunk - 52));
 		else if (*chunk < 64)
 			ft_printf("%c", (*chunk - 62) ? '/' : '+');
-		else
-			ft_printf("=");
 		chunk++;
 	}
-//	if (i > !((i + p) % 64))
-//		ft_printf("\n");
+	write(1, "==", p);
+/*	if (i > !((i + p) % 64))
+		ft_printf("\n");*/
 }
+
+/*
+** problem with getting chunks
+*/
 
 int		get_chunk(char *input, int i, int len, int size)
 {
@@ -81,6 +85,9 @@ void	change_base(unsigned chunk, int decrypt, int i, int len)
 
 	p = decrypt ? contract_base(chunk) : expand_base(chunk);
 	ft_memcpy(d, &p, decrypt ? 3 : 4);
+	int k = -1;
+	while (++k < 4)
+		printf("%u\n", d[k]);
 	if (decrypt)
 		decrypt_chunk(d, i, i > len ? i - len : 0);
 	else

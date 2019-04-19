@@ -58,12 +58,15 @@ unsigned		expand_base(unsigned chunk)
 	expanded = 0;
 	i = -1;
 	j = 0;
+	ft_printf("%32b\n", chunk);
 	while (++i < 32)
 	{
-		expanded += (1 << i) & chunk ? 1 << j++: 0;
-		if (!(i + 1) % 6)
+		expanded += (1 << i) & chunk ? 1 << j : 0;
+		j++;
+		if (!((i + 1) % 6))
 			j += 2;
 	}
+	ft_printf("%32b\n", expanded);
 	return(expanded);
 }
 
@@ -80,7 +83,7 @@ unsigned		contract_base(unsigned chunk)
 	while (++i < 32)
 	{
 		contracted += (1 << i) & chunk ? 1 << j++: 0;
-		if (!(j + 1) % 6)
+		if (!((j + 1) % 6))
 			i += 2;
 	}
 	return(contracted);
