@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 14:29:03 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/17 16:03:28 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:53:22 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 # define SSL_MD5_DISPATCH_H
 
 typedef struct s_sslfuns	t_sslfuns;
+
+struct	s_sslfuns
+{
+	char	*name;
+	char	*print;
+	int		(*hash)(t_ssl_input *);
+};
 
 t_sslfuns g_sslfuns[] =
 {

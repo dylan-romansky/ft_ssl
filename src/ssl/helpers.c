@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 19:18:19 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/12 19:33:24 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/18 18:06:32 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int				stdin_check(void)
 	return (0);
 }
 
-int				handle_string(char **av, int j, int flags, int dis)
+int				handle_string(char **av, int j, t_ssl_input *input, int dis)
 {
 	int			i;
 
@@ -47,11 +47,11 @@ int				handle_string(char **av, int j, int flags, int dis)
 		i++;
 	if (av[j][i + 1])
 	{
-		do_ssl(flags, av[j] + i + 1, dis);
+		do_ssl(input, av[j] + i + 1, dis);
 		return (0);
 	}
 	else
-		do_ssl(flags, av[j + 1], dis);
+		do_ssl(input, av[j + 1], dis);
 	return (1);
 }
 

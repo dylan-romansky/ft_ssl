@@ -45,7 +45,7 @@ int		get_chunk(char *input, int i, int len, int size)
 	return (chunk);
 }
 
-void	change_base(int chunk, int i, int decrypt, int len)
+/*void	change_base(unsigned chunk, int i, int decrypt, int len)
 {
 	unsigned char	c;
 	unsigned char	d[4];
@@ -73,6 +73,18 @@ void	change_base(int chunk, int i, int decrypt, int len)
 		decrypt_chunk(d);
 	else
 		print_chunk(d, i, p);
+}*/
+void	change_base(unsigned chunk, int decrypt, int i, int len)
+{
+	unsigned char	d[4];
+	int				p;
+
+	p = decrypt ? contract_base(chunk) : expand_base(chunk);
+	ft_memcpy(d, &p, decrypt ? 3 : 4);
+	if (decrypt)
+		decrypt_chunk(d, i, i > len ? i - len : 0);
+	else
+		print_chunk(d, i, i > len ? i - len : 0);
 }
 
 int		ft_base64_e(char *input, size_t len)

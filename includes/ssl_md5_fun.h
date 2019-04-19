@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:08:20 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/10 22:13:02 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/18 21:07:06 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,29 @@
 
 unsigned		flip_end(unsigned n);
 unsigned long	flip_end_512(unsigned long n);
+
 int				get_input(int fd, int flags, char *input, char **file);
-void			flag_error(char *name, char flag);
+t_ssl_input		*make_input(int ac);
+
+void			flag_error(char *name, char *flag, int dis);
 void			error_nodis(char *input);
-void			ssl_flags(char **av, int ac, int dis, int j);
-void			cypher_flags(char **av, int ac, int dis, int j);
+
+void			ssl_flags(char **av, t_ssl_input *input, int dis, int j);
+void			cipher_flags(char **av, t_ssl_input *input, int dis, int j);
+int				flag_val(char *flags, int dis, char *fun);
+int				cipher_flag_val(char *flags, int dis, char *fun);
+
 int				stdin_check(void);
 void			bad_input(char *input);
-int				handle_string(char **av, int j, int flags, int dis);
-void			do_ssl(int flags, char *input, int dis);
+
+int				handle_string(char **av, int j, t_ssl_input *input, int dis);
+void			do_ssl(t_ssl_input *input2, char *input, int dis);
 
 /*
 ** md5
 */
 
-int				ft_md5(char *input, size_t len);
+int				ft_md5(t_ssl_input *input);
 void			hashing_functions_md5(t_md5_words *words, int i,
 		unsigned *chunks);
 uint32_t		left_rotate(uint32_t bits, uint32_t rot);
@@ -44,8 +52,8 @@ int				upto64(t_md5_words *words, int i);
 ** sha256 and sha224
 */
 
-int				ft_sha256(char *input, size_t len);
-int				ft_sha224(char *input, size_t len);
+int				ft_sha256(t_ssl_input *input);
+int				ft_sha224(t_ssl_input *input);
 uint32_t		rightrotate(uint32_t input, uint32_t amount);
 void			sha_process_chunk(char *chunk, t_sha_words *words);
 int				sha_pad(char *input, unsigned len, t_sha_words *words);
@@ -54,8 +62,8 @@ int				sha_pad(char *input, unsigned len, t_sha_words *words);
 ** sha512 and sha384
 */
 
-int				ft_sha512(char *input, size_t len);
-int				ft_sha384(char *input, size_t len);
+int				ft_sha512(t_ssl_input *input);
+int				ft_sha384(t_ssl_input *input);
 void			process_chunk_512(char *chunk, t_512_words *words);
 int				sha_pad_512(char *input, unsigned len, t_512_words *words);
 
@@ -63,21 +71,23 @@ int				sha_pad_512(char *input, unsigned len, t_512_words *words);
 ** base64
 */
 
+int				ft_base64(t_ssl_input *input);
 int				ft_base64_e(char *input, size_t len);
 int				ft_base64_d(char *input, size_t len);
-unsigned char	remove_chars(char c);
-void			decrypt_chunk(unsigned char *d);
+unsigned		expand_base(unsigned chunk);
+unsigned		contract_base(unsigned chunk);
+void			decrypt_chunk(unsigned char *d, int i, int p);
 
 /*
 ** des_cdc
 */
 
-int				ft_des_cbc(char *input, size_t len);
+int				ft_des_cbc(t_ssl_input *input);
 
 /*
 ** des_ecb
 */
 
-int				ft_des_ecb(char *input, size_t len);
+int				ft_des_ecb(t_ssl_input *input);
 
 #endif

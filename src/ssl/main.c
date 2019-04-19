@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 19:34:06 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/17 18:51:16 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/18 18:11:31 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void			do_ssl(t_ssl_input *input2, char *input, int dis)
 	if (input2->len)
 	{
 		input2->input = file;
-		if (flags & q)
+		if (input2->flags & q)
 			g_sslfuns[dis].hash(input2);
-		else if (flags & r)
+		else if (input2->flags & r)
 		{
 			g_sslfuns[dis].hash(input2);
 			ft_printf(" %s", input);
@@ -35,7 +35,7 @@ void			do_ssl(t_ssl_input *input2, char *input, int dis)
 		else
 		{
 			ft_printf("%s ", g_sslfuns[dis].print);
-			flags & s ? ft_printf("(\"%s\") = ", input) :
+			input2->flags & s ? ft_printf("(\"%s\") = ", input) :
 				ft_printf("(%s) = ", input);
 			g_sslfuns[dis].hash(input2);
 		}
@@ -54,7 +54,7 @@ int				check_stdin(t_ssl_input *input, int dis)
 	if (input->len)
 	{
 		input->input = file;
-		if (flags & p)
+		if (input->flags & p)
 			ft_printf("%s", file);
 		g_sslfuns[dis].hash(input);
 		ft_printf("\n");
@@ -71,14 +71,14 @@ void			ssl_flags(char **av, t_ssl_input *input, int dis, int j)
 		if (av[j][0] == '-' && (av[j][1] == 's' || ft_strlen(av[j]) == 2))
 		{
 			input->flags |= flag_val(av[j], dis, g_sslfuns[dis].print);
-			if (input->flags & s && (j + 1 < ac ||
+			if (input->flags & s && (j + 1 < input->args ||
 						av[j][chr_index(av[j], 's') + 1]))
 			{
-				j += handle_string(av, j, flags, dis);
+				j += handle_string(av, j, input, dis);
 				input->flags -= s;
 			}
 			if (input->flags & p)
-				input->flags -= check_stdin(ac, dis);
+				input->flags -= check_stdin(input, dis);
 		}
 		else
 		{

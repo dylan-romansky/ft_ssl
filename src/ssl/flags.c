@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:05:51 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/17 21:00:03 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:50:04 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int				flag_val(char *flags, int dis, char *fun)
 	return (sum);
 }
 
-int				des_flag_val(char *flags, int dis, char *fun)
+int				des_flag_val(char *flags)
 {
 	int				i;
 	int				j;
@@ -68,7 +68,7 @@ int				cipher_flag_val(char *flags, int dis, char *fun)
 			j++;
 		if (dis > 5)
 			j = g_base64flags[j].flag ? g_base64flags[j].value :
-			des_flag_val(flags, dis, fun);
+			des_flag_val(flags);
 		else
 			j = g_base64flags[j].flag ? g_base64flags[j].value : -1;
 		if (j < 0)
