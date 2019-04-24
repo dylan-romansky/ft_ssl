@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 21:02:15 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/18 18:10:42 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/24 15:49:14 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,17 @@
 /*
 ** write function to strip decryption input of newlines
 */
+
+int		minus_pad(char *input)
+{
+	int		i;
+
+	i = 0;
+	while (*input)
+		if (*input++ == '=')
+			i++;
+	return (i);
+}
 
 int		ft_base64(t_ssl_input *input)
 {

@@ -2,22 +2,6 @@
 
 void			decrypt_chunk(unsigned char *d, int i, int p)
 {
-/*	int				i;
-	int				garbage;
-	int				chunk;
-
-	i = 4;
-	chunk = 0;
-	garbage = 0;
-	while (--i >= 0)
-	{
-		chunk <<= 6;
-		if (d[i] == 255)
-			garbage++;
-		else
-			chunk |= d[i];
-	}
-	print_decrypt(chunk, 3 - garbage);*/
 	write(1, d, i - p);
 }
 
@@ -36,55 +20,49 @@ unsigned char	char_base(char c)
 	return (0);
 }
 
+/*
+** this needs to be redone real bad
+*/
+
 unsigned		remove_chars(unsigned chunk)
 {
-	char	d[4];
-	int		i;
+	unsigned char	*d;
+	int				i;
 
 	i = -1;
+	d = (unsigned char *)ft_strnew(3);
 	ft_memcpy(d, &chunk, 4);
 	while (++i < 4)
 		d[i] = char_base(d[i]);
 	ft_memcpy(&chunk, d, 4);
+	free(d);
 	return (chunk);
 }
 
-unsigned		expand_base(unsigned chunk)
+unsigned char	*expand_base(unsigned chunk)
 {
-	unsigned	expanded;
-	int			i;
-	int			j;
+	unsigned char	bytes[3];
+	unsigned char	*expanded;
 
-	expanded = 0;
-	i = -1;
-	j = 0;
-	ft_printf("%32b\n", chunk);
-	while (++i < 32)
-	{
-		expanded += (1 << i) & chunk ? 1 << j : 0;
-		j++;
-		if (!((i + 1) % 6))
-			j += 2;
-	}
-	ft_printf("%32b\n", expanded);
-	return(expanded);
+	expanded = (unsigned char *)ft_strnew(3);
+	ft_memcpy(bytes, &chunk, 3);
+	expanded[0] = (bytes[0] & 252) >> 2;
+	expanded[1] = ((bytes[0] & 3) << 4) | bytes[1] >> 4;
+	expanded[2] = ((bytes[1] & 15) << 2) | bytes[2] >> 6;
+	expanded[3] = bytes[2] & 63;
+	return (expanded);
 }
 
-unsigned		contract_base(unsigned chunk)
+unsigned char	*contract_base(unsigned chunk)
 {
-	unsigned	contracted;
-	int			i;
-	int			j;
+	unsigned char	expanded[4];
+	unsigned char	*contracted;
 
+	contracted = (unsigned char *)ft_strnew(2);
 	chunk = remove_chars(chunk);
-	contracted = 0;
-	i = -1;
-	j = 0;
-	while (++i < 32)
-	{
-		contracted += (1 << i) & chunk ? 1 << j++: 0;
-		if (!((j + 1) % 6))
-			i += 2;
-	}
-	return(contracted);
+	ft_memcpy(expanded, &chunk, 4);
+	contracted[0] = (expanded[0] << 2) | (expanded[1] >> 4);
+	contracted[1] = (expanded[1] << 4) | (expanded[2] >> 2);
+	contracted[2] = (expanded[2] << 6) | expanded[3];
+	return (contracted);
 }

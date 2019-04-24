@@ -1,7 +1,0 @@
-#include "stdio.h"
-
-int main(void)
-{
-	printf("%d\n", 'o' - 'a' + 26);
-	return (0);
-}

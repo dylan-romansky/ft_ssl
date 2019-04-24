@@ -1,19 +1,11 @@
 #include "ft_ssl_md5.h"
 
-/*
-** potential bug in encoding, might be working from the wrong end,
-** could also be completely misguided in my data storage and conversion.
-** try pulling out front 6, then shifting over 2. Or shift the 2 before
-** pulling the 6.
-*/
-
-void	print_chunk(unsigned char *chunk, int i, int p)
+void		print_chunk(unsigned char *chunk, int i, int p)
 {
-	int size;
+	int		size;
 
 	size = 4;
-	
-	while (size-- >= p)
+	while (size-- > p)
 	{
 		if (*chunk < 26)
 			ft_printf("%c", 'A' + *chunk);
@@ -24,104 +16,64 @@ void	print_chunk(unsigned char *chunk, int i, int p)
 		else if (*chunk < 64)
 			ft_printf("%c", (*chunk - 62) ? '/' : '+');
 		chunk++;
+		i++;
 	}
 	write(1, "==", p);
-/*	if (i > !((i + p) % 64))
-		ft_printf("\n");*/
 }
 
-/*
-** problem with getting chunks
-*/
-
-int		get_chunk(char *input, int i, int len, int size)
+unsigned	get_chunk(char *input, int i, int len, int size)
 {
-	int				chunk;
+	unsigned		chunk;
 
 	chunk = 0;
-	if (i < len)
-		ft_memcpy(&chunk, input, size);
+	if (i < (len - size - 1))
+		ft_memcpy(&chunk, input + i, size);
 	else 
-		ft_memcpy(&chunk, input, size - (i - len));
-	flip_end(chunk);
-	if (i > len)
-		chunk >>= 8 * (i - len);
+		ft_memcpy(&chunk, input + i, len - i);
 	return (chunk);
 }
 
-/*void	change_base(unsigned chunk, int i, int decrypt, int len)
+void		change_base(unsigned chunk, int decrypt, int i, int len)
 {
-	unsigned char	c;
-	unsigned char	d[4];
-	int				j;
+	unsigned char	*d;
 	int				p;
 
-	j = decrypt ? 3 : 2;
-	p = i > len ? i - len : 0;
-	ft_printf("%b\n", chunk);
-	while (j >= 0)
-	{
-		c = chunk & 63;
-		if (i + j < len)
-		{
-			printf("encoding %d\n\n", c);
-			d[j] = decrypt ? remove_chars(c) : c;
-		}
-		chunk >>= decrypt ? 8 : 6;
-		j--;
-	}
-	int q = -1;
-	while (++q < 4)
-		ft_printf("%d\n", d[q]);
+	d = decrypt ? contract_base(chunk) : expand_base(chunk);
 	if (decrypt)
-		decrypt_chunk(d);
+		decrypt_chunk(d, 3, i > len ? (i - len) : 0);
 	else
-		print_chunk(d, i, p);
-}*/
-void	change_base(unsigned chunk, int decrypt, int i, int len)
-{
-	unsigned char	d[4];
-	int				p;
-
-	p = decrypt ? contract_base(chunk) : expand_base(chunk);
-	ft_memcpy(d, &p, decrypt ? 3 : 4);
-	int k = -1;
-	while (++k < 4)
-		printf("%u\n", d[k]);
-	if (decrypt)
-		decrypt_chunk(d, i, i > len ? i - len : 0);
-	else
-		print_chunk(d, i, i > len ? i - len : 0);
+		print_chunk(d, i, i > len ? (i - len) : 0);
+	free(d);
 }
 
-int		ft_base64_e(char *input, size_t len)
+int			ft_base64_e(char *input, size_t len)
 {
 	int		chunk;
 	size_t	i;
 
 	chunk = 0;
 	i = 0;
-	while (i < len + 2)
+	while (i < len)
 	{
-		chunk = get_chunk(input, i, len, 3);
-		chunk >>= 1;
-		change_base(chunk, i, 0, len);
+		chunk = get_chunk(input, i, len, i < len - 2 ? 3 : len - i);
+		change_base(chunk, 0, i, len - 3);
 		i += 3;
 	}
 	return (1);
 }
 
-int		ft_base64_d(char *input, size_t len)
+int			ft_base64_d(char *input, size_t len)
 {
 	int		chunk;
 	size_t	i;
 
 	chunk = 0;
 	i = 0;
-	while (++i < len + (size_t)3)
+	len -= minus_pad(input);
+	while (i < len)
 	{
-		chunk = get_chunk(input, i, len, 4);
-		change_base(chunk, i, 1, len);
+		chunk = get_chunk(input, i, len, i < len - 3 ? 4 : len - i);
+		change_base(chunk, 1, i, len - 4);
 		i += 4;
 	}
 	return (1);
