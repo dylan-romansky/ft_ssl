@@ -1,3 +1,9 @@
+#include "ft_ssl.h"
+
+/*
+** key generation is fucked. check that the left/right handling is good
+*/
+
 const int keygen56_k[] = {
 	57, 49, 41, 33, 25, 17, 9, 1, 58, 50, 42, 34, 26,
 	18, 10, 2, 59, 51, 43, 35, 27, 19, 11, 3, 60, 52,
@@ -14,14 +20,11 @@ const int keycat56_k[] = {
 	47, 55, 30, 40, 51, 45, 33, 48, 44, 49, 39, 56, 34,
 	53, 46, 42, 50, 36, 29, 32};
 
-uint32_t	key_rotate(uint32_t input, uint32_t amount)
+unsigned			key_rotate(unsigned input, unsigned amount)
 {
 	return ((((unsigned int)input << amount) & 0x0fffffff) |
 			(input >> (28 - amount)));
 }
-/*
-** consider making struct to hold these tables
-*/
 
 unsigned long		gen_cat(unsigned long c, unsigned long d)
 {
@@ -47,15 +50,18 @@ const unsigned long	*gen_key(unsigned long key)
 	int				i;
 	unsigned long	c[17];
 	unsigned long	d[17];
-	unsigned long	k[16];
+	unsigned long	*k;
 
 	key56 = 0;
 	i = 56;
+	k = (unsigned long *)malloc(sizeof(unsigned long) * 16);
 	while (--i >= 0)
 	{
 		key56 <<= 1;
 		key56 |= (1 << (keygen56_k[i] - 1)) & key ? 1 : 0;
+		ft_printf("adding %d from bit %d\n", (1 << (keygen56_k[i] - 1)) & key ? 1 : 0, keygen56_k[i]);
 	}
+	ft_printf("k56  %64llb\n", key56);
 	c[0] = key56 & 0x00fffffff0000000;
 	d[0] = key56 & 0x0fffffff;
 	i = 0;

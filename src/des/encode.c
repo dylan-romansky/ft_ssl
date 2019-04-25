@@ -28,9 +28,9 @@ unsigned		s_boxing(unsigned long expand, int i)
 	expand >>= 6;
 	row = ((block >> 4) & 2) + (1 & block);
 	column = (block >> 1) & 15;
-	if (!g_boxes[i])
+	if (!g_boxes[i].box)
 		return (0);
-	return ((s_boxing(expand, i + 1) << 4) | g_boxes[row][column]);
+	return ((s_boxing(expand, i + 1) << 4) | g_boxes[i].box[row][column]);
 }
 
 unsigned		permute_box(unsigned box)

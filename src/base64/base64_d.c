@@ -1,4 +1,4 @@
-#include "ft_ssl_md5.h"
+#include "ft_ssl.h"
 
 void			decrypt_chunk(unsigned char *d, int i, int p)
 {

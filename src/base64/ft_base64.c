@@ -1,4 +1,4 @@
-#include "ft_ssl_md5.h"
+#include "ft_ssl.h"
 
 void		print_chunk(unsigned char *chunk, int i, int p)
 {
@@ -36,7 +36,6 @@ unsigned	get_chunk(char *input, int i, int len, int size)
 void		change_base(unsigned chunk, int decrypt, int i, int len)
 {
 	unsigned char	*d;
-	int				p;
 
 	d = decrypt ? contract_base(chunk) : expand_base(chunk);
 	if (decrypt)

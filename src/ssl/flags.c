@@ -6,11 +6,11 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:05:51 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/18 17:50:04 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:22:48 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl_md5.h"
+#include "ft_ssl.h"
 #include "ssl_md5_flag_tab.h"
 
 int				flag_val(char *flags, int dis, char *fun)

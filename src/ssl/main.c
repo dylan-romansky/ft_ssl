@@ -6,12 +6,12 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 19:34:06 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/18 18:11:31 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:23:00 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
-#include "ft_ssl_md5.h"
+#include "ft_ssl.h"
 #include "ssl_md5_dispatch.h"
 #include "ssl_md5_enums.h"
 

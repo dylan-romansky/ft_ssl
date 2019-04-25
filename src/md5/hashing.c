@@ -6,11 +6,11 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 14:16:06 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/13 14:23:30 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:21:47 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl_md5.h"
+#include "ft_ssl.h"
 
 int		lessthan16(t_md5_words *words, int i)
 {

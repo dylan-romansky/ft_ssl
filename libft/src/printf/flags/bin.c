@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:54:24 by dromansk          #+#    #+#             */
-/*   Updated: 2019/02/28 16:56:35 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/24 19:06:23 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,8 @@ void	fix_bin(t_flag **flags)
 
 	curr = *flags;
 	curr->zero = 1;
-	curr->width = curr->width < 8 ? 8 : curr->width;
+	if (!(curr->width))
+		curr->width++;
+	while (curr->width % 8)
+		curr->width++;
 }

@@ -6,15 +6,11 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 20:39:49 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/16 20:18:17 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:22:31 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-** issue with table generation. figure it out idiot
-*/
-
-#include "ft_ssl_md5.h"
+#include "ft_ssl.h"
 
 void	print_sha512(t_512_words *words)
 {

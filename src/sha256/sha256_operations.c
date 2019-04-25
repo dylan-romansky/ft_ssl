@@ -6,11 +6,11 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 20:34:09 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/13 14:07:28 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:22:15 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl_md5.h"
+#include "ft_ssl.h"
 
 const uint32_t g_k2[] = {
 	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1,

@@ -6,11 +6,11 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:29:52 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/16 20:14:44 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:21:41 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl_md5.h"
+#include "ft_ssl.h"
 
 /*
 ** will need to verify if this works with binary files

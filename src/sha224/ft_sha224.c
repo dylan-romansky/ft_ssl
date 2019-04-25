@@ -6,11 +6,11 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 21:49:36 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/16 20:16:04 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:21:57 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl_md5.h"
+#include "ft_ssl.h"
 
 void	print_sha224(t_sha_words *words)
 {

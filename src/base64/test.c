@@ -1,4 +1,4 @@
-#include "ft_ssl_md5.h"
+#include "ft_ssl.h"
 
 unsigned		flip_end(unsigned n)
 {

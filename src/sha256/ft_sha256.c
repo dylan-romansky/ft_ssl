@@ -6,15 +6,11 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 20:39:49 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/16 20:16:46 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:22:09 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-** issue with hash but it still functions without faults. check w
-*/
-
-#include "ft_ssl_md5.h"
+#include "ft_ssl.h"
 
 void	print_sha256(t_sha_words *words)
 {

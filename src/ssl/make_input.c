@@ -6,11 +6,11 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 20:35:00 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/17 19:16:22 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:23:06 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl_md5.h"
+#include "ft_ssl.h"
 
 /*
 ** write flag getting function for ciphers
