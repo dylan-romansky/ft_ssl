@@ -24,11 +24,9 @@ long double	get_prec(int precision)
 
 long double	ft_sqrt(int square, int precision)
 {
-	long double input;
 	long double integer;
 	long double decimal;
 
-	input = (long double)square;
 	integer = 0;
 	decimal = get_prec(precision);
 	while (integer * integer <= square)
