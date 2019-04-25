@@ -2,12 +2,12 @@
 
 int		main(void)
 {
+	unsigned long	message = 0x0123456789ABCDEF;
 	unsigned long	key = 0x133457799BBCDFF1;
-	ft_printf("key  %64llb\n", key);
-	const unsigned long	*subkeys = gen_key(key);
-
-	int i = -1;
-//	while (++i < 16)
-//		ft_printf("%-5d%64llb\n", i + 1, subkeys[i]);
+	unsigned long	*subkeys = gen_key(key);
+	ft_printf("good\n");
+	unsigned long permuted = init_perm(message);
+	ft_printf("%llb\n", permuted);
+	ft_printf("%llX\n", split_perm(permuted, subkeys));
 	return (0);
 }

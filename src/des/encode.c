@@ -1,3 +1,4 @@
+#include "ft_ssl.h"
 #include "ssl_md5_s_boxes.h"
 
 const int	init_perm_k [] = {
@@ -14,6 +15,11 @@ const int	expansion_k [] = {
 	19, 20, 21, 20, 21, 22, 23, 24, 25, 24, 25, 26,
 	27, 28, 29, 28, 29, 30, 31, 32, 1};
 
+const int	block_perm_k [] = {
+	16, 7, 20, 21, 29, 12, 28, 17, 1, 15, 23, 26, 5, 18,
+	31, 10, 2, 8, 24, 14, 32, 27, 3, 9, 19, 13, 30, 6, 22,
+	11, 4, 25};
+
 /*
 ** this relies on my being able to index static arrays the way I want
 */
@@ -23,14 +29,18 @@ unsigned		s_boxing(unsigned long expand, int i)
 	char	block;
 	char	row;
 	char	column;
+	unsigned	debug = 0;
+	unsigned	dtest = 0;
 
 	block = expand & 63;
 	expand >>= 6;
 	row = ((block >> 4) & 2) + (1 & block);
 	column = (block >> 1) & 15;
-	if (!g_boxes[i].box)
+	if (i == 8)
 		return (0);
-	return ((s_boxing(expand, i + 1) << 4) | g_boxes[i].box[row][column]);
+	dtest = boxes_k[i][row][column];
+	debug = s_boxing(expand, i + 1) << 4;
+	return (dtest | (debug << 4));
 }
 
 unsigned		permute_box(unsigned box)
@@ -38,42 +48,50 @@ unsigned		permute_box(unsigned box)
 	int				i;
 	unsigned		perm;
 
-	i = 32;
+	i = -1;
 	perm = 0;
-	while (--i >= 0)
+	while (++i < 32)
 	{
 		perm <<= 1;
-		perm |= (1 << (block_perm_k[i] - 1)) & box ? 1 : 0;
+		perm |= (1 << (32 - block_perm_k[i])) & box ? 1 : 0;
 	}
 	return (perm);
 }
 
+/*
+** issue is somewhere in here. I imagine it has to do with either which one is
+** being shifted or the way I'm indexing my arrays
+*/ 
 unsigned		key_encrypt(unsigned right, unsigned long key)
 {
 	unsigned long	expand;
 	int				i;
 
 	expand = 0;
-	i = 48;
-	while (--i >= 0)
+	i = -1;
+	while (++i < 48)
 	{
 		expand <<= 1;
-		expand |= (1 << (init_perm_k[i] - 1)) & right ? 1 : 0;
+		expand |= ((unsigned long)1 << (32 - init_perm_k[i])) & right ? 1 : 0;
 	}
 	return (permute_box(s_boxing(expand ^ key, 0)));
 }
+
+/*
+** initial permutation of data block. verified this works.
+*/
 
 unsigned long	init_perm(unsigned long block)
 {
 	unsigned long	perm;
 	int				i;
 
-	i = 64;
+	i = -1;
 	perm = 0;
-	while (--i >= 0)
+	while (++i < 64)
 	{
 		perm <<= 1;
-		perm |= (1 << init_perm_k[i]) & block ? 1 : 0;
+		perm |= ((unsigned long)1 << (64 - init_perm_k[i])) & block ? 1 : 0;
 	}
 	return (perm);
 }
@@ -81,7 +99,7 @@ unsigned long	init_perm(unsigned long block)
 ** consider adding data type for left and right tables
 */
 
-void			split_perm(unsigned long perm, unsigned long *key48)
+unsigned long	split_perm(unsigned long perm, unsigned long *key48)
 {
 	unsigned		left[17];
 	unsigned		right[17];
@@ -90,9 +108,11 @@ void			split_perm(unsigned long perm, unsigned long *key48)
 	left[0] = perm >> 32;
 	right[0] = perm & 0xffffffff;
 	i = 0;
+	int k = 0;
 	while (++i < 17)
 	{
 		left[i] = right[i - 1];
 		right[i] = left[i - 1] ^ key_encrypt(right[i - 1], key48[i - 1]);
 	}
+	return (reverse_permute(left[16], right[16]));
 }

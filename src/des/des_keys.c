@@ -20,31 +20,31 @@ const int keycat56_k[] = {
 	47, 55, 30, 40, 51, 45, 33, 48, 44, 49, 39, 56, 34,
 	53, 46, 42, 50, 36, 29, 32};
 
-unsigned			key_rotate(unsigned input, unsigned amount)
+unsigned		key_rotate(unsigned input, unsigned amount)
 {
 	return ((((unsigned int)input << amount) & 0x0fffffff) |
 			(input >> (28 - amount)));
 }
 
-unsigned long		gen_cat(unsigned long c, unsigned long d)
+unsigned long	gen_cat(unsigned long c, unsigned long d)
 {
 	unsigned long	k;
 	unsigned long	cat;
 	int				i;
 
 	k = 0;
-	i = 48;
-	cat |= c << 7;
+	i = -1;
+	cat |= c << 28;
 	cat |= d;
-	while (--i >= 0)
+	while (++i < 48)
 	{
 		k <<= 1;
-		k |= (1 << (keycat56_k[i] - 1)) & cat ? 1 : 0;
+		k |= ((unsigned long)1 << (56 - keycat56_k[i])) & cat ? 1 : 0;
 	}
 	return (k);
 }
 
-const unsigned long	*gen_key(unsigned long key)
+unsigned long	*gen_key(unsigned long key)
 {
 	unsigned long	key56;
 	int				i;
@@ -53,16 +53,14 @@ const unsigned long	*gen_key(unsigned long key)
 	unsigned long	*k;
 
 	key56 = 0;
-	i = 56;
+	i = -1;
 	k = (unsigned long *)malloc(sizeof(unsigned long) * 16);
-	while (--i >= 0)
+	while (++i < 56)
 	{
 		key56 <<= 1;
-		key56 |= (1 << (keygen56_k[i] - 1)) & key ? 1 : 0;
-		ft_printf("adding %d from bit %d\n", (1 << (keygen56_k[i] - 1)) & key ? 1 : 0, keygen56_k[i]);
+		key56 |= ((unsigned long)1 << (64 - keygen56_k[i])) & key ? 1 : 0;
 	}
-	ft_printf("k56  %64llb\n", key56);
-	c[0] = key56 & 0x00fffffff0000000;
+	c[0] = (key56 & 0x00fffffff0000000) >> 28;
 	d[0] = key56 & 0x0fffffff;
 	i = 0;
 	while (++i < 17)

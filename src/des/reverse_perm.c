@@ -13,11 +13,11 @@ unsigned long	reverse_permute(unsigned left, unsigned right)
 	int				i;
 
 	rev = ((unsigned long)right << 32) | left;
-	i = 64;
-	while (--i >= 0)
+	i = -1;
+	while (++i < 64)
 	{
 		perm <<= 1;
-		perm |= (1 << (rev_perm_k[i] - 1)) & rev ? 1 : 0;
+		perm |= ((unsigned long)1 << (64 -rev_perm_k[i])) & rev ? 1 : 0;
 	}
 	return (perm);
 }
