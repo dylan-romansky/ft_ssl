@@ -5,7 +5,7 @@ int	ft_des_cbc_e(t_ssl_input *input)
 	unsigned long	chunk;
 	unsigned long	vector;
 	unsigned long	*subkeys;
-	int				i;
+	size_t			i;
 
 	i= 0;
 	subkeys = gen_key(input->key);
@@ -29,7 +29,7 @@ int	ft_des_cbc_d(t_ssl_input *input)
 	unsigned long	chunk;
 	unsigned long	vector;
 	unsigned long	*subkeys;
-	int				i;
+	size_t			i;
 
 	i= 0;
 	subkeys = gen_key(input->key);

@@ -16,6 +16,7 @@ unsigned long	reverse_permute(unsigned left, unsigned right)
 
 	rev = ((unsigned long)right << 32) | left;
 	i = -1;
+	perm = 0;
 	while (++i < 64)
 	{
 		perm <<= 1;

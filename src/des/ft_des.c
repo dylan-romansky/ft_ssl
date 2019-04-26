@@ -9,7 +9,7 @@ void	des_pad(t_ssl_input *input)
 {
 	unsigned char	*pad;
 	unsigned int	val;
-	int				i;
+	unsigned		i;
 
 	i = 0;
 	val = 8 - (input->len % 8);

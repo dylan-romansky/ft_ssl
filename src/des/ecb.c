@@ -4,7 +4,7 @@ int	ft_des_ecb_e(t_ssl_input *input)
 {
 	unsigned long	chunk;
 	unsigned long	*subkeys;
-	int				i;
+	size_t			i;
 
 	i = 0;
 	subkeys = gen_key(input->key);
@@ -24,7 +24,7 @@ int	ft_des_ecb_d(t_ssl_input *input)
 {
 	unsigned long	chunk;
 	unsigned long	*subkeys;
-	int				i;
+	size_t			i;
 
 	i = 0;
 	subkeys = gen_key(input->key);
@@ -34,7 +34,7 @@ int	ft_des_ecb_d(t_ssl_input *input)
 		ft_memcpy(&chunk, input->input + i, 8);
 		chunk = init_perm(chunk);
 		chunk = split_perm_d(chunk, subkeys);
-		write(input->outfd, &chunk, i + 8 <= input->len ? 8 : input->len - i);//write ternary to decide final write length
+		write(input->outfd, &chunk, i + 8 <= input->len ? 8 : input->len - i);
 		i += 8;
 	}
 	return (0);
