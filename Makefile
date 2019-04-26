@@ -6,14 +6,14 @@
 #    By: dromansk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:18:25 by dromansk          #+#    #+#              #
-#    Updated: 2019/04/10 22:03:55 by dromansk         ###   ########.fr        #
+#    Updated: 2019/04/26 13:33:09 by dromansk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_ssl
 
 SRCS = ./src/ssl/*.c ./src/md5/*.c ./src/sha256/*.c ./src/sha224/*.c \
-	   ./src/sha512/*.c ./src/sha384/*.c ./src/base64/*.c
+	   ./src/sha512/*.c ./src/sha384/*.c ./src/base64/*.c ./src/des/*.c
 
 I = -I ./includes -I ./libft/includes
 
