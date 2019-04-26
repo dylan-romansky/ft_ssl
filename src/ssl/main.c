@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 19:34:06 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/24 18:23:00 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/26 14:44:31 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int				check_stdin(t_ssl_input *input, int dis)
 
 void			ssl_flags(char **av, t_ssl_input *input, int dis, int j)
 {
-	input->flags = 0;
 	while (++j < input->args)
 	{
 		if (av[j][0] == '-' && (av[j][1] == 's' || ft_strlen(av[j]) == 2))
@@ -88,6 +87,32 @@ void			ssl_flags(char **av, t_ssl_input *input, int dis, int j)
 		}
 	}
 	check_stdin(input, dis);
+}
+
+void		cipher_flags(char **av, t_ssl_input *input, int dis, int j)
+{
+	while (++j < input->args)
+	{
+		if (av[j][0] == '-')
+		{
+			input->flags |= cipher_flag_val(av[j], dis, g_ssl_funs[dis].print);
+			if (flags & i)
+				j += input_file(input, av[j]);
+			if (flags & o)
+				j += output_file(input, av[j]);
+			if (flags & k)
+				j += hex_to_l(input, av[j]);
+			if (flags & p2)
+				j += get_pass(input, av[j]);
+			if (flags & s2)
+				j += hex_to_l(input, av[j]);
+			if (flags & v)
+				j += hex_to_l(input, av[j]);
+		}
+		else
+			break ;
+	}
+	get_missing(input, g_ssl_funs[dis].hash);
 }
 
 int				main(int ac, char **av)
