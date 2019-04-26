@@ -20,11 +20,6 @@ int	ft_des_ecb_e(t_ssl_input *input)
 	return (0);
 }
 
-/*
-** write decoding functions, should be simple since in theory you just apply the
-** keys in the opposite order, so verify that is in fact what you are doing
-*/
-
 int	ft_des_ecb_d(t_ssl_input *input)
 {
 	unsigned long	chunk;
@@ -39,7 +34,7 @@ int	ft_des_ecb_d(t_ssl_input *input)
 		ft_memcpy(&chunk, input->input + i, 8);
 		chunk = init_perm(chunk);
 		chunk = split_perm_d(chunk, subkeys);
-		write(input->outfd, &chunk, 8);//write ternary to decide final write length
+		write(input->outfd, &chunk, i + 8 <= input->len ? 8 : input->len - i);//write ternary to decide final write length
 		i += 8;
 	}
 	return (0);
