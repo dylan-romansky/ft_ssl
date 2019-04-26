@@ -39,7 +39,7 @@ int	ft_des_ecb_d(t_ssl_input *input)
 		ft_memcpy(&chunk, input->input + i, 8);
 		chunk = init_perm(chunk);
 		chunk = split_perm_d(chunk, subkeys);
-		ft_dprintf(input->outfd, "%16llX\n", chunk);
+		write(input->outfd, &chunk, 8);//write ternary to decide final write length
 		i += 8;
 	}
 	return (0);

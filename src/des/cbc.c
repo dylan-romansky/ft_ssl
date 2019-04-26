@@ -17,7 +17,7 @@ int	ft_des_cbc_e(t_ssl_input *input)
 		chunk ^= vector;
 		chunk = init_perm(chunk);
 		chunk = split_perm_e(chunk, subkeys);
-		ft_dprintf(input->outfd, "%16llX\n", chunk);
+		ft_dprintf(input->outfd, "%16llX", chunk);
 		vector = chunk;
 		i += 8;
 	}
@@ -41,7 +41,7 @@ int	ft_des_cbc_d(t_ssl_input *input)
 		chunk ^= vector;
 		chunk = init_perm(chunk);
 		chunk = split_perm_d(chunk, subkeys);
-		ft_dprintf(input->outfd, "%16llX\n", chunk);
+		write(input->outfd, &chunk, 8);
 		vector = chunk;
 		i += 8;
 	}
