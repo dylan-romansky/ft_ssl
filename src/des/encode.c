@@ -20,29 +20,6 @@ const int	block_perm_k [] = {
 	31, 10, 2, 8, 24, 14, 32, 27, 3, 9, 19, 13, 30, 6, 22,
 	11, 4, 25};
 
-/*
-** this relies on my being able to index static arrays the way I want
-*/
-
-unsigned		s_boxing(unsigned long expand, int i)
-{
-	char	block;
-	char	row;
-	char	column;
-	unsigned	debug = 0;
-	unsigned	dtest = 0;
-
-	block = expand & 63;
-	expand >>= 6;
-	row = ((block >> 4) & 2) + (1 & block);
-	column = (block >> 1) & 15;
-	if (i == 8)
-		return (0);
-	dtest = boxes_k[i][row][column];
-	debug = s_boxing(expand, i + 1) << 4;
-	return (dtest | (debug << 4));
-}
-
 unsigned		permute_box(unsigned box)
 {
 	int				i;
@@ -56,6 +33,21 @@ unsigned		permute_box(unsigned box)
 		perm |= (1 << (32 - block_perm_k[i])) & box ? 1 : 0;
 	}
 	return (perm);
+}
+
+unsigned		s_boxing(unsigned long expand, int i)
+{
+	char	block;
+	char	row;
+	char	column;
+
+	if (i == -1)
+		return (0);
+	block = expand & 63;
+	expand >>= 6;
+	row = ((block >> 4) & 2) + (1 & block);
+	column = (block >> 1) & 15;
+	return (boxes_k[i][row][column] | (s_boxing(expand, i - 1) << 4));
 }
 
 /*
@@ -72,9 +64,9 @@ unsigned		key_encrypt(unsigned right, unsigned long key)
 	while (++i < 48)
 	{
 		expand <<= 1;
-		expand |= ((unsigned long)1 << (32 - init_perm_k[i])) & right ? 1 : 0;
+		expand |= ((unsigned long)1 << (32 - expansion_k[i])) & right ? 1 : 0;
 	}
-	return (permute_box(s_boxing(expand ^ key, 0)));
+	return (permute_box(s_boxing(expand ^ key, 7)));
 }
 
 /*

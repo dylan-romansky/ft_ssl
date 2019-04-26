@@ -34,7 +34,7 @@ unsigned long	gen_cat(unsigned long c, unsigned long d)
 
 	k = 0;
 	i = -1;
-	cat |= c << 28;
+	cat = c << 28;
 	cat |= d;
 	while (++i < 48)
 	{
