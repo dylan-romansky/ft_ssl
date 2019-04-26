@@ -1,3 +1,5 @@
+#include "ft_ssl.h"
+
 const int	rev_perm_k [] = {
 	40, 8, 48, 16, 56, 24, 64, 32, 39, 7, 47,
 	15, 55, 23, 63, 31, 38, 6, 46, 14, 54, 22,
@@ -17,7 +19,41 @@ unsigned long	reverse_permute(unsigned left, unsigned right)
 	while (++i < 64)
 	{
 		perm <<= 1;
-		perm |= ((unsigned long)1 << (64 -rev_perm_k[i])) & rev ? 1 : 0;
+		perm |= ((unsigned long)1 << (64 - rev_perm_k[i])) & rev ? 1 : 0;
 	}
 	return (perm);
+}
+
+unsigned long	split_perm_e(unsigned long perm, unsigned long *key48)
+{
+	unsigned		left[17];
+	unsigned		right[17];
+	int				i;
+
+	left[0] = perm >> 32;
+	right[0] = perm & 0xffffffff;
+	i = 0;
+	while (++i < 17)
+	{
+		left[i] = right[i - 1];
+		right[i] = left[i - 1] ^ key_encrypt(right[i - 1], key48[i - 1]);
+	}
+	return (reverse_permute(left[16], right[16]));
+}
+
+unsigned long	split_perm_d(unsigned long perm, unsigned long *key48)
+{
+	unsigned		left[17];
+	unsigned		right[17];
+	int				i;
+
+	left[0] = perm >> 32;
+	right[0] = perm & 0xffffffff;
+	i = 0;
+	while (++i < 17)
+	{
+		left[i] = right[i - 1];
+		right[i] = left[i - 1] ^ key_encrypt(right[i - 1], key48[16 - i]);
+	}
+	return (reverse_permute(left[16], right[16]));
 }

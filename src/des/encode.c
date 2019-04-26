@@ -87,24 +87,4 @@ unsigned long	init_perm(unsigned long block)
 	}
 	return (perm);
 }
-/*
-** consider adding data type for left and right tables
-*/
 
-unsigned long	split_perm(unsigned long perm, unsigned long *key48)
-{
-	unsigned		left[17];
-	unsigned		right[17];
-	int				i;
-
-	left[0] = perm >> 32;
-	right[0] = perm & 0xffffffff;
-	i = 0;
-	int k = 0;
-	while (++i < 17)
-	{
-		left[i] = right[i - 1];
-		right[i] = left[i - 1] ^ key_encrypt(right[i - 1], key48[i - 1]);
-	}
-	return (reverse_permute(left[16], right[16]));
-}

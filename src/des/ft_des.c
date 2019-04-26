@@ -1,4 +1,5 @@
 #include "ft_ssl.h"
+#include "ssl_md5_enums.h"
 
 void	des_pad(t_ssl_input *input)
 {
@@ -13,27 +14,28 @@ void	des_pad(t_ssl_input *input)
 	while (i < val)
 		pad[i++ + input->len] = val;
 	free(input->input);
-	input->input = pad;
+	input->input = (char *)pad;
 	input->len += val;
 }
 
 int		ft_des_ecb(t_ssl_input *input)
 {
-	if (len % 8 && input->flags & e)
+	if (input->len % 8 && !(input->flags & d))
 		des_pad(input);
-	if (input->flags & e)
-		ft_des_ecb_e(input);
-	else
+	if (input->flags & d)
 		ft_des_ecb_d(input);
+	else
+		ft_des_ecb_e(input);
+	return (0);
 }
 
 int		ft_des_cbc(t_ssl_input *input)
 {
-	if (len % 8 && input->flags & e)
+	if (input->len % 8 && !(input->flags & d))
 		des_pad(input);
-	if (input->flags & e)
-		ft_des_cbc_e(input);
-	else
+	if (input->flags & d)
 		ft_des_cbc_d(input);
+	else
+		ft_des_cbc_e(input);
 	return (0);
 }
