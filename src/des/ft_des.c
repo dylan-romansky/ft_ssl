@@ -1,6 +1,10 @@
 #include "ft_ssl.h"
 #include "ssl_md5_enums.h"
 
+/*
+** unpadding can check the value of last byte and see if the preceeding x bytes are the same number
+*/
+
 void	des_pad(t_ssl_input *input)
 {
 	unsigned char	*pad;
