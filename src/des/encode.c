@@ -37,9 +37,9 @@ unsigned		permute_box(unsigned box)
 
 unsigned		s_boxing(unsigned long expand, int i)
 {
-	char	block;
-	char	row;
-	char	column;
+	unsigned char	block;
+	unsigned char	row;
+	unsigned char	column;
 
 	if (i == -1)
 		return (0);
