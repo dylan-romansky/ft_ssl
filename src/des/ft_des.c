@@ -2,7 +2,10 @@
 #include "ssl_md5_enums.h"
 
 /*
-** unpadding can check the value of last byte and see if the preceeding x bytes are the same number
+** unpadding can check the value of last byte and see if the preceeding x bytes
+** are the same number
+**
+** functions need to return strings so base64 conversions can happen
 */
 
 void	des_pad(t_ssl_input *input)
