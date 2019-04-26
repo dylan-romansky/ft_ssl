@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:08:20 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/25 15:42:11 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/04/25 22:23:25 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,15 @@ int				minus_pad(char *input);
 
 int				ft_des_cbc(t_ssl_input *input);
 int				ft_des_ecb(t_ssl_input *input);
+int				ft_des_cbc_e(t_ssl_input *input);
+int				ft_des_cbc_d(t_ssl_input *input);
+int				ft_des_ecb_e(t_ssl_input *input);
+int				ft_des_ecb_d(t_ssl_input *input);
 unsigned long	*gen_key(unsigned long key);
+unsigned		key_encrypt(unsigned right, unsigned long key);
 unsigned long	init_perm(unsigned long block);
-unsigned long	split_perm(unsigned long perm, unsigned long *key48);
+unsigned long	split_perm_e(unsigned long perm, unsigned long *key48);
+unsigned long	split_perm_d(unsigned long perm, unsigned long *key48);
 unsigned long	reverse_permute(unsigned left, unsigned right);
 const int		***init_boxes(void);
 
