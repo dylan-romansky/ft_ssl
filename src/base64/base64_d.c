@@ -20,10 +20,6 @@ unsigned char	char_base(char c)
 	return (0);
 }
 
-/*
-** this needs to be redone real bad
-*/
-
 unsigned		remove_chars(unsigned chunk)
 {
 	unsigned char	*d;
