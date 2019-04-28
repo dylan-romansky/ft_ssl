@@ -30,7 +30,7 @@ t_ssl_input	*make_input(int ac)
 	input->flags = 0;
 	input->infd = 0;
 	input->outfd = 1;
-	intput->iv = 0;
+	input->iv = 0;
 	input->key = 0;
 	input->pass = NULL;
 	input->salt = 0;
