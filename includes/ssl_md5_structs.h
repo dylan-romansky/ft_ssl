@@ -95,6 +95,8 @@ struct	s_ssl_input
 	int				outfd;
 	unsigned long	key;
 	unsigned long	iv;
+	unsigned long	salt;
+	char			*pass;
 };
 
 #endif
