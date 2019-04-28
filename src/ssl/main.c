@@ -95,8 +95,8 @@ void		cipher_flags(char **av, t_ssl_input *input, int dis, int j)
 	{
 		if (av[j][0] == '-')
 		{
-			input->flags |= cipher_flag_val(av[j], dis, g_ssl_funs[dis].print);
-			if (flags & i)
+			j += cipher_flag_val(av[j], dis, g_ssluns[dis].print, input);
+/*			if (flags & i)
 				j += input_file(input, av[j]);
 			if (flags & o)
 				j += output_file(input, av[j]);
@@ -108,6 +108,8 @@ void		cipher_flags(char **av, t_ssl_input *input, int dis, int j)
 				j += hex_to_l(input, av[j]);
 			if (flags & v)
 				j += hex_to_l(input, av[j]);
+commented out but saving cuz I'll need these checks for the cipher_flag_val deal
+*/
 		}
 		else
 			break ;
