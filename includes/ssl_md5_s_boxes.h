@@ -1,12 +1,24 @@
-#ifndef SSL_MD5_S_BOXES
-# define SSL_MD5_S_BOXES
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ssl_md5_s_boxes.h                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/09 00:08:59 by dromansk          #+#    #+#             */
+/*   Updated: 2019/05/09 00:11:05 by dromansk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef SSL_MD5_S_BOXES_H
+# define SSL_MD5_S_BOXES_H
 # include "libft.h"
 
 /*
 ** find out if this is a valid declaration
 */
 
-const int	boxes_k [8][4][16] = {
+const int	g_boxes_k[8][4][16] = {
 	{
 		{14, 4, 13, 1, 2, 15, 11, 8, 3, 10, 6, 12, 5, 9, 0, 7},
 		{0, 15, 7, 4, 14, 2, 13, 1, 10, 6, 12, 11, 9, 5, 3, 8},
@@ -56,25 +68,5 @@ const int	boxes_k [8][4][16] = {
 		{2, 1, 14, 7, 4, 10, 8, 13, 15, 12, 9, 0, 3, 5, 6, 11}
 	}
 };
-
-/*typedef struct s_boxes	t_boxes;
-
-struct	s_boxes
-{
-	const int	box[4][16];
-};
-
-t_boxes	g_boxes[] =
-{
-	{(const int **)s1_k},
-	{(const int **)s2_k},
-	{(const int **)s3_k},
-	{(const int **)s4_k},
-	{(const int **)s5_k},
-	{(const int **)s6_k},
-	{(const int **)s7_k},
-	{(const int **)s8_k},
-	{NULL}
-};*/
 
 #endif
