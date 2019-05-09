@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cbc.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/08 23:53:09 by dromansk          #+#    #+#             */
+/*   Updated: 2019/05/09 00:04:34 by dromansk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ssl.h"
 
 int	ft_des_cbc_e(t_ssl_input *input)
@@ -7,7 +19,7 @@ int	ft_des_cbc_e(t_ssl_input *input)
 	unsigned long	*subkeys;
 	size_t			i;
 
-	i= 0;
+	i = 0;
 	subkeys = gen_key(input->key);
 	vector = input->iv;
 	while (i < input->len)
@@ -31,7 +43,7 @@ int	ft_des_cbc_d(t_ssl_input *input)
 	unsigned long	*subkeys;
 	size_t			i;
 
-	i= 0;
+	i = 0;
 	subkeys = gen_key(input->key);
 	vector = input->iv;
 	while (i < input->len)
