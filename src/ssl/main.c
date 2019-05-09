@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 19:34:06 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/26 14:44:31 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/09 00:15:11 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void			ssl_flags(char **av, t_ssl_input *input, int dis, int j)
 	check_stdin(input, dis);
 }
 
-void		cipher_flags(char **av, t_ssl_input *input, int dis, int j)
+void			cipher_flags(char **av, t_ssl_input *input, int dis, int j)
 {
 	while (++j < input->args)
 	{
@@ -131,7 +131,8 @@ int				main(int ac, char **av)
 			dis++;
 		if (!g_sslfuns[dis].name)
 			error_nodis(av[1]);
-		dis < 4 ? ssl_flags(av, input, dis, 1) : cipher_flags(av, input, dis, 1);
+		dis < 4 ? ssl_flags(av, input, dis, 1) :
+			cipher_flags(av, input, dis, 1);
 		free(input);
 	}
 	else

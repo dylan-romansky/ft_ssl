@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:05:51 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/26 14:32:59 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/09 00:07:11 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int				des_flag_val(char *flags)
 		i++;
 	while (g_desflags[j].flag && g_desflags[j].flag != flags[i])
 		j++;
-	return(g_desflags[j].flag ? g_desflags[j].value : -1);
+	return (g_desflags[j].flag ? g_desflags[j].value : -1);
 }
 
 int				cipher_flag_val(char *flags, int dis, char *fun)
