@@ -109,6 +109,7 @@ void		cipher_flags(char **av, t_ssl_input *input, int dis, int j)
 			if (flags & v)
 				j += hex_to_l(input, av[j]);
 commented out but saving cuz I'll need these checks for the cipher_flag_val deal
+check can use xor to see if any flags are missing
 */
 		}
 		else
