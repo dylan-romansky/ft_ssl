@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_base64.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/09 00:16:47 by dromansk          #+#    #+#             */
+/*   Updated: 2019/05/09 00:16:49 by dromansk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ssl.h"
 
 void		print_chunk(unsigned char *chunk, int i, int p)
@@ -28,7 +40,7 @@ unsigned	get_chunk(char *input, int i, int len, int size)
 	chunk = 0;
 	if (i < (len - size - 1))
 		ft_memcpy(&chunk, input + i, size);
-	else 
+	else
 		ft_memcpy(&chunk, input + i, len - i);
 	return (chunk);
 }
