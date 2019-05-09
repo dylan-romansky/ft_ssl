@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 00:04:51 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 00:04:54 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/09 00:18:38 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ unsigned long	gen_cat(unsigned long c, unsigned long d)
 	return (k);
 }
 
-unsigned long	gen_k(unsigned long c[17], unsigned long d[17])
+unsigned long	*gen_k(unsigned long c[17], unsigned long d[17])
 {
 	int				i;
 	unsigned long	*k;
