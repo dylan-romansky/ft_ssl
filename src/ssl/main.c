@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 19:34:06 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 00:15:11 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/09 01:23:15 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,23 +95,9 @@ void			cipher_flags(char **av, t_ssl_input *input, int dis, int j)
 	{
 		if (av[j][0] == '-')
 		{
-			j += cipher_flag_val(av[j], dis, g_ssluns[dis].print, input);
-/*			if (flags & i)
-				j += input_file(input, av[j]);
-			if (flags & o)
-				j += output_file(input, av[j]);
-			if (flags & k)
-				j += hex_to_l(input, av[j]);
-			if (flags & p2)
-				j += get_pass(input, av[j]);
-			if (flags & s2)
-				j += hex_to_l(input, av[j]);
-			if (flags & v)
-				j += hex_to_l(input, av[j]);
-commented out but saving cuz I'll need these checks for the cipher_flag_val deal
-check can use xor to see if any flags are missing
-*/
-		}
+			input->flags |=
+				cipher_flag_val(av[j], dis, g_ssluns[dis].print, input);
+			j += j_increment(input, av[j + 1]);
 		else
 			break ;
 	}

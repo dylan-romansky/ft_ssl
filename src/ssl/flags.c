@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:05:51 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 00:07:11 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/09 01:30:13 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,30 @@ int				cipher_flag_val(char *flags, int dis, char *fun)
 		sum |= j;
 	}
 	return (sum);
+}
+
+int				j_increment(t_ssl_input *input, char *arg)
+{
+	if (input->flags & i && !input->infd)
+		return (input_file(input, av[j]));
+	if (input->flags & o && !input->outfd)
+		return (output_file(input, av[j]));
+	if (input->flags & k && !input->key)
+	{
+		input->key = hex_to_l(input, av[j]);
+		return (2);
+	}
+	if (input->flags & p2 && !input->pass)
+		return (get_pass(input, av[j]));
+	if (input->flags & s2 && !input->salt)
+	{
+		input->salt = hex_to_l(input, av[j]);
+		return (2);
+	}
+	if (input->flags & v && !input->iv)
+	{
+		input->iv = hex_to_l(input, av[j]);
+		return (2);
+	}
+	return (1);
 }
