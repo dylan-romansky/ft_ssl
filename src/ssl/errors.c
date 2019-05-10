@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 19:17:39 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/24 18:22:41 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/09 16:29:03 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,16 @@ void	error_nodis(char *input)
 void	bad_input(char *input)
 {
 	ft_printf("ft_ssl: md5: %s: No such file or directory\n", input);
+}
+
+void	no_file(char *input, char *fun)
+{
+	ft_printf("%s: Error: can't open file: '%s'\n", fun, input);
+	exit(1);
+}
+
+void	no_read(char *input, char *fun)
+{
+	ft_printf("%s: Error: can't read file: '%s'\n", fun, input);
+	exit(1);
 }

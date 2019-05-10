@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ssl.h                                           :+:      :+:    :+:   */
+/*   more_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/28 14:04:02 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 18:25:04 by dromansk         ###   ########.fr       */
+/*   Created: 2019/05/09 17:07:09 by dromansk          #+#    #+#             */
+/*   Updated: 2019/05/09 17:08:32 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SSL_H
-# define FT_SSL_H
-# define BUFF_SIZE 512
-# include "printf.h"
-# include "ssl_md5_fun.h"
-# include "ssl_md5_structs.h"
-# include "sys/random.h"
+#include "ft_ssl.h"
 
-#endif
+void	des_len_error(int dis)
+{
+	if (dis == 6)
+		ft_printf("Error: des: Message not multiple of block length.");
+	if (dis == 7)
+		ft_printf("Error: des-cbc: Message not multiple of block length.");
+	if (dis == 8)
+		ft_printf("Error: des-ecb: Message not multiple of block length.");
+	exit(1);
+}

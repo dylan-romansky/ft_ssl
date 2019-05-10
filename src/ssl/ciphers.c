@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 20:35:00 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/26 14:56:13 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/09 17:11:08 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_ssl_input	*make_input(int ac)
 	input->input = NULL;
 	input->len = 0;
 	input->flags = 0;
-	input->infd = 0;
 	input->outfd = 1;
 	input->iv = 0;
 	input->key = 0;

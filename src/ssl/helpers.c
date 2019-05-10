@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 19:18:19 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/24 18:22:54 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/09 16:26:11 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int				get_input(int fd, int flags, char *input, char **file)
 	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
 	{
 		buf[ret] = '\0';
-		content = swap_n_free(ft_strjoin(content, buf), &content);
+		content = ft_hardjoin(content, len, buf, ret);
 		len += ret;
 	}
 	if (ret < 0)

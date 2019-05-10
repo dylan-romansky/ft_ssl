@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:05:51 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 01:30:13 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/09 17:36:32 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,27 +78,27 @@ int				cipher_flag_val(char *flags, int dis, char *fun)
 	return (sum);
 }
 
-int				j_increment(t_ssl_input *input, char *arg)
+int				j_increment(t_ssl_input *input, char *arg, char *fun, int dis)
 {
-	if (input->flags & i && !input->infd)
-		return (input_file(input, av[j]));
+	if (input->flags & i && input->input)
+		return (input_file(input, arg, fun, open(arg, O_RDONLY)));
 	if (input->flags & o && !input->outfd)
-		return (output_file(input, av[j]));
+		return (output_file(input, arg));
 	if (input->flags & k && !input->key)
 	{
-		input->key = hex_to_l(input, av[j]);
+		input->key = check_key(arg, dis);
 		return (2);
 	}
 	if (input->flags & p2 && !input->pass)
-		return (get_pass(input, av[j]));
+		return (get_pass(input, arg));
 	if (input->flags & s2 && !input->salt)
 	{
-		input->salt = hex_to_l(input, av[j]);
+		input->salt = check_salt(arg, dis);
 		return (2);
 	}
 	if (input->flags & v && !input->iv)
 	{
-		input->iv = hex_to_l(input, av[j]);
+		input->iv = verify_iv(arg, dis);
 		return (2);
 	}
 	return (1);

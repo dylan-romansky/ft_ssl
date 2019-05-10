@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:09 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 00:04:34 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/09 15:07:37 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	ft_des_cbc_e(t_ssl_input *input)
 	}
 	return (0);
 }
-
+/* check message length and print error if it's wrong length for decoding */
+/* "Message not multiple of block length" */
 int	ft_des_cbc_d(t_ssl_input *input)
 {
 	unsigned long	chunk;

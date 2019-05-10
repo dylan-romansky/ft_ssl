@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:08:20 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 01:39:22 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/09 18:23:18 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,32 @@ void				ssl_flags(char **av, t_ssl_input *input, int dis, int j);
 void				cipher_flags(char **av, t_ssl_input *input, int dis, int j);
 int					flag_val(char *flags, int dis, char *fun);
 int					cipher_flag_val(char *flags, int dis, char *fun);
-int					j_increment(t_ssl_input *input, char *arg);
-int					input_file(t_ssl_input *input, char *path);
+int					j_increment(t_ssl_input *input, char *arg, char *fun,
+		int dis);
+int					input_file(t_ssl_input *input, char *name, char *fun,
+		int fd);
 int					output_file(t_ssl_input *input, char *path);
 int					get_pass(t_ssl_input *input, char *pass);
 unsigned long long	hex_to_l(char *st);
 
 int					stdin_check(void);
 void				bad_input(char *input);
+void				no_file(char *name, char *fun);
+void				no_read(char *name, char *fun);
+void				get_missing(t_ssl_input *input, int dis);
+void				des_len_error(int dis);
 
 int					handle_string(char **av, int j, t_ssl_input *input,
 		int dis);
 void				do_ssl(t_ssl_input *input2, char *input, int dis);
+char				*ft_hardjoin(char *s1, int len1, char *s2, int len2);
+
+unsigned long		check_key(char *tmp, int dis);
+unsigned long		verify_iv(char *tmp, int dis);
+unsigned long		check_salt(char *tmp, int dis);
+void				pass_input(t_ssl_input *input);
+unsigned long		gen_salt(void);
+
 
 /*
 ** md5

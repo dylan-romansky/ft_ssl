@@ -6,21 +6,41 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 01:07:59 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 01:37:54 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/09 17:33:46 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-int					input_file(t_ssl_input *input, char *path)
+int					input_file(t_ssl_input *input, char *name, char *fun,
+		int fd)
 {
-	input->infd = open(path, O_RDONLY);
+	char	red[BUFF_SIZE + 1];
+	int		len;
+	int		ret;
+
+	len = 0;
+	if (fd == -1)
+		no_file(name, fun);
+	input->input = ft_strnew(0);
+	while ((ret = read(fd, red, BUFF_SIZE)) > 0)
+	{
+		red[ret] = '\0';
+		input->input = ft_hardjoin(input->input, len, red, ret);
+		len += ret;
+	}
+	if (ret < 0)
+	{
+		free(input->input);
+		no_read(name, fun);
+	}
+	input->len = len;
 	return (2);
 }
 
 int					output_file(t_ssl_input *input, char *path)
 {
-	input->outfd = open(path, O_RDWR);
+	input->outfd = open(path, O_RDWR | O_CREAT);
 	return (2);
 }
 
