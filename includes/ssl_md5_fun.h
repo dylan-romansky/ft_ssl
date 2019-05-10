@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:08:20 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 18:23:18 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/09 21:14:49 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char				*ft_hardjoin(char *s1, int len1, char *s2, int len2);
 
 unsigned long		check_key(char *tmp, int dis);
 unsigned long		verify_iv(char *tmp, int dis);
-unsigned long		check_salt(char *tmp, int dis);
+unsigned long		verify_salt(char *tmp, int dis);
 void				pass_input(t_ssl_input *input);
 unsigned long		gen_salt(void);
 
@@ -67,6 +67,7 @@ int					lessthan16(t_md5_words *words, int i);
 int					lessthan32(t_md5_words *words, int i);
 int					lessthan48(t_md5_words *words, int i);
 int					upto64(t_md5_words *words, int i);
+void				split_input_32(char *process, t_md5_words *words);
 
 /*
 ** sha256 and sha224

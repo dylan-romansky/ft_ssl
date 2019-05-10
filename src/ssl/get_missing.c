@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:32 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 17:20:20 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/09 21:42:51 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	get_missing(t_ssl_input *input, int dis)
 {
 	if (!(input->flags & k))
 		get_hex_key(input, dis);
-	if (input->flags & p2 && !input->pass)
+	if (input->flags & p2 && !input->pass && !input->key)
 		pass_input(input);
 	if ((dis == 6 || dis == 7) && !input->iv)
 		get_iv(input, dis);
