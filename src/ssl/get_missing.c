@@ -6,14 +6,12 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:32 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 21:42:51 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/09 21:51:54 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "ssl_md5_enums.h"
-
-/* easy lazy way is with getpass */
 
 int		cipher_stdin(t_ssl_input *input)
 {

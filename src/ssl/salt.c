@@ -6,13 +6,13 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:13 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 21:09:15 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/09 21:52:14 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-void	salt_error(int dis)
+void			salt_error(int dis)
 {
 	if (dis == 6)
 		ft_printf("des: Error: invalid hex salt input.\n");

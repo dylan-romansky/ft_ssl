@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:23 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 15:07:23 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/09 21:57:14 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ int	ft_des_ecb_e(t_ssl_input *input)
 	}
 	return (0);
 }
-/* check message length and print error if it's wrong length for decoding */
-/* "Message not multiple of block length" */
+
 int	ft_des_ecb_d(t_ssl_input *input)
 {
 	unsigned long	chunk;
@@ -40,6 +39,11 @@ int	ft_des_ecb_d(t_ssl_input *input)
 	size_t			i;
 
 	i = 0;
+	if (input->len % 8)
+	{
+		ft_printf("Message not multiple of block length");
+		exit(1);
+	}
 	subkeys = gen_key(input->key);
 	while (i < input->len)
 	{
