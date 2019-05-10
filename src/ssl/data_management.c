@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 16:22:55 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 18:14:23 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/10 13:35:41 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ unsigned long	verify_iv(char *tmp, int dis)
 	unsigned long	done;
 
 	i = -1;
-	key = (ft_strlen(tmp) <= 16) ? ft_strdup(tmp) : ft_strndup(tmp, 16);
+	key = (ft_strlen(tmp) <= 16) ? pad_iv(tmp) : ft_strndup(tmp, 16);
 	while (key[++i])
 		if (!(('a' <= key[i] && key[i] <= 'f') || ('A' <= key[i] &&
 						key[i] <= 'F') || ('0' <= key[i] && key[i] <= '9')))

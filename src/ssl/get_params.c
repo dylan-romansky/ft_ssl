@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 01:07:59 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 21:44:22 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/10 13:35:34 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int					input_file(t_ssl_input *input, char *name, char *fun,
 		input->input = ft_hardjoin(input->input, len, red, ret);
 		len += ret;
 	}
-	if (ret < 0)
+	if (ret < 0 && fd != 0)
 	{
 		free(input->input);
 		no_read(name, fun);
@@ -63,6 +63,7 @@ unsigned long long	hex_to_l(char *st)
 	{
 		hex *= 16;
 		hex += hex_val(*st);
+		st++;
 	}
 	return (hex);
 }

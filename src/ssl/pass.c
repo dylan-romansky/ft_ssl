@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:13 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 21:53:05 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/10 13:03:50 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ unsigned long	salt_pass(t_ssl_input *input, char *tmp, unsigned long salt)
 		ft_printf("Error: failed to create key\n");
 		exit(1);
 	}
+	/* verify salt byte flip */
 	free(mix);
 	if (!input->iv)
 		input->iv = salted[1];

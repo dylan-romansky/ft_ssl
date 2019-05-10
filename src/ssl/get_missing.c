@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:32 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 21:51:54 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/10 13:55:26 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,21 @@ int		cipher_stdin(t_ssl_input *input)
 	return (input->len);
 }
 
-void	get_hex_key(t_ssl_input *input, int dis)
+/*void	get_hex_key(t_ssl_input *input, int dis)
 {
 	char	*tmp;
-
+	
 	tmp = getpass("enter des key in hex: ");
 	input->key = check_key(tmp, dis);
 }
-
+these might not be needed
 void	get_iv(t_ssl_input *input, int dis)
 {
 	char	*tmp;
 
 	tmp = getpass("create initial vector: ");
 	input->iv = verify_iv(tmp, dis);
-}
+}*/
 
 void	get_input_file(t_ssl_input *input)
 {
@@ -47,13 +47,9 @@ void	get_input_file(t_ssl_input *input)
 void	get_missing(t_ssl_input *input, int dis)
 {
 	if (!(input->flags & k))
-		get_hex_key(input, dis);
-	if (input->flags & p2 && !input->pass && !input->key)
 		pass_input(input);
-	if ((dis == 6 || dis == 7) && !input->iv)
-		get_iv(input, dis);
 	if (!(input->flags & i))
 		get_input_file(input);
-	if (input->len % 8)
+	if (input->flags & d && input->len % 8)
 		des_len_error(dis);
 }

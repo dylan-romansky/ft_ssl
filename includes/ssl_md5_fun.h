@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:08:20 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 21:54:01 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/10 13:40:10 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char				*ft_hardjoin(char *s1, int len1, char *s2, int len2);
 
 unsigned long		check_key(char *tmp, int dis);
 unsigned long		verify_iv(char *tmp, int dis);
+char				*pad_iv(char *s);
 unsigned long		verify_salt(char *tmp, int dis);
 void				pass_input(t_ssl_input *input);
 unsigned long		gen_salt(void);

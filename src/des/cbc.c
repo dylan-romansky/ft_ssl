@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:09 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 21:57:20 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/10 13:54:06 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_des_cbc_e(t_ssl_input *input)
 		chunk ^= vector;
 		chunk = init_perm(chunk);
 		chunk = split_perm_e(chunk, subkeys);
-		ft_dprintf(input->outfd, "%16llX", chunk);
+		write(input->outfd, &chunk, 8);
 		vector = chunk;
 		i += 8;
 	}

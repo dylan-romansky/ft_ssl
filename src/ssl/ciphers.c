@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 20:35:00 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 17:11:08 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/10 13:40:59 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,14 @@ t_ssl_input	*make_input(int ac)
 	input->pass = NULL;
 	input->salt = 0;
 	return (input);
+}
+
+char		*pad_iv(char *s)
+{
+	char	*n;
+
+	n = ft_strdup(s);
+	while (ft_strlen(s) < 16)
+		n = ft_hardjoin(n, ft_strlen(n), "0", 1);
+	return (n);
 }
