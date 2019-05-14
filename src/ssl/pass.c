@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:13 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/10 13:03:50 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/13 22:36:05 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ unsigned long	*write_pass_hash(t_md5_words *words)
 	salt_hash = (unsigned long *)malloc(sizeof(unsigned long) * 2);
 	salt_hash[0] = flip_end(words->a0);
 	salt_hash[0] <<= 32;
-	salt_hash[0] = flip_end(words->b0);
+	salt_hash[0] |= flip_end(words->b0);
 	salt_hash[1] = flip_end(words->c0);
 	salt_hash[1] <<= 32;
-	salt_hash[1] = flip_end(words->d0);
+	salt_hash[1] |= flip_end(words->d0);
 	return (salt_hash);
 }
 
