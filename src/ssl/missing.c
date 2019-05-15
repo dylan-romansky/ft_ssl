@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_missing.c                                      :+:      :+:    :+:   */
+/*   missing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:32 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/10 13:55:26 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/14 15:48:00 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,7 @@ int		cipher_stdin(t_ssl_input *input)
 	return (input->len);
 }
 
-/*void	get_hex_key(t_ssl_input *input, int dis)
-{
-	char	*tmp;
-	
-	tmp = getpass("enter des key in hex: ");
-	input->key = check_key(tmp, dis);
-}
-these might not be needed
-void	get_iv(t_ssl_input *input, int dis)
+/*void	get_iv(t_ssl_input *input, int dis)
 {
 	char	*tmp;
 
@@ -44,10 +36,19 @@ void	get_input_file(t_ssl_input *input)
 		input_file(input, NULL, NULL, 0);
 }
 
+void	salt_with_pass(t_ssl_input *input)
+{
+	if (!input->salt)
+		input->salt = gen_salt();
+	input->key = salt_pass(input, input->pass, input->salt);
+}
+
 void	get_missing(t_ssl_input *input, int dis)
 {
-	if (!(input->flags & k))
+	if (!(input->flags & k) && (input->flags & p && !input->pass))
 		pass_input(input);
+	else if (!(input->flags & k) && input->pass)
+		salt_with_pass(input);
 	if (!(input->flags & i))
 		get_input_file(input);
 	if (input->flags & d && input->len % 8)

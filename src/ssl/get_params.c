@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 01:07:59 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/10 13:35:34 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/14 17:06:03 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ int					input_file(t_ssl_input *input, char *name, char *fun,
 		no_read(name, fun);
 	}
 	input->len = len;
-	return (2);
+	return (1);
 }
 
 int					output_file(t_ssl_input *input, char *path)
 {
-	input->outfd = open(path, O_RDWR | O_CREAT);
-	return (2);
+	input->outfd = open(path, O_RDWR | O_CREAT, 0644);
+	return (1);
 }
 
 unsigned			hex_val(char in)
