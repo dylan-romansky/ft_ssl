@@ -1,1 +1,5 @@
-need to re implement salt and password flags cuz I fucked up somehow
+issue with des algorithm. once it's solve it'll be a nonissue
+
+https://www.emvlab.org/descalc/
+
+https://www.rapidtables.com/convert/number/ascii-to-hex.html
