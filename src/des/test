@@ -2,7 +2,6 @@
 
 int		d(void)
 {
-	ft_printf("M butthole\nC 7A1FC80E72246434\nD ");
 	t_ssl_input	*input;
 	input = malloc(sizeof(t_ssl_input));
 	char	*input2;
@@ -10,7 +9,7 @@ int		d(void)
 	input2 = malloc(sizeof(char) * 8);
 	input->input = ft_memcpy(input2, &c, 8);
 	input->len = 8;
-	input->key = 0x133457799BBCDFF1;
+	input->key = 0x1000000000000000;
 	input->outfd = 1;
 	input->flags = 16;
 	ft_des_ecb(input);
@@ -19,12 +18,11 @@ int		d(void)
 
 int		e(void)
 {
-	ft_printf("M butthole\nC 7A1FC80E72246434\nD ");
 	t_ssl_input	*input;
 	input = malloc(sizeof(t_ssl_input));
-	input->input = "butthole";
-	input->len = 8;
-	input->key = 0x133457799BBCDFF1;
+	input->input = ft_strdup("test");
+	input->len = 4;
+	input->key = 0x1000000000000000;
 	input->outfd = 1;
 	input->flags = 0;
 	ft_des_ecb(input);
