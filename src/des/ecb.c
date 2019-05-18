@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:23 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/16 21:02:13 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/17 15:36:18 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	ft_des_ecb_e(t_ssl_input *input)
 		ft_memcpy(&chunk, input->input + i, 8);
 		chunk = init_perm(chunk);
 		chunk = split_perm_e(chunk, subkeys);
-		ft_printf("%lX", chunk);
+		write(input->outfd, &chunk, 8);
+		//ft_printf("%lX", chunk);
 		i += 8;
 	}
 	return (0);
@@ -51,8 +52,8 @@ int	ft_des_ecb_d(t_ssl_input *input)
 		ft_memcpy(&chunk, input->input + i, 8);
 		chunk = init_perm(chunk);
 		chunk = split_perm_d(chunk, subkeys);
-		//write(input->outfd, &chunk, i + 8 <= input->len ? 8 : input->len - i);
-		i < input->len - 8 ? ft_printf("%s", &chunk) : ft_printf("%.*s", ((unsigned char *)(&chunk))[7], (char *)&chunk);
+		write(input->outfd, &chunk, i + 8 <= input->len ? 8 : input->len - i);
+		//i < input->len - 8 ? ft_printf("%s", &chunk) : ft_printf("%.*s", ((unsigned char *)(&chunk))[7], (char *)&chunk);
 		i += 8;
 	}
 	return (0);

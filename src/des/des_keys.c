@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 00:04:51 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/16 20:58:49 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/17 16:35:18 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ unsigned long	gen_cat(unsigned long c, unsigned long d)
 	return (k);
 }
 
+/* issue appears to be in this part of the algorithm */
+
 unsigned long	*gen_k(unsigned long c[17], unsigned long d[17])
 {
 	int				i;
@@ -64,7 +66,10 @@ unsigned long	*gen_k(unsigned long c[17], unsigned long d[17])
 	k = (unsigned long *)malloc(sizeof(unsigned long) * 16);
 	i = -1;
 	while (++i < 16)
+	{
 		k[i] = gen_cat(c[i + 1], d[i + 1]);
+		ft_printf("%56lb\n", k[i]);
+	}
 	return (k);
 }
 
@@ -82,6 +87,7 @@ unsigned long	*gen_key(unsigned long key)
 		key56 <<= 1;
 		key56 |= ((unsigned long)1 << (64 - g_keygen56_k[i])) & key ? 1 : 0;
 	}
+	ft_printf("%56lb\n", key56);
 	c[0] = (key56 & 0x00fffffff0000000) >> 28;
 	d[0] = key56 & 0x0fffffff;
 	i = 0;
