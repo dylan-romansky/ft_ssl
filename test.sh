@@ -1,2 +1,3 @@
 make reclean
-./ft_ssl des -s 1 -p test -i in -o test
+rm test
+./ft_ssl des-ecb -k 1 -i in -o test
