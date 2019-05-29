@@ -6,15 +6,11 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 00:04:51 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/17 17:37:52 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/29 15:32:43 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
-
-/*
-** key generation is fucked. check that the left/right handling is good
-*/
 
 const int g_keygen56_k[] = {
 	57, 49, 41, 33, 25, 17, 9, 1, 58, 50, 42, 34, 26,
@@ -53,10 +49,13 @@ unsigned long	gen_cat(unsigned long c, unsigned long d)
 		k <<= 1;
 		k |= ((unsigned long)1 << (56 - g_keycat56_k[i])) & cat ? 1 : 0;
 	}
+	k <<= 8;
 	return (k);
 }
 
-/* keys are one byte right when they shouldn't be */
+/*
+** make sure the keys are handled properly now
+*/
 
 unsigned long	*gen_k(unsigned long c[17], unsigned long d[17])
 {
