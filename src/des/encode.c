@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:36 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/29 17:33:35 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/29 18:18:01 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ unsigned		key_encrypt(unsigned right, unsigned long key)
 }
 
 /*
-** initial permutation of data block. verified this works.
+** initial permutation of data block. doesn't currently work
 */
 
 unsigned long	init_perm(unsigned long block)
@@ -88,6 +88,7 @@ unsigned long	init_perm(unsigned long block)
 
 	i = -1;
 	perm = 0;
+	print_bin(block, 64);
 	while (++i < 64)
 	{
 		perm <<= 1;
