@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:23 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/17 15:36:18 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/29 17:36:33 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	ft_des_ecb_e(t_ssl_input *input)
 		chunk = 0;
 		ft_memcpy(&chunk, input->input + i, 8);
 		chunk = init_perm(chunk);
+		print_bin(chunk, 64);
 		chunk = split_perm_e(chunk, subkeys);
 		write(input->outfd, &chunk, 8);
 		//ft_printf("%lX", chunk);

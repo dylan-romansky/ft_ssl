@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 00:04:51 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/29 15:32:43 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/29 17:15:48 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,7 @@ unsigned long	*gen_k(unsigned long c[17], unsigned long d[17])
 	k = (unsigned long *)malloc(sizeof(unsigned long) * 16);
 	i = -1;
 	while (++i < 16)
-	{
 		k[i] = gen_cat(c[i + 1], d[i + 1]);
-		print_bin(k[i], 56);
-	}
 	return (k);
 }
 
@@ -86,7 +83,6 @@ unsigned long	*gen_key(unsigned long key)
 		key56 <<= 1;
 		key56 |= ((unsigned long)1 << (64 - g_keygen56_k[i])) & key ? 1 : 0;
 	}
-	print_bin(key56, 56);
 	c[0] = (key56 & 0x00fffffff0000000) >> 28;
 	d[0] = key56 & 0x0fffffff;
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:36 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 00:10:36 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/29 17:33:35 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,6 @@ unsigned		s_boxing(unsigned long expand, int i)
 	column = (block >> 1) & 15;
 	return (g_boxes_k[i][row][column] | (s_boxing(expand, i - 1) << 4));
 }
-
-/*
-** issue is somewhere in here. I imagine it has to do with either which one is
-** being shifted or the way I'm indexing my arrays
-*/
 
 unsigned		key_encrypt(unsigned right, unsigned long key)
 {
