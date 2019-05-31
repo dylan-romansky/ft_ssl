@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:36 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/29 18:18:01 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/30 17:50:33 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ unsigned		key_encrypt(unsigned right, unsigned long key)
 		expand <<= 1;
 		expand |= ((unsigned long)1 << (32 - g_expansion_k[i])) & right ? 1 : 0;
 	}
-	return (permute_box(s_boxing(expand ^ key, 7)));
+	return (permute_box(s_boxing(expand ^ (key >> 8), 7)));
 }
 
 /*
@@ -88,7 +88,6 @@ unsigned long	init_perm(unsigned long block)
 
 	i = -1;
 	perm = 0;
-	print_bin(block, 64);
 	while (++i < 64)
 	{
 		perm <<= 1;
