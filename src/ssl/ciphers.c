@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 20:35:00 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/10 13:40:59 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/31 02:46:05 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char		*pad_iv(char *s)
 	char	*n;
 
 	n = ft_strdup(s);
-	while (ft_strlen(s) < 16)
+	while (ft_strlen(n) < 16)
 		n = ft_hardjoin(n, ft_strlen(n), "0", 1);
 	return (n);
 }
