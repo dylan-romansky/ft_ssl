@@ -6,16 +6,12 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:57:14 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/31 01:17:36 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/31 01:32:19 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "ssl_md5_enums.h"
-
-/*
-** doesn't work for bigger sized things
-*/
 
 void			blocksize_error(void)
 {
@@ -30,9 +26,9 @@ int				get_len(char *s, int len)
 
 	i = 0;
 	c = s[len - 1];
-	if (!(len % 8) || c > 7 || c < 0)
+	if (c > 8 || c < 0)
 		return (len);
-	while (i < 7)
+	while (i < 8)
 		if (s[len - ++i] != c)
 			return (len);
 	return (len - i);
@@ -53,6 +49,7 @@ void			des_pad(t_ssl_input *input)
 	free(input->input);
 	input->input = (char *)pad;
 	input->len += val;
+	printf("%u\n", val);
 }
 
 int				ft_des_ecb(t_ssl_input *input)
@@ -60,17 +57,14 @@ int				ft_des_ecb(t_ssl_input *input)
 	unsigned char	*s;
 
 	s = NULL;
-	if (input->len % 8)
-	{
-		if (!(input->flags & d))
-			des_pad(input);
-		else
-			blocksize_error();
-	}
+	if (!(input->flags & d))
+		des_pad(input);
+	else if (input->len % 8)
+		blocksize_error();
 	if (input->flags & d)
 	{
 		s = ft_des_ecb_d(input);
-		write(input->outfd, s, get_len((char *)s, input->len));
+		write(input->outfd, s, input->len - s[input->len - 1]);
 		free(s);
 	}
 	else
@@ -89,17 +83,14 @@ int				ft_des_cbc(t_ssl_input *input)
 	unsigned char	*s;
 
 	s = NULL;
-	if (input->len % 8)
-	{
-		if (!(input->flags & d))
-			des_pad(input);
-		else
-			blocksize_error();
-	}
+	if (!(input->flags & d))
+		des_pad(input);
+	else if (input->len % 8)
+		blocksize_error();
 	if (input->flags & d)
 	{
 		s = ft_des_cbc_d(input);
-		write(input->outfd, s, get_len((char *)s, input->len));
+		write(input->outfd, s, input->len - s[input->len - 1]);
 		free(s);
 	}
 	else
