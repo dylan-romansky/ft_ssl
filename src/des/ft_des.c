@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:57:14 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/30 22:41:27 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/31 01:17:36 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,31 @@
 #include "ssl_md5_enums.h"
 
 /*
-** functions need to return strings so base64 conversions can happen
+** doesn't work for bigger sized things
 */
 
-void	des_pad(t_ssl_input *input)
+void			blocksize_error(void)
+{
+	ft_printf("Message not multiple of block length\n");
+	exit(1);
+}
+
+int				get_len(char *s, int len)
+{
+	int				i;
+	int				c;
+
+	i = 0;
+	c = s[len - 1];
+	if (!(len % 8) || c > 7 || c < 0)
+		return (len);
+	while (i < 7)
+		if (s[len - ++i] != c)
+			return (len);
+	return (len - i);
+}
+
+void			des_pad(t_ssl_input *input)
 {
 	unsigned char	*pad;
 	unsigned int	val;
@@ -34,24 +55,60 @@ void	des_pad(t_ssl_input *input)
 	input->len += val;
 }
 
-int		ft_des_ecb(t_ssl_input *input)
+int				ft_des_ecb(t_ssl_input *input)
 {
-	if (input->len % 8 && !(input->flags & d))
-		des_pad(input);
+	unsigned char	*s;
+
+	s = NULL;
+	if (input->len % 8)
+	{
+		if (!(input->flags & d))
+			des_pad(input);
+		else
+			blocksize_error();
+	}
 	if (input->flags & d)
-		ft_des_ecb_d(input);
+	{
+		s = ft_des_ecb_d(input);
+		write(input->outfd, s, get_len((char *)s, input->len));
+		free(s);
+	}
 	else
-		ft_des_ecb_e(input);
+	{
+		s = ft_des_ecb_e(input);
+		while (input->len % 8)
+			input->len++;
+		write(input->outfd, s, input->len);
+		free(s);
+	}
 	return (0);
 }
 
-int		ft_des_cbc(t_ssl_input *input)
+int				ft_des_cbc(t_ssl_input *input)
 {
-	if (input->len % 8 && !(input->flags & d))
-		des_pad(input);
+	unsigned char	*s;
+
+	s = NULL;
+	if (input->len % 8)
+	{
+		if (!(input->flags & d))
+			des_pad(input);
+		else
+			blocksize_error();
+	}
 	if (input->flags & d)
-		ft_des_cbc_d(input);
+	{
+		s = ft_des_cbc_d(input);
+		write(input->outfd, s, get_len((char *)s, input->len));
+		free(s);
+	}
 	else
-		ft_des_cbc_e(input);
+	{
+		s = ft_des_cbc_e(input);
+		while (input->len % 8)
+			input->len++;
+		write(input->outfd, s, input->len);
+		free(s);
+	}
 	return (0);
 }

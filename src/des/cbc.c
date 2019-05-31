@@ -6,61 +6,64 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:09 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/16 20:58:55 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/31 01:12:51 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-int	ft_des_cbc_e(t_ssl_input *input)
+unsigned char	*ft_des_cbc_e(t_ssl_input *input)
 {
 	unsigned long	chunk;
 	unsigned long	vector;
 	unsigned long	*subkeys;
 	size_t			i;
+	unsigned char	*s;
 
 	i = 0;
 	subkeys = gen_key(input->key);
 	vector = input->iv;
+	s = (unsigned char *)ft_strnew(0);
 	while (i < input->len)
 	{
 		chunk = 0;
 		ft_memcpy(&chunk, input->input + i, 8);
+		chunk = flip_end_512(chunk);
 		chunk ^= vector;
 		chunk = init_perm(chunk);
-		chunk = split_perm_e(chunk, subkeys);
-		write(input->outfd, &chunk, 8);
+		chunk = flip_end_512(split_perm_e(chunk, subkeys));
+		s = (unsigned char *)ft_hardjoin((char *)s, i, (char *)&chunk, 8);
 		vector = chunk;
 		i += 8;
 	}
-	return (0);
+	return (input->flags & 256 ? ft_base64_e((char *)s, i) : s);
 }
 
-int	ft_des_cbc_d(t_ssl_input *input)
+unsigned char	*ft_des_cbc_d(t_ssl_input *input)
 {
 	unsigned long	chunk;
 	unsigned long	vector;
 	unsigned long	*subkeys;
 	size_t			i;
+	unsigned char	*s;
 
 	i = 0;
-	if (input->len % 8)
-	{
-		ft_printf("Message not multiple of block length");
-		exit(1);
-	}
+	if (input->flags & 256)
+		input->input = (char *)ft_base64_d(input->input, input->len);
 	subkeys = gen_key(input->key);
 	vector = input->iv;
+	s = (unsigned char *)ft_strnew(0);
 	while (i < input->len)
 	{
 		chunk = 0;
 		ft_memcpy(&chunk, input->input + i, 8);
+		chunk = flip_end_512(chunk);
 		chunk ^= vector;
 		chunk = init_perm(chunk);
-		chunk = split_perm_d(chunk, subkeys);
-		write(input->outfd, &chunk, i + 8 <= input->len ? 8 : input->len - i);
+		chunk = flip_end_512(split_perm_d(chunk, subkeys));
+		s = (unsigned char *)ft_hardjoin((char *)s, i, (char *)&chunk, 8);
 		vector = chunk;
 		i += 8;
 	}
-	return (0);
+	return (s);
 }

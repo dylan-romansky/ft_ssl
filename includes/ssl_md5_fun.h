@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:08:20 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/30 23:50:07 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/31 00:25:31 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,10 @@ int					minus_pad(char *input);
 
 int					ft_des_cbc(t_ssl_input *input);
 int					ft_des_ecb(t_ssl_input *input);
-int					ft_des_cbc_e(t_ssl_input *input);
-int					ft_des_cbc_d(t_ssl_input *input);
-int					ft_des_ecb_e(t_ssl_input *input);
-int					ft_des_ecb_d(t_ssl_input *input);
+unsigned char		*ft_des_cbc_e(t_ssl_input *input);
+unsigned char		*ft_des_cbc_d(t_ssl_input *input);
+unsigned char		*ft_des_ecb_e(t_ssl_input *input);
+unsigned char		*ft_des_ecb_d(t_ssl_input *input);
 unsigned long		*gen_key(unsigned long key);
 unsigned			key_encrypt(unsigned right, unsigned long key);
 unsigned long		init_perm(unsigned long block);
