@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 17:47:25 by dromansk          #+#    #+#             */
-/*   Updated: 2019/03/31 17:53:32 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/30 18:23:35 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,6 @@ int					ft_isupper(char c);
 int					ft_islower(char c);
 int					number_length(long long n);
 long long			ft_power(int n, int p);
+void				print_bin(unsigned long n, int size);
 
 #endif

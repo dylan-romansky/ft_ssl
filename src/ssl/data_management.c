@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 16:22:55 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/10 13:35:41 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/30 18:31:25 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void			key_error(int dis)
 {
 	if (dis == 6)
 		ft_printf("des: error: invalid hex key input.\n");
-	if (dis == 7)
+	else if (dis == 7)
 		ft_printf("des-cbc: error: invalid hex key input.\n");
-	if (dis == 8)
+	else if (dis == 8)
 		ft_printf("des-ecb: error: invalid hex key input.\n");
 	exit(1);
 }
@@ -46,9 +46,9 @@ void			iv_error(int dis)
 {
 	if (dis == 6)
 		ft_printf("des: Error: invalid hex iv input.\n");
-	if (dis == 7)
+	else if (dis == 7)
 		ft_printf("des-cbc: Error: invalid hex iv input.\n");
-	if (dis == 8)
+	else if (dis == 8)
 		ft_printf("des-ecb: Error: invalid hex iv input.\n");
 	exit(1);
 }
