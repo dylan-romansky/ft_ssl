@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 21:02:15 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/30 23:50:05 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/31 00:07:49 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		ft_base64(t_ssl_input *input)
 	else
 	{
 		b = ft_base64_e(input->input, input->len);
-		ft_putstr((char *)b);
+		ft_putstr_fd((char *)b, input->outfd);
 	}
 	return (1);
 }

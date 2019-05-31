@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 00:16:47 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/30 23:50:03 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/31 00:14:13 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ unsigned char	*char_swap(unsigned char *chunk, int p)
 	s = (unsigned char *)ft_strnew(4);
 	while (size-- > p)
 	{
-		if (*chunk < 26)
-			s[i] = 'A' + *chunk;
-		else if (*chunk < 52)
-			s[i] = 'a' + (*chunk - 26);
-		else if (*chunk < 62)
-			s[i] = '0' + (*chunk - 52);
-		else if (*chunk < 64)
-			s[i] = (*chunk - 62) ? '/' : '+';
-		chunk++;
+		if (chunk[i] < 26)
+			s[i] = 'A' + chunk[i];
+		else if (chunk[i] < 52)
+			s[i] = 'a' + (chunk[i] - 26);
+		else if (chunk[i] < 62)
+			s[i] = '0' + (chunk[i] - 52);
+		else if (chunk[i] < 64)
+			s[i] = (chunk[i] - 62) ? '/' : '+';
 		i++;
 	}
 	while (p-- > 0)
 		s[i++] = '=';
+	free(chunk);
 	return (s);
 }
 
@@ -66,9 +66,9 @@ unsigned char	*ft_base64_e(char *input, size_t len)
 		chunk = get_chunk(input, i, len, i < len - 2 ? 3 : len - i);
 		e = expand_base(chunk);
 		i += 3;
-		char_swap(e, i > len ? i - len : 0);
-		s = (unsigned char *)ft_hardjoin((char *)s, (4 * ((i - 3 / 3))),
-				(char *)e, i > len ? (i - len) : 4);
+		e = char_swap(e, i > len ? i - len : 0);
+		s = (unsigned char *)swap_n_free(ft_strjoin((char *)s, (char *)e),
+				(char **)&s);
 	}
 	return (s);
 }
@@ -81,16 +81,16 @@ unsigned char	*ft_base64_d(char *input, size_t len)
 	unsigned char	*s;
 
 	chunk = 0;
-	i = 4;
+	i = 0;
 	len -= minus_pad(input);
 	s = (unsigned char *)ft_strnew(0);
 	while (i < len)
 	{
 		chunk = get_chunk(input, i, len, i < len - 3 ? 4 : len - i);
 		d = contract_base(chunk);
+		s = (unsigned char *)ft_hardjoin((char *)s, (3 * (i / 4)),
+				(char *)d, (i + 4) > len ? (len - i) : 3);
 		i += 4;
-		s = (unsigned char *)ft_hardjoin((char *)s, (3 * ((i - 4) / 4)),
-				(char *)d, i > len ? (i - len) : 3);
 	}
 	return (s);
 }
