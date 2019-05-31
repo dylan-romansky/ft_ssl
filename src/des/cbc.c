@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:09 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/31 15:27:35 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/31 16:59:24 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ unsigned char	*ft_des_cbc_e(t_ssl_input *input)
 }
 
 /*
-** issue is in this algorithm
+** fix it, idiot
+** it's a lil overzealous during decryption
+** also base64 decryption is fucked for this
 */
 
 unsigned char	*ft_des_cbc_d(t_ssl_input *input)
