@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:57:14 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/15 20:27:23 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/30 22:41:27 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 #include "ssl_md5_enums.h"
 
 /*
-** unpadding can check the value of last byte and see if the preceeding x bytes
-** are the same number
-**
 ** functions need to return strings so base64 conversions can happen
 */
 

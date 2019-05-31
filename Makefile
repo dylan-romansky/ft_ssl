@@ -6,7 +6,7 @@
 #    By: dromansk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:18:25 by dromansk          #+#    #+#              #
-#    Updated: 2019/04/26 13:33:09 by dromansk         ###   ########.fr        #
+#    Updated: 2019/05/30 23:37:47 by dromansk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,8 @@ all: $(NAME)
 
 $(NAME):
 	make -C ./libft reclean
-	gcc -Wall -Werror -Wextra -c $(I) $(SRCS)
-	gcc -Wall -Werror -Wextra -o $(NAME) $(O) $(I) $(L)
+	gcc -Wall -Werror -Wextra -c $(I) $(SRCS) -fsanitize=address -g
+	gcc -Wall -Werror -Wextra -o $(NAME) $(O) $(I) $(L) -fsanitize=address -g
 
 clean:
 	make -C ./libft clean
