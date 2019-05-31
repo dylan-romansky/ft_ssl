@@ -6,15 +6,15 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 00:16:19 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 00:16:22 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/30 20:30:34 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-void			decrypt_chunk(unsigned char *d, int i, int p)
+void			decrypt_chunk(unsigned char *d, int i, int p, int fd)
 {
-	write(1, d, i - p);
+	write(fd, d, i - p);
 }
 
 unsigned char	char_base(char c)

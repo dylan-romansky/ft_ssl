@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:08:20 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/30 18:37:18 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/30 19:26:38 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,11 @@ int					sha_pad_512(char *input, unsigned len, t_512_words *words);
 */
 
 int					ft_base64(t_ssl_input *input);
-int					ft_base64_e(char *input, size_t len);
-int					ft_base64_d(char *input, size_t len);
+int					ft_base64_e(char *input, size_t len, int fd);
+int					ft_base64_d(char *input, size_t len, int fd);
 unsigned char		*expand_base(unsigned chunk);
 unsigned char		*contract_base(unsigned chunk);
-void				decrypt_chunk(unsigned char *d, int i, int p);
+void				decrypt_chunk(unsigned char *d, int i, int p, int fd);
 int					minus_pad(char *input);
 
 /*

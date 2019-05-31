@@ -6,11 +6,11 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 18:22:57 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/30 18:22:59 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/30 19:06:12 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "libft.h"
 
 void	print_bin(unsigned long num, int size)
 {
