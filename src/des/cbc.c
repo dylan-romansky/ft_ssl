@@ -6,11 +6,28 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:09 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/31 01:12:51 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/31 02:26:02 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+
+unsigned char	*base64_con_e(unsigned char *s, t_ssl_input *input)
+{
+	s = (unsigned char *)swap_n_free((char *)ft_base64_e((char *)s,
+				input->len), (char **)&s);
+	input->len = ft_strlen((char *)s);
+	return (s);
+}
+
+void		base64_con_d(t_ssl_input *input)
+{
+	int				i;
+
+	i = input->len;
+	input->len = (3 * (input->len / 4)) - minus_pad(input->input);
+	input->input = (char *)ft_base64_d(input->input, i);
+}
 
 unsigned char	*ft_des_cbc_e(t_ssl_input *input)
 {
@@ -36,7 +53,9 @@ unsigned char	*ft_des_cbc_e(t_ssl_input *input)
 		vector = chunk;
 		i += 8;
 	}
-	return (input->flags & 256 ? ft_base64_e((char *)s, i) : s);
+	if (input->flags & 256)
+		s = base64_con_e(s, input);
+	return (s);
 }
 
 unsigned char	*ft_des_cbc_d(t_ssl_input *input)
@@ -49,7 +68,7 @@ unsigned char	*ft_des_cbc_d(t_ssl_input *input)
 
 	i = 0;
 	if (input->flags & 256)
-		input->input = (char *)ft_base64_d(input->input, input->len);
+		base64_con_d(input);
 	subkeys = gen_key(input->key);
 	vector = input->iv;
 	s = (unsigned char *)ft_strnew(0);

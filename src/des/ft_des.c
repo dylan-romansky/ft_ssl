@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:57:14 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/31 01:32:19 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/31 02:12:17 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void			des_pad(t_ssl_input *input)
 	free(input->input);
 	input->input = (char *)pad;
 	input->len += val;
-	printf("%u\n", val);
 }
 
 int				ft_des_ecb(t_ssl_input *input)
@@ -70,8 +69,6 @@ int				ft_des_ecb(t_ssl_input *input)
 	else
 	{
 		s = ft_des_ecb_e(input);
-		while (input->len % 8)
-			input->len++;
 		write(input->outfd, s, input->len);
 		free(s);
 	}

@@ -1,7 +1,7 @@
 rm test test2
 make reclean
-./ft_ssl des-ecb -k deadbeef -i in -o test
+./ft_ssl des-cbc -a -k deadbeef -v deadbeef-i in -o test
 cat -e test
 echo "\n"
-./ft_ssl des-ecb -d -k deadbeef -i test -o test2
+./ft_ssl des-cbc -d -a -k deadbeef -v deadbeef -i test -o test2
 cat -e test2

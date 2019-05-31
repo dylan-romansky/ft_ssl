@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:23 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/31 01:12:35 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/31 02:26:43 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,13 @@ unsigned char	*ft_des_ecb_e(t_ssl_input *input)
 		s = (unsigned char *)ft_hardjoin((char *)s, i, (char *)&chunk, 8);
 		i += 8;
 	}
-	return (input->flags & 256 ? ft_base64_e((char *)s, i) : s);
+	if (input->flags & 256)
+	{
+		s = (unsigned char *)swap_n_free((char *)ft_base64_e((char *)s,
+					input->len), (char **)&s);
+		input->len = ft_strlen((char *)s);
+	}
+	return (s);
 }
 
 unsigned char	*ft_des_ecb_d(t_ssl_input *input)
@@ -41,9 +47,13 @@ unsigned char	*ft_des_ecb_d(t_ssl_input *input)
 	size_t			i;
 	unsigned char	*s;
 
-	i = 0;
 	if (input->flags & 256)
-		input->input = (char *)ft_base64_d(input->input, input->len);
+	{
+		i = input->len;
+		input->len = (3 * (input->len / 4)) - minus_pad(input->input);
+		input->input = (char *)ft_base64_d(input->input, i);
+	}
+	i = 0;
 	subkeys = gen_key(input->key);
 	s = (unsigned char *)ft_strnew(0);
 	while (i < input->len)

@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:32 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/30 19:49:16 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/31 02:00:09 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@ int		cipher_stdin(t_ssl_input *input)
 **}
 */
 
+void	get_key(t_ssl_input *input, int dis)
+{
+	char *tmp;
+
+	tmp = getpass("enter des key in hex: ");
+	input->key = check_key(tmp, dis);
+}
+
 void	get_input_file(t_ssl_input *input)
 {
 	if (!cipher_stdin(input))
@@ -47,11 +55,15 @@ void	salt_with_pass(t_ssl_input *input)
 
 void	get_missing(t_ssl_input *input, int dis)
 {
-	if (dis > 5 && !(input->flags & k) && (input->flags & p &&
-				!input->pass))
-		pass_input(input);
-	else if (dis > 5 && !(input->flags & k) && input->pass)
-		salt_with_pass(input);
+	if (dis > 5 && !(input->flags & k))
+	{
+		if ((input->flags & p || dis != 8) && !input->pass)
+			pass_input(input);
+		else if (input->pass)
+			salt_with_pass(input);
+		else
+			get_key(input, dis);
+	}
 	if (!(input->flags & i))
 		get_input_file(input);
 	if (dis > 5 && input->flags & d && input->len % 8)
