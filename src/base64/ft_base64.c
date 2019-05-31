@@ -6,11 +6,15 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 00:16:47 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/31 00:14:13 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/31 15:55:21 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+
+/*
+** fix it, idiot
+*/
 
 unsigned char	*char_swap(unsigned char *chunk, int p)
 {

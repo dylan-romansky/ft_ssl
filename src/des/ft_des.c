@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:57:14 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/31 03:37:40 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/31 15:30:02 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int				ft_des_ecb(t_ssl_input *input)
 	if (input->flags & d)
 	{
 		s = ft_des_ecb_d(input);
-		write(input->outfd, s, input->len - s[input->len - 1]);
+		write(input->outfd, s, get_len((char *)s, input->len));
 		free(s);
 	}
 	else
@@ -87,8 +87,7 @@ int				ft_des_cbc(t_ssl_input *input)
 	if (input->flags & d)
 	{
 		s = ft_des_cbc_d(input);
-		printf("writing %lu - %hhu = %lu\n", input->len, s[input->len - 1], input->len - s[input->len - 1]);
-		write(input->outfd, s, input->len - s[input->len - 1]);
+		write(input->outfd, s, get_len((char *)s, input->len));
 		free(s);
 	}
 	else
