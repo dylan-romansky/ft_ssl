@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 16:22:55 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/30 18:31:25 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/30 18:49:41 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,4 @@ char			*ft_hardjoin(char *s1, int len1, char *s2, int len2)
 	ft_memcpy(new + len1, s2, len2);
 	free(s1);
 	return (new);
-};
+}

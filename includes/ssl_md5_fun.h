@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:08:20 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/30 18:24:18 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/30 18:37:18 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ char				*pad_iv(char *s);
 unsigned long		verify_salt(char *tmp, int dis);
 void				pass_input(t_ssl_input *input);
 unsigned long		gen_salt(void);
-unsigned long		salt_pass(t_ssl_input *input, char *tmp, unsigned long salt);
+unsigned long		salt_pass(t_ssl_input *input, char *tmp,
+		unsigned long salt);
 
 /*
 ** md5

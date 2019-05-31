@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:32 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/14 15:48:00 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/30 18:36:20 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@ int		cipher_stdin(t_ssl_input *input)
 	return (input->len);
 }
 
-/*void	get_iv(t_ssl_input *input, int dis)
-{
-	char	*tmp;
-
-	tmp = getpass("create initial vector: ");
-	input->iv = verify_iv(tmp, dis);
-}*/
+/*
+** void	get_iv(t_ssl_input *input, int dis)
+** {
+**	char	*tmp;
+**
+**	tmp = getpass("create initial vector: ");
+**	input->iv = verify_iv(tmp, dis);
+**}
+*/
 
 void	get_input_file(t_ssl_input *input)
 {
