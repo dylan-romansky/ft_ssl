@@ -6,14 +6,14 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 21:02:15 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/31 00:07:49 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/31 02:51:09 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "ssl_md5_enums.h"
 
-char		*strip_nl(char *input)
+char	*strip_nl(char *input)
 {
 	char	**stripped;
 	char	*tmp;
@@ -53,7 +53,8 @@ int		ft_base64(t_ssl_input *input)
 		input->input = strip_nl(input->input);
 		input->len = ft_strlen(input->input);
 		b = ft_base64_d(input->input, input->len);
-		write(input->outfd, b, (3 * (input->len / 4)) - minus_pad(input->input));
+		write(input->outfd, b, (3 * (input->len / 4)) -
+				minus_pad(input->input));
 	}
 	else
 	{
