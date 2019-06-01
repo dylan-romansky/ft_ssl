@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:57:14 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/31 15:30:02 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/31 18:26:42 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int				get_len(char *s, int len)
 	c = s[len - 1];
 	if (c > 8 || c < 0)
 		return (len);
-	while (i < 8)
+	while (i < c)
 		if (s[len - ++i] != c)
 			return (len);
 	return (len - i);

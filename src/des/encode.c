@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:36 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/30 17:50:33 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/31 18:12:06 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,6 @@ unsigned		key_encrypt(unsigned right, unsigned long key)
 	}
 	return (permute_box(s_boxing(expand ^ (key >> 8), 7)));
 }
-
-/*
-** initial permutation of data block. doesn't currently work
-*/
 
 unsigned long	init_perm(unsigned long block)
 {

@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:09 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/31 16:59:24 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/31 19:06:43 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@ unsigned char	*base64_con_e(unsigned char *s, t_ssl_input *input)
 void			base64_con_d(t_ssl_input *input)
 {
 	int				i;
+	char			*tmp;
 
 	i = input->len;
 	input->len = (3 * (input->len / 4)) - minus_pad(input->input);
-	input->input = (char *)ft_base64_d(input->input, i);
+	tmp = (char *)ft_base64_d(input->input, i);
+	free(input->input);
+	input->input = tmp;
 }
 
 unsigned char	*ft_des_cbc_e(t_ssl_input *input)
@@ -60,8 +63,7 @@ unsigned char	*ft_des_cbc_e(t_ssl_input *input)
 
 /*
 ** fix it, idiot
-** it's a lil overzealous during decryption
-** also base64 decryption is fucked for this
+** it's a lil overzealous during base64 decryption
 */
 
 unsigned char	*ft_des_cbc_d(t_ssl_input *input)
