@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:09 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/31 19:06:43 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/05/31 19:22:13 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ unsigned char	*base64_con_e(unsigned char *s, t_ssl_input *input)
 	return (s);
 }
 
-void			base64_con_d(t_ssl_input *input)
+unsigned char	*base64_con_d(t_ssl_input *input)
 {
 	int				i;
-	char			*tmp;
+	unsigned char	*tmp;
 
 	i = input->len;
 	input->len = (3 * (input->len / 4)) - minus_pad(input->input);
-	tmp = (char *)ft_base64_d(input->input, i);
+	tmp = ft_base64_d(input->input, i);
 	free(input->input);
-	input->input = tmp;
+	return(tmp);
 }
 
 unsigned char	*ft_des_cbc_e(t_ssl_input *input)
@@ -63,7 +63,9 @@ unsigned char	*ft_des_cbc_e(t_ssl_input *input)
 
 /*
 ** fix it, idiot
-** it's a lil overzealous during base64 decryption
+** it's fucking stupid, the data going into the decryption is identical post
+** conversion
+** only way there's an issue is if the length is wrong. hmm
 */
 
 unsigned char	*ft_des_cbc_d(t_ssl_input *input)
@@ -76,7 +78,7 @@ unsigned char	*ft_des_cbc_d(t_ssl_input *input)
 
 	i = 0;
 	if (input->flags & 256)
-		base64_con_d(input);
+		input->input = (char *)base64_con_d(input);
 	subkeys = gen_key(input->key);
 	s = (unsigned char *)ft_strnew(0);
 	while (i < input->len)
