@@ -52,7 +52,8 @@ unsigned char	*ft_des_ecb_d(t_ssl_input *input)
 	{
 		i = input->len;
 		input->len = (3 * (input->len / 4)) - minus_pad(input->input);
-		input->input = (char *)ft_base64_d(input->input, i);
+		input->input = swap_n_free((char *)ft_base64_d(input->input, i),
+				&(input->input));
 	}
 	i = 0;
 	subkeys = gen_key(input->key);
