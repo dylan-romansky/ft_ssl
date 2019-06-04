@@ -45,3 +45,11 @@ char		*pad_iv(char *s)
 		n = ft_hardjoin(n, ft_strlen(n), "0", 1);
 	return (n);
 }
+
+void		input_free(t_ssl_input *input)
+{
+	free(input->input);
+	if (input->pass)
+		free(input->pass);
+	free(input);
+}

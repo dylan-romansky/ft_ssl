@@ -55,6 +55,7 @@ void				pass_input(t_ssl_input *input);
 unsigned long		gen_salt(void);
 unsigned long		salt_pass(t_ssl_input *input, char *tmp,
 		unsigned long salt);
+void				input_free(t_ssl_input *input);
 
 /*
 ** md5

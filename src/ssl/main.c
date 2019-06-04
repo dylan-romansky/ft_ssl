@@ -121,7 +121,7 @@ int				main(int ac, char **av)
 			error_nodis(av[1]);
 		dis < 4 ? ssl_flags(av, input, dis, 1) :
 			cipher_flags(av, input, dis, 1);
-		free(input);
+		input_free(input);
 	}
 	else
 		ft_printf("usage: ft_ssl command [command opts] [command args]\n");
