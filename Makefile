@@ -25,8 +25,8 @@ all: $(NAME)
 
 $(NAME):
 	make -C ./libft reclean
-	gcc -Wall -Werror -Wextra -c $(I) $(SRCS) -fsanitize=address -g
-	gcc -Wall -Werror -Wextra -o $(NAME) $(O) $(I) $(L) -fsanitize=address -g
+	gcc -Wall -Werror -Wextra -c $(I) $(SRCS) -fsanitize=address -fsanitize=undefined -g
+	gcc -Wall -Werror -Wextra -o $(NAME) $(O) $(I) $(L) -fsanitize=address -fsanitize=undefined -g
 
 clean:
 	make -C ./libft clean

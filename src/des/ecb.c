@@ -37,6 +37,7 @@ unsigned char	*ft_des_ecb_e(t_ssl_input *input)
 					input->len), (char **)&s);
 		input->len = ft_strlen((char *)s);
 	}
+	free(subkeys);
 	return (s);
 }
 
@@ -65,5 +66,6 @@ unsigned char	*ft_des_ecb_d(t_ssl_input *input)
 		s = (unsigned char *)ft_hardjoin((char *)s, i, (char *)&chunk, 8);
 		i += 8;
 	}
+	free(subkeys);
 	return (s);
 }

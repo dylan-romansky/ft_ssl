@@ -69,6 +69,7 @@ unsigned char	*ft_base64_e(char *input, size_t len)
 		e = char_swap(e, i > len ? i - len : 0);
 		s = (unsigned char *)swap_n_free(ft_strjoin((char *)s, (char *)e),
 				(char **)&s);
+		free(e);
 	}
 	return (s);
 }
@@ -90,6 +91,7 @@ unsigned char	*ft_base64_d(char *input, size_t len)
 		d = contract_base(chunk);
 		s = (unsigned char *)ft_hardjoin((char *)s, (3 * (i / 4)),
 				(char *)d, (i + 4) > len ? (len - i) : 3);
+		free(d);
 		i += 4;
 	}
 	return (s);

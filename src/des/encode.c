@@ -42,7 +42,7 @@ unsigned		permute_box(unsigned box)
 	while (++i < 32)
 	{
 		perm <<= 1;
-		perm |= (1 << (32 - g_block_perm_k[i])) & box ? 1 : 0;
+		perm |= ((unsigned)1 << (32 - g_block_perm_k[i])) & box ? 1 : 0;
 	}
 	return (perm);
 }

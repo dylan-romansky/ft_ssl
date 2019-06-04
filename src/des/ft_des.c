@@ -46,7 +46,7 @@ void			des_pad(t_ssl_input *input)
 	ft_memcpy(pad, input->input, input->len);
 	while (i < val)
 		pad[i++ + input->len] = val;
-	free(input->input);
+	free((input->input));
 	input->input = (char *)pad;
 	input->len += val;
 }
@@ -64,14 +64,13 @@ int				ft_des_ecb(t_ssl_input *input)
 	{
 		s = ft_des_ecb_d(input);
 		write(input->outfd, s, get_len((char *)s, input->len));
-		free(s);
 	}
 	else
 	{
 		s = ft_des_ecb_e(input);
 		write(input->outfd, s, input->len);
-		free(s);
 	}
+	free(s);
 	return (0);
 }
 
@@ -88,13 +87,12 @@ int				ft_des_cbc(t_ssl_input *input)
 	{
 		s = ft_des_cbc_d(input);
 		write(input->outfd, s, get_len((char *)s, input->len));
-		free(s);
 	}
 	else
 	{
 		s = ft_des_cbc_e(input);
 		write(input->outfd, s, input->len);
-		free(s);
 	}
+	free(s);
 	return (0);
 }

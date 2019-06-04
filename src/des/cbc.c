@@ -20,7 +20,7 @@ unsigned char	*base64_con_e(unsigned char *s, t_ssl_input *input)
 	return (s);
 }
 
-unsigned char	*base64_con_d(t_ssl_input *input)
+t_ssl_input		*base64_con_d(t_ssl_input *input)
 {
 	int				i;
 	unsigned char	*tmp;
@@ -29,7 +29,8 @@ unsigned char	*base64_con_d(t_ssl_input *input)
 	input->len = (3 * (input->len / 4)) - minus_pad(input->input);
 	tmp = ft_base64_d(input->input, i);
 	free(input->input);
-	return(tmp);
+	input->input = (char *)tmp;
+	return(input);
 }
 
 unsigned char	*ft_des_cbc_e(t_ssl_input *input)
@@ -58,6 +59,7 @@ unsigned char	*ft_des_cbc_e(t_ssl_input *input)
 	}
 	if (input->flags & 256)
 		s = base64_con_e(s, input);
+	free(subkeys);
 	return (s);
 }
 
@@ -65,7 +67,6 @@ unsigned char	*ft_des_cbc_e(t_ssl_input *input)
 ** fix it, idiot
 ** it's fucking stupid, the data going into the decryption is identical post
 ** conversion
-** only way there's an issue is if the length is wrong. hmm
 */
 
 unsigned char	*ft_des_cbc_d(t_ssl_input *input)
@@ -78,7 +79,7 @@ unsigned char	*ft_des_cbc_d(t_ssl_input *input)
 
 	i = 0;
 	if (input->flags & 256)
-		input->input = (char *)base64_con_d(input);
+		input = base64_con_d(input);
 	subkeys = gen_key(input->key);
 	s = (unsigned char *)ft_strnew(0);
 	while (i < input->len)
@@ -93,5 +94,6 @@ unsigned char	*ft_des_cbc_d(t_ssl_input *input)
 		s = (unsigned char *)ft_hardjoin((char *)s, i, (char *)&chunk, 8);
 		i += 8;
 	}
+	free(subkeys);
 	return (s);
 }
