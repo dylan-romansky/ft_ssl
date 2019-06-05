@@ -6,12 +6,26 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 21:02:15 by dromansk          #+#    #+#             */
-/*   Updated: 2019/06/04 18:55:19 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/06/04 19:09:55 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "ssl_md5_enums.h"
+
+void	verify_base64(char *s)
+{
+	int		i;
+
+	i = -1;
+	while (s[++i])
+		if (!(('a' <= s[i] && s[i] <= 'z') || ('A' <= s[i] && s[i] <= 'Z') ||
+				('0' <= s[i] && s[i] <= '9') || s[i] == '+' || s[i] == '/'))
+		{
+			ft_printf("error: non-base64 character detected\n");
+			exit(1);
+		}
+}
 
 char	*strip_nl(char *input)
 {
@@ -64,6 +78,7 @@ int		ft_base64(t_ssl_input *input)
 	if (input->flags & d)
 	{
 		input->input = strip_nl(input->input);
+		verify_base64(input->input);
 		input->len = ft_strlen(input->input);
 		b = ft_base64_d(input->input, input->len);
 		write(input->outfd, b, (3 * (input->len / 4)) -
