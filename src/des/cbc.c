@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:09 by dromansk          #+#    #+#             */
-/*   Updated: 2019/06/04 15:07:34 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/06/04 18:58:42 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,6 @@ unsigned char	*ft_des_cbc_e(t_ssl_input *input)
 	free(subkeys);
 	return (s);
 }
-
-/*
-** fix it, idiot
-** it's fucking stupid, the data going into the decryption is identical post
-** conversion
-*/
 
 unsigned char	*ft_des_cbc_d(t_ssl_input *input)
 {

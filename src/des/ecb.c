@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:23 by dromansk          #+#    #+#             */
-/*   Updated: 2019/06/04 18:28:08 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/06/04 18:58:37 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,6 @@ unsigned char	*ft_des_ecb_e(t_ssl_input *input)
 	free(subkeys);
 	return (s);
 }
-
-/*
-** problem exists in base64 decryption
-** narrow down whether it's the algorithm itself or the assignment process
-*/
 
 unsigned char	*ft_des_ecb_d(t_ssl_input *input)
 {

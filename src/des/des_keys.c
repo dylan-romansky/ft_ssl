@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 00:04:51 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/29 17:15:48 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/06/04 18:58:58 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,6 @@ unsigned long	gen_cat(unsigned long c, unsigned long d)
 	k <<= 8;
 	return (k);
 }
-
-/*
-** make sure the keys are handled properly now
-*/
 
 unsigned long	*gen_k(unsigned long c[17], unsigned long d[17])
 {
