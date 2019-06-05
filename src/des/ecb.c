@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:23 by dromansk          #+#    #+#             */
-/*   Updated: 2019/06/04 17:52:30 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/06/04 18:28:08 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,6 @@ unsigned char	*ft_des_ecb_d(t_ssl_input *input)
 					input->len), &(input->input));
 		input->len = (3 * (input->len / 4)) - minus_pad(input->input);
 	}
-	i = 0;
-	while (i < input->len)
-		print_bin(input->input[i++], 8);
 	i = 0;
 	subkeys = gen_key(input->key);
 	s = (unsigned char *)ft_strnew(0);

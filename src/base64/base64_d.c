@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 00:16:19 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/30 23:27:23 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/06/04 18:51:54 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ unsigned char	char_base(char c)
 		return (c - 'A');
 	if ('a' <= c && c <= 'z')
 		return (c - 'a' + 26);
-	if (0 <= c && c <= '9')
+	if ('0' <= c && c <= '9')
 		return (c - '0' + 52);
 	if (c == '+')
 		return (62);

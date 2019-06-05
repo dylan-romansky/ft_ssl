@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 21:02:15 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/31 02:51:09 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/06/04 18:55:19 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,19 @@ int		minus_pad(char *input)
 	return (i);
 }
 
+void	print_base64(char *s, int fd)
+{
+	int		i;
+
+	i = -1;
+	while (s[++i])
+	{
+		ft_putchar_fd(s[i], fd);
+		if (i > 1 && !((i + 1) % 64))
+			ft_putchar_fd('\n', fd);
+	}
+}
+
 int		ft_base64(t_ssl_input *input)
 {
 	unsigned char	*b;
@@ -59,7 +72,7 @@ int		ft_base64(t_ssl_input *input)
 	else
 	{
 		b = ft_base64_e(input->input, input->len);
-		ft_putstr_fd((char *)b, input->outfd);
+		print_base64((char *)b, input->outfd);
 	}
 	return (1);
 }
