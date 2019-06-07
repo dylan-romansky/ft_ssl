@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:05:51 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/31 02:46:40 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/06/07 16:44:17 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int				j_increment(t_ssl_input *input, char *arg, char *fun, int dis)
 	}
 	if (input->flags & p2 && !input->pass)
 	{
-		input->pass = arg;
+		input->pass = ft_strdup(arg);
 		return (1);
 	}
 	if (input->flags & s2 && !input->salt)
