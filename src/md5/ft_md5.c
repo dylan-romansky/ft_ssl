@@ -72,6 +72,7 @@ void			split_input_512(char *input, int len, t_md5_words *word)
 		free(process);
 	}
 	print_md5(word);
+	free(word);
 }
 
 int				ft_md5(t_ssl_input *input)

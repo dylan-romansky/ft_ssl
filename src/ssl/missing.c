@@ -50,7 +50,7 @@ void	salt_with_pass(t_ssl_input *input)
 {
 	if (!input->salt)
 		input->salt = gen_salt();
-	input->key = salt_pass(input, input->pass, input->salt);
+	input->key = salt_pass(input, input->pass, ft_ltoa_base(input->salt, 16));
 }
 
 void	get_missing(t_ssl_input *input, int dis)

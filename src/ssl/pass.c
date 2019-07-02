@@ -23,6 +23,7 @@ unsigned long	*write_pass_hash(t_md5_words *words)
 	salt_hash[1] = flip_end(words->c0);
 	salt_hash[1] <<= 32;
 	salt_hash[1] |= flip_end(words->d0);
+	free(words);
 	return (salt_hash);
 }
 
@@ -73,7 +74,7 @@ unsigned long	*salt_md5(char *input, size_t len)
 	return (hashed);
 }
 
-unsigned long	salt_pass(t_ssl_input *input, char *tmp, unsigned long salt)
+unsigned long	salt_pass(t_ssl_input *input, char *tmp, char *salt)
 {
 	char			*mix;
 	size_t			size;
@@ -83,7 +84,7 @@ unsigned long	salt_pass(t_ssl_input *input, char *tmp, unsigned long salt)
 	size = ft_strlen(tmp);
 	mix = ft_strnew(size + 8);
 	ft_memcpy(mix, tmp, size);
-	ft_memcpy(mix + size, &salt, 8);
+	ft_memcpy(mix + size, salt, 8);
 	if (!(salted = salt_md5(mix, size + 8)))
 	{
 		ft_printf("Error: failed to create key\n");
@@ -94,6 +95,7 @@ unsigned long	salt_pass(t_ssl_input *input, char *tmp, unsigned long salt)
 		input->iv = salted[1];
 	ret = *salted;
 	free(salted);
+	free(salt);
 	return (ret);
 }
 
@@ -104,5 +106,5 @@ void			pass_input(t_ssl_input *input)
 
 	tmp = getpass("enter des encryption password: ");
 	salt = gen_salt();
-	input->key = salt_pass(input, tmp, salt);
+	input->key = salt_pass(input, tmp, ft_ltoa_base(salt, 16));
 }
