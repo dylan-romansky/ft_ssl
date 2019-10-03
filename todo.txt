@@ -1,0 +1,3 @@
+fix password hashing
+change all the algorithms to read straight from the fd in question if applicable
+refactor flag parsing
