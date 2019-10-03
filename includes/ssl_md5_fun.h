@@ -53,8 +53,7 @@ char				*pad_iv(char *s);
 unsigned long		verify_salt(char *tmp, int dis);
 void				pass_input(t_ssl_input *input);
 unsigned long		gen_salt(void);
-unsigned long		salt_pass(t_ssl_input *input, char *tmp,
-		unsigned long salt);
+unsigned long		salt_pass(t_ssl_input *input, char *tmp, char *salt);
 void				input_free(t_ssl_input *input);
 
 /*
