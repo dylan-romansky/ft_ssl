@@ -6,11 +6,19 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:13 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/09 21:52:14 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/10/18 05:21:11 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+
+/*
+** salted output uses a header that reads "Salted__" + 8 byte salt
+**
+** pbkdf(password, salt/last hash, max iterations, output length)
+** output length can probs get discarded since I know output gets
+** halved and stored as key and iv
+*/
 
 void			salt_error(int dis)
 {
