@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:13 by dromansk          #+#    #+#             */
-/*   Updated: 2019/10/18 05:21:11 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/10/18 05:40:43 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 ** pbkdf(password, salt/last hash, max iterations, output length)
 ** output length can probs get discarded since I know output gets
 ** halved and stored as key and iv
+**
+** openssl page says it defaults to just sha256
 */
 
 void			salt_error(int dis)

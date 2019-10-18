@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:08:20 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/31 00:25:31 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/10/18 05:55:57 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void				split_input_32(char *process, t_md5_words *words);
 
 int					ft_sha256(t_ssl_input *input);
 int					ft_sha224(t_ssl_input *input);
+int					sha_pad(char *input, unsigned len, t_sha_words *words);
 uint32_t			rightrotate(uint32_t input, uint32_t amount);
 void				sha_process_chunk(char *chunk, t_sha_words *words);
 int					sha_pad(char *input, unsigned len, t_sha_words *words);
