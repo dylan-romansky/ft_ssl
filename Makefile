@@ -6,7 +6,7 @@
 #    By: dromansk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:18:25 by dromansk          #+#    #+#              #
-#    Updated: 2019/05/30 23:37:47 by dromansk         ###   ########.fr        #
+#    Updated: 2019/10/22 15:45:42 by dromansk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,8 @@ all: $(NAME)
 
 $(NAME):
 	make -C ./libft reclean
-	gcc -Wall -Werror -Wextra -c $(I) $(SRCS) -fsanitize=address -fsanitize=undefined -g
-	gcc -Wall -Werror -Wextra -o $(NAME) $(O) $(I) $(L) -fsanitize=address -fsanitize=undefined -g
+	gcc -Wall -Werror -Wextra -c $(I) $(SRCS)
+	gcc -Wall -Werror -Wextra -o $(NAME) $(O) $(I) $(L)
 
 clean:
 	make -C ./libft clean
@@ -39,6 +39,18 @@ fclean: clean
 re: fclean all
 
 reclean: re
+	make clean
+
+lreclean: fclean
+	make -C ./libft lreclean
+	gcc -Wall -Werror -Wextra -c $(I) $(SRCS) -fsanitize=address
+	gcc -Wall -Werror -Wextra -o $(NAME) $(O) $(I) $(L) -fsanitize=address
+	make clean
+
+vreclean: fclean
+	make -C ./libft vreclean
+	gcc -Wall -Werror -Wextra -c $(I) $(SRCS) -g
+	gcc -Wall -Werror -Wextra -o $(NAME) $(O) $(I) $(L) -g
 	make clean
 
 test: clean
@@ -55,3 +67,6 @@ recomp: clean
 	rm -rf $(NAME)
 	make all
 	make clean
+
+rm: fclean
+	rm -rf $(NAME).dSYM

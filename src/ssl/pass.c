@@ -6,12 +6,12 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:13 by dromansk          #+#    #+#             */
-/*   Updated: 2019/10/18 06:43:25 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/10/22 15:24:05 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
-/*
+
 unsigned long	*write_pass_hash(t_md5_words *words)
 {
 	unsigned long	*salt_hash;
@@ -98,7 +98,7 @@ unsigned long	salt_pass(t_ssl_input *input, char *tmp, char *salt)
 	free(salt);
 	return (ret);
 }
-*/
+/*
 unsigned long	*salt_sha256(t_ssl_input *input)
 {
 		t_sha_words		*words;
@@ -117,6 +117,8 @@ unsigned long	*salt_sha256(t_ssl_input *input)
 				free(words);
 				return (-1);
 			}
+	return (69420);
+}
 
 unsigned long	salt_pass(t_ssl_input *input, char *tmp, char *salt)
 {
@@ -142,7 +144,7 @@ unsigned long	salt_pass(t_ssl_input *input, char *tmp, char *salt)
 	free(salt);
 	return (ret);
 }
-
+*/
 void			pass_input(t_ssl_input *input)
 {
 	char			*tmp;

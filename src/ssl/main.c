@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 19:34:06 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/31 19:24:15 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/10/22 15:39:07 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void			do_ssl(t_ssl_input *input2, char *input, int dis)
 				ft_printf("(%s) = ", input);
 			g_sslfuns[dis].hash(input2);
 		}
-		free(file);
 		ft_printf("\n");
 	}
 }

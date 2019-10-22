@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:29:52 by dromansk          #+#    #+#             */
-/*   Updated: 2019/04/24 18:21:41 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/10/22 15:35:02 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void			print_md5(t_md5_words *words)
 	words->c0 = flip_end(words->c0);
 	words->d0 = flip_end(words->d0);
 	ft_printf("%08x%08x%08x%08x", words->a0, words->b0, words->c0, words->d0);
-	free(words);
 }
 
 void			split_input_32(char *chunk, t_md5_words *word)
