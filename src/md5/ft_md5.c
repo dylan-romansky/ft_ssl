@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:29:52 by dromansk          #+#    #+#             */
-/*   Updated: 2019/10/22 15:35:02 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/10/22 17:00:35 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void			split_input_32(char *chunk, t_md5_words *word)
 	j = 0;
 	while (j < 64)
 	{
-		memcpy(&num, chunk + j, 4);
+		ft_memcpy(&num, chunk + j, 4);
 		chunks[i++] = num;
 		j += 4;
 	}

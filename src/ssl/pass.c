@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:13 by dromansk          #+#    #+#             */
-/*   Updated: 2019/10/22 15:24:05 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/10/22 16:41:51 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,10 +147,9 @@ unsigned long	salt_pass(t_ssl_input *input, char *tmp, char *salt)
 */
 void			pass_input(t_ssl_input *input)
 {
-	char			*tmp;
 	unsigned long	salt;
 
-	tmp = getpass("enter des encryption password: ");
+	input->pass = getpass("enter des encryption password: ");
 	salt = gen_salt();
-	input->key = salt_pass(input, tmp, ft_ltoa_base(salt, 16));
+	input->key = salt_pass(input, input->pass, ft_ltoa_base(salt, 16));
 }
