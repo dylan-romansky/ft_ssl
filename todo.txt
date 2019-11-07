@@ -1,4 +1,11 @@
 fix password hashing
+-I think I've cracked password and salt use
+--core algorithm is great. restructure so that base64 encrypting post des
+  happens before going through algorithm on decrypt and after on encrypt
+  grabbing salt for decryption happens post base64 decrypt
+---this also allows for salt management pre algorithm
+
 change all the algorithms to read straight from the fd in question if applicable
 - restructure code to allow block by block reading and encrypting
-refactor flag parsing
+
+refactor flag parsing (low priority)
