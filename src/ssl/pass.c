@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:13 by dromansk          #+#    #+#             */
-/*   Updated: 2019/11/06 23:22:45 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/06 23:30:42 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,6 @@ void			pass_input(t_ssl_input *input)
 
 	input->pass = getpass("enter des encryption password: ");
 	salt = gen_salt();
+	input->flags &= s2;
 	input->key = salt_pass(input, input->pass, (char *)&salt);
 }
