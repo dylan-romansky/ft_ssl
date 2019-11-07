@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:13 by dromansk          #+#    #+#             */
-/*   Updated: 2019/10/22 16:41:51 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/06 23:22:45 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,58 +98,11 @@ unsigned long	salt_pass(t_ssl_input *input, char *tmp, char *salt)
 	free(salt);
 	return (ret);
 }
-/*
-unsigned long	*salt_sha256(t_ssl_input *input)
-{
-		t_sha_words		*words;
-
-			words = (t_sha_words *)malloc(sizeof(t_sha_words));
-			words->h0 = 0x6a09e667;
-			words->h1 = 0xbb67ae85;
-			words->h2 = 0x3c6ef372;
-			words->h3 = 0xa54ff53a;
-			words->h4 = 0x510e527f;
-			words->h5 = 0x9b05688c;
-			words->h6 = 0x1f83d9ab;
-			words->h7 = 0x5be0cd19;
-			if (sha_pad(input->input, (unsigned)(input->len), words) < 0)
-			{
-				free(words);
-				return (-1);
-			}
-	return (69420);
-}
-
-unsigned long	salt_pass(t_ssl_input *input, char *tmp, char *salt)
-{
-	char			*mix;
-	size_t			size;
-	unsigned long	*salted;
-	unsigned long	ret;
-
-	size = ft_strlen(tmp);
-	mix = ft_strnew(size + 8);
-	ft_memcpy(mix, tmp, size);
-	ft_memcpy(mix + size, salt, 8);
-	if (!(salted = salt_sha256(mix, size + 8)))
-	{
-		ft_printf("Error: failed to create key\n");
-		exit(1);
-	}
-	free(mix);
-	if (!input->iv)
-		input->iv = salted[1];
-	ret = *salted;
-	free(salted);
-	free(salt);
-	return (ret);
-}
-*/
 void			pass_input(t_ssl_input *input)
 {
 	unsigned long	salt;
 
 	input->pass = getpass("enter des encryption password: ");
 	salt = gen_salt();
-	input->key = salt_pass(input, input->pass, ft_ltoa_base(salt, 16));
+	input->key = salt_pass(input, input->pass, (char *)&salt);
 }

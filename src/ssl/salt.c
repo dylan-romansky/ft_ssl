@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:13 by dromansk          #+#    #+#             */
-/*   Updated: 2019/10/18 05:40:43 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/06 23:21:13 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,5 @@ unsigned long	gen_salt(void)
 	unsigned long	salt;
 
 	getentropy(&salt, 8);
-	return (salt);
+	return (flip_end_512(salt));
 }

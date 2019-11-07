@@ -1,11 +1,4 @@
 fix password hashing
 change all the algorithms to read straight from the fd in question if applicable
+- restructure code to allow block by block reading and encrypting
 refactor flag parsing
-
-https://www.openssl.org/docs/manmaster/man1/openssl-enc.html
-https://wiki.openssl.org/index.php/Enc#Encryption
-https://www.ietf.org/rfc/rfc2898.txt
-
-https://wiki.openssl.org/index.php/EVP_Key_Derivation
-https://www.openssl.org/docs/manmaster/man3/OSSL_PARAM.html
-https://github.com/motaylormo/ft_ssl/tree/master/src/encrypt/pbkdf
