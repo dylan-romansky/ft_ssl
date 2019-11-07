@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:13 by dromansk          #+#    #+#             */
-/*   Updated: 2019/11/06 23:46:16 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/07 01:46:11 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ unsigned long	*salt_md5(char *input, size_t len)
 	return (hashed);
 }
 
-unsigned long	salt_pass(t_ssl_input *input, char *tmp, char *salt)
+unsigned long	salt_pass(t_ssl_input *input, char *tmp, unsigned long salt)
 {
 	char			*mix;
 	size_t			size;
@@ -84,7 +84,7 @@ unsigned long	salt_pass(t_ssl_input *input, char *tmp, char *salt)
 	size = ft_strlen(tmp);
 	mix = ft_strnew(size + 8);
 	ft_memcpy(mix, tmp, size);
-	ft_memcpy(mix + size, salt, 8);
+	ft_memcpy(mix + size, &salt, 8);
 	if (!(salted = salt_md5(mix, size + 8)))
 	{
 		ft_printf("Error: failed to create key\n");
@@ -95,7 +95,6 @@ unsigned long	salt_pass(t_ssl_input *input, char *tmp, char *salt)
 		input->iv = salted[1];
 	ret = *salted;
 	free(salted);
-	free(salt);
 	return (ret);
 }
 void			pass_input(t_ssl_input *input)
@@ -105,5 +104,5 @@ void			pass_input(t_ssl_input *input)
 	input->pass = getpass("enter des encryption password: ");
 	salt = gen_salt();
 	input->flags &= s2;
-	input->key = salt_pass(input, input->pass, (char *)&salt);
+	input->key = salt_pass(input, input->pass, salt);
 }
