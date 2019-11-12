@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:23 by dromansk          #+#    #+#             */
-/*   Updated: 2019/06/04 18:58:37 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/11 23:08:57 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,7 @@ unsigned char	*ft_des_ecb_d(t_ssl_input *input)
 	size_t			i;
 	unsigned char	*s;
 
-	if (input->flags & 256)
-	{
-		input->input = swap_n_free((char *)ft_base64_d(input->input,
-					input->len), &(input->input));
-		input->len = (3 * (input->len / 4)) - minus_pad(input->input);
-	}
-	i = 0;
+	i = ft_strnequ(input->input, "Salted__", 8) ? 16 : 0;
 	subkeys = gen_key(input->key);
 	s = (unsigned char *)ft_strnew(0);
 	while (i < input->len)

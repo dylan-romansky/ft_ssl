@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:57:14 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/31 18:26:42 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/11 23:21:49 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ int				ft_des_ecb(t_ssl_input *input)
 		des_pad(input);
 	else if (input->len % 8)
 		blocksize_error();
+	if (input->flags & d && input->flags & 256)
+		debase64_des(input);
+	desalt_des(input)
 	if (input->flags & d)
 	{
 		s = ft_des_ecb_d(input);
@@ -83,6 +86,9 @@ int				ft_des_cbc(t_ssl_input *input)
 		des_pad(input);
 	else if (input->len % 8)
 		blocksize_error();
+	if (input->flags & d && input->flags & 256)
+		debase64_des(input);
+	desalt_des(input);
 	if (input->flags & d)
 	{
 		s = ft_des_cbc_d(input);
