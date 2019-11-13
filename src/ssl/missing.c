@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:32 by dromansk          #+#    #+#             */
-/*   Updated: 2019/11/12 18:21:21 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:42:37 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	salt_with_pass(t_ssl_input *input)
 
 void	get_missing(t_ssl_input *input, int dis)
 {
+	if (!(input->flags & i))
+		get_input_file(input);
 	if (dis > 5 && !(input->flags & k) && !(input->flags & d))
 	{
 		if ((input->flags & p || dis != 8) && !input->pass)
@@ -73,8 +75,6 @@ void	get_missing(t_ssl_input *input, int dis)
 		else if (!(input->flags & k) && !input->key)
 			get_key(input, dis);
 	}
-	if (!(input->flags & i))
-		get_input_file(input);
 	if (dis > 5 && input->flags & d && input->len % 8)
 		des_len_error(dis);
 }
