@@ -4,7 +4,8 @@
 **   happens before going through algorithm on decrypt and after on encrypt
 **   grabbing salt for decryption happens post base64 decrypt
 ** ---this also allows for salt management pre algorithm
- password flag segfaults ecb!
+ password flag segfaults when it's the last flag!
+ -problem is in the j_increment where it calls a strdup
 
 ** on encrypt, if salt is used remember to append "Salted__" + salt to the
 ** beginning of the file
