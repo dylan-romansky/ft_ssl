@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:32 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/31 02:00:09 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:21:21 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,27 @@ void	salt_with_pass(t_ssl_input *input)
 {
 	if (!input->salt)
 		input->salt = gen_salt();
-	input->key = salt_pass(input, input->pass, ft_ltoa_base(input->salt, 16));
+	input->key = salt_pass(input, input->pass, input->salt);
 }
 
 void	get_missing(t_ssl_input *input, int dis)
 {
-	if (dis > 5 && !(input->flags & k))
+	if (dis > 5 && !(input->flags & k) && !(input->flags & d))
 	{
 		if ((input->flags & p || dis != 8) && !input->pass)
 			pass_input(input);
 		else if (input->pass)
 			salt_with_pass(input);
 		else
+			get_key(input, dis);
+	}
+	else if (dis > 5)
+	{
+		if (input->flags & a)
+			debase64_des(input);
+		if (!input->salt && ft_strnequ(input->input, "Salted__", 8))
+			desalt_des(input);
+		else if (!(input->flags & k) && !input->key)
 			get_key(input, dis);
 	}
 	if (!(input->flags & i))

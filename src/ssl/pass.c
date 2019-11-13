@@ -6,11 +6,12 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:13 by dromansk          #+#    #+#             */
-/*   Updated: 2019/11/07 01:46:11 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/12 17:24:18 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+#include "ssl_md5_enums.h"
 
 unsigned long	*write_pass_hash(t_md5_words *words)
 {
@@ -99,10 +100,9 @@ unsigned long	salt_pass(t_ssl_input *input, char *tmp, unsigned long salt)
 }
 void			pass_input(t_ssl_input *input)
 {
-	unsigned long	salt;
-
 	input->pass = getpass("enter des encryption password: ");
-	salt = gen_salt();
+	if (!input->salt && !(input->flags & s2))
+		input->salt = gen_salt();
 	input->flags &= s2;
-	input->key = salt_pass(input, input->pass, salt);
+	input->key = salt_pass(input, input->pass, input->salt);
 }

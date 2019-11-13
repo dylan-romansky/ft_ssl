@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:08:20 by dromansk          #+#    #+#             */
-/*   Updated: 2019/11/11 23:25:35 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/12 17:33:29 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int					input_file(t_ssl_input *input, char *name, char *fun,
 		int fd);
 int					output_file(t_ssl_input *input, char *path);
 int					get_pass(t_ssl_input *input, char *pass);
+unsigned char		*append_salt(unsigned char *s, t_ssl_input *input);
 unsigned long long	hex_to_l(char *st);
 
 int					stdin_check(void);
@@ -55,7 +56,7 @@ void				pass_input(t_ssl_input *input);
 void				debase64_des(t_ssl_input *input);
 void				desalt_des(t_ssl_input *input);
 unsigned long		gen_salt(void);
-unsigned long		salt_pass(t_ssl_input *input, char *tmp, char *salt);
+unsigned long		salt_pass(t_ssl_input *input, char *tmp, unsigned long salt);
 void				input_free(t_ssl_input *input);
 
 /*

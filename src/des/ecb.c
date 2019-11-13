@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:23 by dromansk          #+#    #+#             */
-/*   Updated: 2019/11/11 23:08:57 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:13:13 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ unsigned char	*ft_des_ecb_e(t_ssl_input *input)
 		s = (unsigned char *)ft_hardjoin((char *)s, i, (char *)&chunk, 8);
 		i += 8;
 	}
+	if (input->salt)
+		s = append_salt(s, input);
 	if (input->flags & 256)
 	{
 		s = (unsigned char *)swap_n_free((char *)ft_base64_e((char *)s,

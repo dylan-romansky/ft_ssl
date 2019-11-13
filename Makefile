@@ -6,7 +6,7 @@
 #    By: dromansk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:18:25 by dromansk          #+#    #+#              #
-#    Updated: 2019/10/22 16:33:07 by dromansk         ###   ########.fr        #
+#    Updated: 2019/11/12 17:35:21 by dromansk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,11 @@ fclean: clean
 re: fclean all
 
 reclean: re
+	make clean
+
+sre: fclean all
+
+sreclean: sre
 	make clean
 
 lreclean: fclean
