@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 19:34:06 by dromansk          #+#    #+#             */
-/*   Updated: 2019/11/12 23:23:23 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/13 00:50:48 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ void			cipher_flags(char **av, t_ssl_input *input, int dis, int j)
 		{
 			input->flags |=
 				cipher_flag_val(av[j], dis, g_sslfuns[dis].print);
-			j += j_increment(input, av[j + 1], g_sslfuns[dis].print, dis);
+			if (j + 1 < input->args)
+				j += j_increment(input, av[j + 1], g_sslfuns[dis].print, dis);
 		}
 		else
 			break ;
