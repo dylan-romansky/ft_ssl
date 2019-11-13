@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:13 by dromansk          #+#    #+#             */
-/*   Updated: 2019/11/06 23:21:13 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/13 07:14:34 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,4 @@ unsigned long	verify_salt(char *tmp, int dis)
 	done = hex_to_l(key);
 	free(key);
 	return (done);
-}
-
-unsigned long	gen_salt(void)
-{
-	unsigned long	salt;
-
-	getentropy(&salt, 8);
-	return (flip_end_512(salt));
 }

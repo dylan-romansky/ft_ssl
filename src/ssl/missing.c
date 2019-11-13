@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:32 by dromansk          #+#    #+#             */
-/*   Updated: 2019/11/12 23:39:35 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/13 07:15:44 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	get_input_file(t_ssl_input *input)
 void	salt_with_pass(t_ssl_input *input)
 {
 	if (!input->salt)
-		input->salt = gen_salt();
+		getentropy(&(input->salt), 8);
 	input->key = salt_pass(input, input->pass, input->salt);
 }
 

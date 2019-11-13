@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:13 by dromansk          #+#    #+#             */
-/*   Updated: 2019/11/12 23:41:35 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/13 07:15:00 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,13 @@ unsigned long	salt_pass(t_ssl_input *input, char *tmp, unsigned long salt)
 	free(salted);
 	return (ret);
 }
+
 void			pass_input(t_ssl_input *input)
 {
 	if (!input->pass)
 		input->pass = getpass("enter des encryption password: ");
 	if (!input->salt && !(input->flags & s2))
-		input->salt = gen_salt();
+		getentropy(&(input->salt), 8);
 	input->flags |= s2;
 	input->key = salt_pass(input, input->pass, input->salt);
 }

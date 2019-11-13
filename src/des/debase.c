@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 23:00:06 by dromansk          #+#    #+#             */
-/*   Updated: 2019/11/13 03:56:37 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/13 06:57:38 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void			debase64_des(t_ssl_input *input)
 	input->len = new_len;
 }
 
-void			desalt_des(t_ssl_input *input)	
+void			desalt_des(t_ssl_input *input)
 {
 	char	*tmp;
 

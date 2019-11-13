@@ -1,3 +1,5 @@
+ broke my base 64 AGAIN FUCKING HELL
+
  change all the algorithms to read straight from the fd in question if applicable
  - restructure code to allow block by block reading and encrypting
 

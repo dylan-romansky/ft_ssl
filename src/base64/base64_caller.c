@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 21:02:15 by dromansk          #+#    #+#             */
-/*   Updated: 2019/06/04 21:53:11 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/13 07:25:14 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	print_base64(char *s, int fd)
 		if (i > 1 && !((i + 1) % 64))
 			ft_putchar_fd('\n', fd);
 	}
+	if (!(i > 1 && !((i + 1) % 64)))
+		ft_putchar_fd('\n', fd);
 }
 
 int		ft_base64(t_ssl_input *input)

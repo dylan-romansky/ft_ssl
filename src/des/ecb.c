@@ -6,11 +6,22 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:53:23 by dromansk          #+#    #+#             */
-/*   Updated: 2019/11/12 23:55:16 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/13 07:28:10 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+#include "ssl_md5_enums.h"
+
+unsigned char	*ecb_b64(unsigned char *s, t_ssl_input *input)
+{
+	s = (unsigned char *)swap_n_free((char *)ft_base64_e((char *)s,
+				input->len), (char **)&s);
+	s = (unsigned char *)swap_n_free(ft_strjoin((char *)s, "\n"),
+			(char **)&s);
+	input->len = ft_strlen((char *)s);
+	return (s);
+}
 
 unsigned char	*ft_des_ecb_e(t_ssl_input *input)
 {
@@ -33,12 +44,8 @@ unsigned char	*ft_des_ecb_e(t_ssl_input *input)
 	}
 	if (input->salt)
 		s = append_salt(s, input);
-	if (input->flags & 256)
-	{
-		s = (unsigned char *)swap_n_free((char *)ft_base64_e((char *)s,
-					input->len), (char **)&s);
-		input->len = ft_strlen((char *)s);
-	}
+	if (input->flags & a)
+		s = ecb_b64(s, input);
 	free(subkeys);
 	return (s);
 }
