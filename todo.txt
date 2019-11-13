@@ -1,6 +1,8 @@
  change all the algorithms to read straight from the fd in question if applicable
  - restructure code to allow block by block reading and encrypting
 
+ make sure that -a flag doesn't cause des to use the base64 encrypted input's length
+
  refactor flag parsing (low priority)
 
  add des3-ecb and des3-cbc

@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 23:00:06 by dromansk          #+#    #+#             */
-/*   Updated: 2019/11/12 23:57:07 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/13 03:56:37 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 
 void			debase64_des(t_ssl_input *input)
 {
+	int	new_len;
+
+	new_len = (3 * (input->len / 4)) - minus_pad(input->input);
 	input->input = swap_n_free((char *)ft_base64_d(input->input, input->len),
 				&(input->input));
-	input->len = (3 * (input->len / 4)) - minus_pad(input->input);
+	input->len = new_len;
 }
 
 void			desalt_des(t_ssl_input *input)	
