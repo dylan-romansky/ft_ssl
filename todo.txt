@@ -1,4 +1,6 @@
- broke my base 64 AGAIN FUCKING HELL
+ block length isn't being read properly
+
+ consider a flag check for print_base64 usage in des printing
 
  change all the algorithms to read straight from the fd in question if applicable
  - restructure code to allow block by block reading and encrypting
