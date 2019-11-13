@@ -4,6 +4,7 @@
 **   happens before going through algorithm on decrypt and after on encrypt
 **   grabbing salt for decryption happens post base64 decrypt
 ** ---this also allows for salt management pre algorithm
+ password flag segfaults ecb!
 
 ** on encrypt, if salt is used remember to append "Salted__" + salt to the
 ** beginning of the file

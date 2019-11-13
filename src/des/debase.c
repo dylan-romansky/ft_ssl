@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 23:00:06 by dromansk          #+#    #+#             */
-/*   Updated: 2019/11/12 18:39:20 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/12 23:57:07 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,15 @@ void			debase64_des(t_ssl_input *input)
 
 void			desalt_des(t_ssl_input *input)	
 {
+	char	*tmp;
+
 	ft_memcpy(&(input->salt), input->input + 8, 8);
-	input->flags &= s2;
-	input->pass ? salt_pass(input, input->pass, input->salt) : pass_input(input);
+	tmp = ft_strsub(input->input, 16, input->len - 16);
+	free(input->input);
+	input->input = tmp;
+	input->len -= 16;
+	input->flags |= s2;
+	pass_input(input);
 }
 
 unsigned char	*append_salt(unsigned char *s, t_ssl_input *input)
