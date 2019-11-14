@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 21:02:15 by dromansk          #+#    #+#             */
-/*   Updated: 2019/11/13 07:25:14 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/14 01:01:28 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,18 @@ int		minus_pad(char *input)
 	return (i);
 }
 
-void	print_base64(char *s, int fd)
+void	print_base64(char *s, int fd, size_t len)
 {
-	int		i;
+	size_t	i;
 
-	i = -1;
-	while (s[++i])
+	i = 0;
+	while (i + 64 < len)
 	{
-		ft_putchar_fd(s[i], fd);
-		if (i > 1 && !((i + 1) % 64))
-			ft_putchar_fd('\n', fd);
+		write(fd, s + i, 64);
+		write(fd, "\n", 1);
+		i += 64;
 	}
-	if (!(i > 1 && !((i + 1) % 64)))
-		ft_putchar_fd('\n', fd);
+	ft_putendl_fd(s + i, fd);
 }
 
 int		ft_base64(t_ssl_input *input)
@@ -90,7 +89,7 @@ int		ft_base64(t_ssl_input *input)
 	else
 	{
 		b = ft_base64_e(input->input, input->len);
-		print_base64((char *)b, input->outfd);
+		print_base64((char *)b, input->outfd, ft_strlen((char *)b));
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:08:20 by dromansk          #+#    #+#             */
-/*   Updated: 2019/11/14 00:42:52 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/14 00:58:17 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ unsigned long		verify_salt(char *tmp, int dis);
 void				pass_input(t_ssl_input *input);
 void				debase64_des(t_ssl_input *input);
 char				*strip_nl(char *input);
-void				print_base64(char *s, int fd);
+void				print_base64(char *s, int fd, size_t len);
 void				desalt_des(t_ssl_input *input);
 unsigned long		gen_salt(void);
 unsigned long		salt_pass(t_ssl_input *input, char *tmp,
