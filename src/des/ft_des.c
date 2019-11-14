@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 23:57:14 by dromansk          #+#    #+#             */
-/*   Updated: 2019/11/13 00:03:17 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/14 00:12:49 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ int				ft_des_ecb(t_ssl_input *input)
 	else
 	{
 		s = ft_des_ecb_e(input);
-		write(input->outfd, s, input->len);
+		input->flags & a ? print_base64((char *)s, input->outfd) :
+			write(input->outfd, s, input->len);
 	}
 	free(s);
 	return (0);
@@ -87,7 +88,8 @@ int				ft_des_cbc(t_ssl_input *input)
 	else
 	{
 		s = ft_des_cbc_e(input);
-		write(input->outfd, s, input->len);
+		input->flags & a ? print_base64((char *)s, input->outfd) :
+			write(input->outfd, s, input->len);
 	}
 	free(s);
 	return (0);

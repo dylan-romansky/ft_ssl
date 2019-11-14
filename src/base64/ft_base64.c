@@ -6,11 +6,14 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 00:16:47 by dromansk          #+#    #+#             */
-/*   Updated: 2019/11/13 07:22:59 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/14 00:29:07 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+
+const char	*g_base = {
+	"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"};
 
 unsigned char	*char_swap(unsigned char *chunk, int p)
 {
@@ -23,14 +26,7 @@ unsigned char	*char_swap(unsigned char *chunk, int p)
 	s = (unsigned char *)ft_strnew(4);
 	while (size-- > p)
 	{
-		if (chunk[i] < 26)
-			s[i] = 'A' + chunk[i];
-		else if (chunk[i] < 52)
-			s[i] = 'a' + (chunk[i] - 26);
-		else if (chunk[i] < 62)
-			s[i] = '0' + (chunk[i] - 52);
-		else if (chunk[i] < 64)
-			s[i] = (chunk[i] - 62) ? '/' : '+';
+		s[i] = g_base[(int)chunk[i]];
 		i++;
 	}
 	while (p-- > 0)
