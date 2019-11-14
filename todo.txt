@@ -10,3 +10,6 @@
  refactor flag parsing (low priority)
 
  add des3-ecb and des3-cbc
+
+ optimize base64 decryption by having strip_nl modify the stored length as part
+ of the strip process

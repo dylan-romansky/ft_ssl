@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 23:00:06 by dromansk          #+#    #+#             */
-/*   Updated: 2019/11/13 06:57:38 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/11/14 00:42:22 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void			debase64_des(t_ssl_input *input)
 {
 	int	new_len;
 
+	input->input = strip_nl(input->input);
+	input->len = ft_strlen(input->input);
 	new_len = (3 * (input->len / 4)) - minus_pad(input->input);
+	printf("%zu\n%d\n", input->len, new_len);
 	input->input = swap_n_free((char *)ft_base64_d(input->input, input->len),
 				&(input->input));
 	input->len = new_len;
