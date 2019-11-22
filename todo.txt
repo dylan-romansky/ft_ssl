@@ -1,14 +1,38 @@
- block length isn't being read properly
-
  consider a flag check for print_base64 usage in des printing
 
  change all the algorithms to read straight from the fd in question if applicable
  - restructure code to allow block by block reading and encrypting
 
- make sure that -a flag doesn't cause des to use the base64 encrypted input's length
+ --make sure des with base64 doesn't print extra new lines
 
- refactor flag parsing (low priority)
+ refactor flag parsing (high priority)
+ --when key is given, ignore key from pass
+ --when salt is given always append to front
+ ---but only append "Salted__" when pass flag is present
+
+ md5 fails to work properly on blank input
 
  add des3-ecb and des3-cbc
 
+ hexdump -C
+
  2 ^ n - 1
+
+ "Great work on DES and the code of preprocessing and handling the
+ errors and edges case was all located in the front part so he could
+ only care about the correct inputs when he need to apply encryption
+ and hashing and this is smart. Some parts there should be
+ improvements.
+ 1. handling with echo -n | ./ft_ssl md5
+ 2. echo -n | ./ft_ssl - using some NULL there are some edges cases
+    I don't remember :)
+ 3. echo -n asdf | ./ft_ssl -p -k -s a - salt handling got reversed
+ 4. handling flags -e works -eee correctly throw error but -ee -ez
+    -ep doens't
+ 5. Salted header only used when there is password flag
+ 6. base64 works great. But base64 at DES adds extra new lines ...
+    In the counterpart he understands the core concept clearly and
+    knows correctly. There is some issues with his code but he knows
+	how to handle it and as far as he could pass most of more than
+	99% of cases good to go. But still some critical problem should
+	be handled. Good luck."
