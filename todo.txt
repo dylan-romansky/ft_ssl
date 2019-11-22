@@ -9,6 +9,7 @@
  --when key is given, ignore key from pass
  --when salt is given always append to front
  ---but only append "Salted__" when pass flag is present
+ ---when salt is passed via flag, pad back with 0, not front
 
  md5 fails to work properly on blank input
 
