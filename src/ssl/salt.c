@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 02:23:13 by dromansk          #+#    #+#             */
-/*   Updated: 2019/11/13 07:14:34 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/12/03 17:27:32 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 ** salted output uses a header that reads "Salted__" + 8 byte salt
-**
+** --only when -p flag present, otherwise it just gets appended
 ** pbkdf(password, salt/last hash, max iterations, output length)
 ** output length can probs get discarded since I know output gets
 ** halved and stored as key and iv
