@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 01:07:59 by dromansk          #+#    #+#             */
-/*   Updated: 2019/05/14 17:06:03 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/12/03 17:24:04 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ unsigned long long	hex_to_l(char *st)
 		hex += hex_val(*st);
 		st++;
 	}
+	while !(hex & 0xff00000000000000L)
+		hex <<= 8;
 	return (hex);
 }
 
