@@ -79,9 +79,10 @@ int				read_md5(t_ssl_input *input, t_md5_words *w)
 	size_t flen;
 
 	ft_bzero(input->input, BUFF_SIZE);
+	input->read = 0;
 	if (!(input->flags & s))
 		input->read = read(input->infd, input->input, BUFF_SIZE);
-	if (input->read == 0)
+	if (input->read <= 0)
 		return (0);
 	input->len += input->read;
 	if (input->flags & p && input->infd == 0)

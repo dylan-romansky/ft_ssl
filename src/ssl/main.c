@@ -36,7 +36,7 @@ void			do_ssl(t_ssl_input *input, char *infile, int dis)
 	{
 		ft_printf("%s ", g_sslfuns[dis].print);
 		input->flags & s ? ft_printf("(\"%*s\") = ", input->read, input->input) :
-			ft_printf("(%s) = ", infile);
+			ft_printf("(%s) = ", infile ? infile : "stdin");
 		g_sslfuns[dis].hash(input);
 	}
 	ft_printf("\n");
@@ -45,8 +45,10 @@ void			do_ssl(t_ssl_input *input, char *infile, int dis)
 int				check_stdin(t_ssl_input *input, int dis)
 {
 	fcntl(0, F_SETFL, O_NONBLOCK);
-	g_sslfuns[dis].hash(input);
-	ft_printf("\n");
+	input->infd = 0;
+	do_ssl(input, NULL, dis);
+//	g_sslfuns[dis].hash(input);
+//	ft_printf("\n");
 	return (p);
 }
 
