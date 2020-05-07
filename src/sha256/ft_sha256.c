@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+#include "ssl_md5_enums.h"
 
 void	print_sha256(t_sha_words *words)
 {
@@ -20,16 +21,15 @@ void	print_sha256(t_sha_words *words)
 
 void	split_padded_512(char *fixed, int len, t_sha_words *words)
 {
-	char			*chunk;
+	char			chunk[64];
 	int				i;
 
 	i = 0;
 	while (i < len)
 	{
-		chunk = ft_strnew(64);
+		ft_bzero(chunk, 64);
 		ft_memcpy(chunk, fixed + i, 64);
 		sha_process_chunk(chunk, words);
-		free(chunk);
 		i += 64;
 	}
 }
@@ -55,13 +55,44 @@ int		sha_pad(char *input, unsigned len, t_sha_words *words)
 		i++;
 	if (!(padded = ft_strnew(i + len + 8)))
 		return (-1);
-	padded = ft_memcpy(padded, input, len);
+	ft_memcpy(padded, input, len);
 	padded[len] = (unsigned char)128;
 	flen = (len * 8);
 	padded = flip((unsigned *)padded, len + i);
 	ft_memcpy(padded + len + i + 4, &flen, 4);
 	split_padded_512(padded, len + i + 8, words);
 	return (0);
+}
+
+int		read_sha(t_ssl_input *input, t_sha_words *w)
+{
+	size_t flen;
+
+	ft_bzero(input->input, BUFF_SIZE);
+	input->read = read(input->infd, input->input, BUFF_SIZE);
+	if (input->read == 0)
+		return (0);
+	input->len += input->read;
+	if (input->flags & p && input->infd == 0)
+		write(input->outfd, input->input, input->read);
+	if (input->read < BUFF_SIZE || input->flags & s)
+	{
+		if (input->read + 1 > BUFF_SIZE - 8)
+		{
+			flip((unsigned *)input->input, 64);
+			split_padded_512(input->input, 64, w);
+			input->read -= 64;
+			ft_memcpy(input->input, input->input + 64, input->read);
+		}
+		input->input[input->read++] = (unsigned char)128;
+		while ((input->read + 8) % 64)
+			input->input[input->read++] = 0;
+		flen = input->len * 8;
+		ft_memcpy(input->input + input->read, &flen, 8);//may be wrong. double check
+		input->read += 8;
+	}
+	flip((unsigned *)input->input, input->read);//the length field might not need to be flipped in which case this can be moved back where it was
+	return (1);
 }
 
 int		ft_sha256(t_ssl_input *input)
@@ -77,12 +108,19 @@ int		ft_sha256(t_ssl_input *input)
 	words->h5 = 0x9b05688c;
 	words->h6 = 0x1f83d9ab;
 	words->h7 = 0x5be0cd19;
-	if (sha_pad(input->input, (unsigned)(input->len), words) < 0)
+	/*if (sha_pad(input->input, (unsigned)(input->len), words) < 0)
 	{
 		free(words);
 		return (-1);
-	}
+	}*/
+	while (read_sha(input, words))
+		split_padded_512(input->input, input->read, words);
 	print_sha256(words);
 	free(words);
 	return (0);
 }
+
+/*
+ * instead of sha_pad first, read chunks of 64 bytes
+ * on last chunk pad up to 64 as usual
+*/

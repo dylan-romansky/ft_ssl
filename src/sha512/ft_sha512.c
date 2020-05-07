@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+#include "ssl_md5_enums.h"
 
 void	print_sha512(t_512_words *words)
 {
@@ -65,6 +66,42 @@ int		sha_pad_512(char *input, unsigned len, t_512_words *words)
 	return (0);
 }
 
+int		read_sha_512(t_ssl_input *input, t_512_words *w)
+{
+	static size_t	flen1;
+	static size_t	flen2;
+
+	ft_bzero(input->input, BUFF_SIZE);
+	input->read = read(input->infd, input->input, BUFF_SIZE);
+	if (input->read == 0)
+		return (0);
+	if (input->flags & p && input->infd == 0)
+		write(input->outfd, input->input, input->read);
+	if (flen1 + (8 * input->read) < flen1)
+		flen2 += 8;
+	flen1 += (8 * input->read);
+	if (input->read < BUFF_SIZE || input->flags & s)
+	{
+		if (input->read + 1 > BUFF_SIZE - 16)
+		{
+			flip_512((unsigned long *)input->input, 128);
+			split_padded_1024(input->input, 128, w);
+			input->read -= 128;
+			ft_memcpy(input->input, input->input + 128, input->read);
+		}
+		input->input[input->read++] = (unsigned char)128;
+		while ((input->read + 16) % 128)
+			input->input[input->read++] = 0;
+//		flen = input->len2;
+		ft_memcpy(input->input + input->read, &flen2, 8);
+//		flen = input->len1;
+		ft_memcpy(input->input + input->read + 8, &flen1, 8);
+		input->read += 16;
+	}
+	flip_512((unsigned long *)input->input, input->read);//if the length field isn't supposed to be flipped then I'll have to copy len1 before len2 and put this line back at the top
+	return (1);
+}
+
 int		ft_sha512(t_ssl_input *input)
 {
 	t_512_words		*words;
@@ -78,12 +115,18 @@ int		ft_sha512(t_ssl_input *input)
 	words->h5 = 0x9b05688c2b3e6c1f;
 	words->h6 = 0x1f83d9abfb41bd6b;
 	words->h7 = 0x5be0cd19137e2179;
-	if (sha_pad_512(input->input, (unsigned)(input->len), words) < 0)
+	while (read_sha_512(input, words))
+		split_padded_1024(input->input, input->read, words);
+/*	if (sha_pad_512(input->input, (unsigned)(input->len), words) < 0)
 	{
 		free(words);
 		return (-1);
-	}
+	}*/
 	print_sha512(words);
 	free(words);
 	return (0);
 }
+
+/*
+ * refer to sha256 for reading changes
+*/

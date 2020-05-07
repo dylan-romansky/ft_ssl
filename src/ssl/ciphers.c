@@ -25,9 +25,10 @@ t_ssl_input	*make_input(int ac)
 	if (!(input = (t_ssl_input *)malloc(sizeof(t_ssl_input))))
 		return (NULL);
 	input->args = ac;
-	input->input = NULL;
+	input->len = 0;
 	input->len = 0;
 	input->flags = 0;
+	input->infd = 0;
 	input->outfd = 1;
 	input->key = 0;
 	input->iv = 0;
@@ -48,7 +49,8 @@ char		*pad_iv(char *s)
 
 void		input_free(t_ssl_input *input)
 {
-	free(input->input);
+	ft_bzero(input->input, BUFF_SIZE);
+	ft_bzero(input->base, BUFF_SIZE / 3 * 4);
 	if (input->pass)
 		free(input->pass);
 	free(input);

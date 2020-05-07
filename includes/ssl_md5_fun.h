@@ -17,7 +17,7 @@
 unsigned			flip_end(unsigned n);
 unsigned long		flip_end_512(unsigned long n);
 
-int					get_input(int fd, int flags, char *input, char **file);
+int					get_input(int fd, char *input, t_ssl_input *i);
 t_ssl_input			*make_input(int ac);
 
 void				flag_error(char *name, char *flag, int dis);
@@ -54,7 +54,7 @@ char				*pad_iv(char *s);
 unsigned long		verify_salt(char *tmp, int dis);
 void				pass_input(t_ssl_input *input);
 void				debase64_des(t_ssl_input *input);
-char				*strip_nl(char *input);
+void				strip_nl(t_ssl_input *input);
 void				print_base64(char *s, int fd, size_t len);
 void				desalt_des(t_ssl_input *input);
 unsigned long		gen_salt(void);
@@ -83,7 +83,9 @@ void				split_input_32(char *process, t_md5_words *words);
 
 int					ft_sha256(t_ssl_input *input);
 int					ft_sha224(t_ssl_input *input);
-int					sha_pad(char *input, unsigned len, t_sha_words *words);
+//int					sha_pad(char *input, unsigned len, t_sha_words *words);
+int					read_sha(t_ssl_input *input, t_sha_words *w);
+void				split_padded_512(char *fixed, int len, t_sha_words *words);
 uint32_t			rightrotate(uint32_t input, uint32_t amount);
 void				sha_process_chunk(char *chunk, t_sha_words *words);
 int					sha_pad(char *input, unsigned len, t_sha_words *words);
@@ -95,18 +97,22 @@ int					sha_pad(char *input, unsigned len, t_sha_words *words);
 int					ft_sha512(t_ssl_input *input);
 int					ft_sha384(t_ssl_input *input);
 void				process_chunk_512(char *chunk, t_512_words *words);
-int					sha_pad_512(char *input, unsigned len, t_512_words *words);
+int					read_sha_512(t_ssl_input *input, t_512_words *w);
+void				split_padded_1024(char *fixed, int len, t_512_words *words);
+//int					sha_pad_512(char *input, unsigned len, t_512_words *words);
 
 /*
 ** base64
 */
 
 int					ft_base64(t_ssl_input *input);
-unsigned char		*ft_base64_e(char *input, size_t len);
-unsigned char		*ft_base64_d(char *input, size_t len);
-unsigned char		*expand_base(unsigned chunk);
-unsigned char		*contract_base(unsigned chunk);
-unsigned char		*char_swap(unsigned char *chunk, int p);
+void				ft_base64_e(t_ssl_input *input);
+void				ft_base64_d(t_ssl_input *input);
+int					read_base64_d(t_ssl_input *input);
+void				verify_base64(char *s);
+void				expand_base(unsigned chunk, unsigned char *e);
+void				contract_base(unsigned chunk, unsigned char *d);
+void				char_swap(unsigned char *chunk, int p);
 int					minus_pad(char *input);
 
 /*
@@ -115,11 +121,11 @@ int					minus_pad(char *input);
 
 int					ft_des_cbc(t_ssl_input *input);
 int					ft_des_ecb(t_ssl_input *input);
-unsigned char		*ft_des_cbc_e(t_ssl_input *input);
-unsigned char		*ft_des_cbc_d(t_ssl_input *input);
-unsigned char		*ft_des_ecb_e(t_ssl_input *input);
-unsigned char		*ft_des_ecb_d(t_ssl_input *input);
-unsigned long		*gen_key(unsigned long key);
+void				ft_des_cbc_e(t_ssl_input *input);
+void				ft_des_cbc_d(t_ssl_input *input);
+void				ft_des_ecb_e(t_ssl_input *input);
+void				ft_des_ecb_d(t_ssl_input *input);
+void				gen_key(unsigned long key, unsigned long sub[16]);
 unsigned			key_encrypt(unsigned right, unsigned long key);
 unsigned long		init_perm(unsigned long block);
 unsigned long		split_perm_e(unsigned long perm, unsigned long *key48);

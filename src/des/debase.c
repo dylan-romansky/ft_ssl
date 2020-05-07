@@ -15,24 +15,25 @@
 
 void			debase64_des(t_ssl_input *input)
 {
-	int	new_len;
-
-	input->input = strip_nl(input->input);
-	input->len = ft_strlen(input->input);
-	new_len = (3 * (input->len / 4)) - minus_pad(input->input);
-	input->input = swap_n_free((char *)ft_base64_d(input->input, input->len),
-				&(input->input));
-	input->len = new_len;
+	ft_memcpy(input->base, input->input, input->len);
+	while (input->len > 0 && input->len < BUFF_SIZE)
+	{
+		input->len += input->read;
+		strip_nl(input);
+		input->read = read(input->infd, input->base + input->len, BUFF_SIZE - input->read);
+	}
+	ft_base64_d(input);
+	ft_bzero(input->base, BUFF_SIZE / 3 * 4);
 }
-
+//a lot has changed about the salt for this so verify behaviour
 void			desalt_des(t_ssl_input *input)
 {
-	char	*tmp;
+//	char	*tmp;
 
 	ft_memcpy(&(input->salt), input->input + 8, 8);
-	tmp = ft_strsub(input->input, 16, input->len - 16);
-	free(input->input);
-	input->input = tmp;
+//	tmp = ft_strsub(input->input, 16, input->len - 16);
+//	free(input->input);
+//	input->input = tmp;
 	input->len -= 16;
 	input->flags |= s2;
 	pass_input(input);

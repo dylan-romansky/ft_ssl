@@ -12,7 +12,6 @@
 
 #ifndef FT_SSL_H
 # define FT_SSL_H
-# define BUFF_SIZE 512
 # include "printf.h"
 # include "ssl_md5_fun.h"
 # include "ssl_md5_structs.h"

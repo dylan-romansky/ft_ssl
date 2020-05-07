@@ -53,19 +53,16 @@ unsigned long	gen_cat(unsigned long c, unsigned long d)
 	return (k);
 }
 
-unsigned long	*gen_k(unsigned long c[17], unsigned long d[17])
+void			gen_k(unsigned long c[17], unsigned long d[17], unsigned long k[16])
 {
 	int				i;
-	unsigned long	*k;
 
-	k = (unsigned long *)malloc(sizeof(unsigned long) * 16);
 	i = -1;
 	while (++i < 16)
 		k[i] = gen_cat(c[i + 1], d[i + 1]);
-	return (k);
 }
 
-unsigned long	*gen_key(unsigned long key)
+void			gen_key(unsigned long key, unsigned long sub[16])
 {
 	unsigned long	key56;
 	int				i;
@@ -87,5 +84,5 @@ unsigned long	*gen_key(unsigned long key)
 		c[i] = key_rotate(c[i - 1], g_keyshift56_k[i - 1]);
 		d[i] = key_rotate(d[i - 1], g_keyshift56_k[i - 1]);
 	}
-	return (gen_k(c, d));
+	return (gen_k(c, d, sub));
 }

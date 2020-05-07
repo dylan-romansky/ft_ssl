@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+#include "ssl_md5_enums.h"
 
 /*
 ** will need to verify if this works with binary files
@@ -70,15 +71,45 @@ void			split_input_512(char *input, int len, t_md5_words *word)
 		split_input_32(process, word);
 		free(process);
 	}
-	print_md5(word);
-	free(word);
+}
+
+int				read_md5(t_ssl_input *input, t_md5_words *w)
+{
+	size_t	pad;
+	size_t flen;
+
+	ft_bzero(input->input, BUFF_SIZE);
+	if (!(input->flags & s))
+		input->read = read(input->infd, input->input, BUFF_SIZE);
+	if (input->read == 0)
+		return (0);
+	input->len += input->read;
+	if (input->flags & p && input->infd == 0)
+		write(input->outfd, input->input, input->read);
+	if (input->read < BUFF_SIZE || input->flags & s)
+	{
+		if (input->read + 1 > BUFF_SIZE - 8)
+		{
+			split_input_512(input->input, 64, w);
+			input->read -= 64;
+			ft_memcpy(input->input, input->input + 64, input->read);
+		}
+		pad = (size_t)(input->read + 1);
+		while ((pad + 8) % 64)
+			input->input[pad++] = 0;
+		input->input[input->read] = (unsigned char)128;
+		flen = input->len * 8;
+		ft_memcpy(input->input + pad, &flen, 8); //this may be incorrect so I'm leaving the old adaption below
+		input->read = pad + 8;
+	}
+	return (1);
 }
 
 int				ft_md5(t_ssl_input *input)
 {
-	int				flen;
-	size_t			i;
-	char			*fixed;
+//	int				flen;
+//	size_t			i;
+//	char			*fixed;
 	t_md5_words		*words;
 
 	words = (t_md5_words *)malloc(sizeof(t_md5_words));
@@ -86,7 +117,7 @@ int				ft_md5(t_ssl_input *input)
 	words->b0 = 0xefcdab89;
 	words->c0 = 0x98badcfe;
 	words->d0 = 0x10325476;
-	i = 1 + input->len;
+/*	i = 1 + input->len;
 	while ((i + 8) % 64)
 		i++;
 	if (!(fixed = ft_strnew(i + 8)))
@@ -94,8 +125,21 @@ int				ft_md5(t_ssl_input *input)
 	fixed = ft_memcpy(fixed, input->input, input->len);
 	fixed[input->len] = (unsigned char)128;
 	flen = (int)(input->len * 8);
-	ft_memcpy(fixed + i, &flen, 4);
-	split_input_512(fixed, i + 8, words);
-	free(fixed);
+	ft_memcpy(fixed + i, &flen, 4);*/
+	while (read_md5(input, words))
+		split_input_512(input->input, input->read, words);
+	ft_bzero(input->input, BUFF_SIZE);
+	print_md5(words);
+	free(words);
+//	free(fixed);
 	return (0);
 }
+
+/*
+ * read up to BUFF_SIZE and drop them chunks through md5
+ * as soon as a read is less than BUFF_SIZE do the padding
+ * - make sure there's consistently enough room to pad
+ *   - maybe make the padding be a string?
+ *   - or run a few chunks through to make sure there's room
+ * then run those chunks through the algo as usual
+*/

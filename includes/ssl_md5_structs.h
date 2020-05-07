@@ -12,6 +12,9 @@
 
 #ifndef SSL_MD5_STRUCTS_H
 # define SSL_MD5_STRUCTS_H
+# define MIN_BUFF 384
+# define BUFF_MULT 5
+# define BUFF_SIZE MIN_BUFF * BUFF_MULT
 
 typedef struct s_md5_words	t_md5_words;
 typedef struct s_sha_words	t_sha_words;
@@ -88,9 +91,14 @@ struct	s_512_words
 struct	s_ssl_input
 {
 	int				args;
-	char			*input;
+	char			input[BUFF_SIZE];
+	char			base[BUFF_SIZE / 3 * 4];
+	int				read;
 	size_t			len;
+//	size_t			len1; switched to static in the function
+//	size_t			len2; that uses these. might need them tho
 	int				flags;
+	int				infd;
 	int				outfd;
 	unsigned long	key;
 	unsigned long	iv;

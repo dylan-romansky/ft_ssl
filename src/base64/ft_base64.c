@@ -12,29 +12,6 @@
 
 #include "ft_ssl.h"
 
-const char	*g_base = {
-	"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"};
-
-unsigned char	*char_swap(unsigned char *chunk, int p)
-{
-	int				size;
-	int				i;
-	unsigned char	*s;
-
-	size = 4;
-	i = 0;
-	s = (unsigned char *)ft_strnew(4);
-	while (size-- > p)
-	{
-		s[i] = g_base[(int)chunk[i]];
-		i++;
-	}
-	while (p-- > 0)
-		s[i++] = '=';
-	free(chunk);
-	return (s);
-}
-
 unsigned		get_chunk(char *input, int i, int len, int size)
 {
 	unsigned		chunk;
@@ -47,48 +24,53 @@ unsigned		get_chunk(char *input, int i, int len, int size)
 	return (chunk);
 }
 
-unsigned char	*ft_base64_e(char *input, size_t len)
+void			ft_base64_e(t_ssl_input *input)
 {
 	int				chunk;
 	size_t			i;
-	unsigned char	*e;
-	unsigned char	*s;
+	unsigned char	e[4];
+//	unsigned char	*s;
 
-	chunk = 0;
+//	chunk = 0;
 	i = 0;
-	s = (unsigned char *)ft_strnew(0);
-	while (i < len)
+//	s = (unsigned char *)ft_strnew(0);
+	while (i < input->len)
 	{
-		chunk = get_chunk(input, i, len, i < len - 2 ? 3 : len - i);
-		e = expand_base(chunk);
+		chunk = get_chunk(input->input, i, input->len, i < input->len - 2 ? 3 : input->len - i);
+		ft_bzero(e, 4);
+		expand_base(chunk, e);
 		i += 3;
-		e = char_swap(e, i > len ? i - len : 0);
-		s = (unsigned char *)swap_n_free(ft_strjoin((char *)s, (char *)e),
-				(char **)&s);
-		free(e);
+		char_swap(e, i > input->len ? i - input->len : 0);
+//		s = (unsigned char *)swap_n_free(ft_strjoin((char *)s, (char *)e),
+//				(char **)&s);
+//		free(e);
+		ft_memcpy(input->base + (i / 3 * 4), e, 4);
 	}
-	return (s);
+	input->len = (i / 3 * 4);
 }
 
-unsigned char	*ft_base64_d(char *input, size_t len)
+void			ft_base64_d(t_ssl_input *input)
 {
 	int				chunk;
 	size_t			i;
-	unsigned char	*d;
-	unsigned char	*s;
+	int				dif;
+	unsigned char	d[3];
+//	unsigned char	*s;
 
 	chunk = 0;
 	i = 0;
-	len -= minus_pad(input);
-	s = (unsigned char *)ft_strnew(0);
-	while (i < len)
+	dif = minus_pad(input->base);
+	input->len -= dif;
+//	s = (unsigned char *)ft_strnew(0);
+	while (i < input->len)
 	{
-		chunk = get_chunk(input, i, len, i < len - 3 ? 4 : len - i);
-		d = contract_base(chunk);
-		s = (unsigned char *)ft_hardjoin((char *)s, (3 * (i / 4)),
-				(char *)d, (i + 4) > len ? (len - i) : 3);
-		free(d);
+		ft_bzero(d, 3);
+		chunk = get_chunk(input->base, i, input->len, i < input->len - 3 ? 4 : input->len - i);
+		contract_base(chunk, d);
+//		s = (unsigned char *)ft_hardjoin((char *)s, (3 * (i / 4)),
+//				(char *)d, (i + 4) > len ? (len - i) : 3);
+		ft_memcpy(input->input + (i * 3 / 4), d, (i + 4) > input->len ? input->len - i : 3);
 		i += 4;
 	}
-	return (s);
+	input->len = (i * 3 / 4) - dif;
 }

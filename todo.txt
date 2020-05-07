@@ -1,7 +1,20 @@
+find a way to check stdin for input without changing it to non-blocking behaviour
+
+for hashes with -s flag, consider making a version of each
+function caller that takes the string and manages the buffer
+itself or a field in the struct and a conditional in the read
+function that copies the string to the buffer instead of from
+an fd
+
+solve padding for arbitrary sized input
+
+ move stdin reads to where the main function reads things in
+
  consider a flag check for print_base64 usage in des printing
 
- change all the algorithms to read straight from the fd in question if applicable
+ change all the algorithms to read straight from the fd in question if applicable, files will be opened in main program
  - restructure code to allow block by block reading and encrypting
+ - on decryption, it needs to check that what's read is a multiple of the block length otherwise it should error
 
  --make sure des with base64 doesn't print extra new lines
 
@@ -9,6 +22,7 @@
  --when key is given, ignore key from pass
  --when salt is given always append to front
  ---but only append "Salted__" when pass flag is present
+ ---verify how openssl reacts to incorrect salt on decrypt
  ---when salt is passed via flag, pad back with 0, not front
 
  md5 fails to work properly on blank input

@@ -12,60 +12,71 @@
 
 #include "ft_ssl.h"
 
+const char	*g_base = {
+	"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"};
+
+void			char_swap(unsigned char *chunk, int p)
+{
+	int				size;
+	int				i;
+
+	size = 4;
+	i = 0;
+	while (size-- > p)
+	{
+		chunk[i] = g_base[(int)chunk[i]];
+		i++;
+	}
+	while (p-- > 0)
+		chunk[i++] = '=';
+}
+
 unsigned char	char_base(char c)
 {
 	if ('A' <= c && c <= 'Z')
 		return (c - 'A');
-	if ('a' <= c && c <= 'z')
+	else if ('a' <= c && c <= 'z')
 		return (c - 'a' + 26);
-	if ('0' <= c && c <= '9')
+	else if ('0' <= c && c <= '9')
 		return (c - '0' + 52);
-	if (c == '+')
+	else if (c == '+')
 		return (62);
-	if (c == '/')
+	else if (c == '/')
 		return (63);
 	return (0);
 }
 
 unsigned		remove_chars(unsigned chunk)
 {
-	unsigned char	*d;
+	unsigned char	d[4];
 	int				i;
 
 	i = -1;
-	d = (unsigned char *)ft_strnew(3);
 	ft_memcpy(d, &chunk, 4);
 	while (++i < 4)
 		d[i] = char_base(d[i]);
 	ft_memcpy(&chunk, d, 4);
-	free(d);
 	return (chunk);
 }
 
-unsigned char	*expand_base(unsigned chunk)
+void			expand_base(unsigned chunk, unsigned char *e)
 {
 	unsigned char	bytes[3];
-	unsigned char	*expanded;
 
-	expanded = (unsigned char *)ft_strnew(3);
 	ft_memcpy(bytes, &chunk, 3);
-	expanded[0] = (bytes[0] & 252) >> 2;
-	expanded[1] = ((bytes[0] & 3) << 4) | bytes[1] >> 4;
-	expanded[2] = ((bytes[1] & 15) << 2) | bytes[2] >> 6;
-	expanded[3] = bytes[2] & 63;
-	return (expanded);
+	e[0] = (bytes[0] & 252) >> 2;
+	e[1] = ((bytes[0] & 3) << 4) | bytes[1] >> 4;
+	e[2] = ((bytes[1] & 15) << 2) | bytes[2] >> 6;
+	e[3] = bytes[2] & 63;
 }
 
-unsigned char	*contract_base(unsigned chunk)
+void			contract_base(unsigned chunk, unsigned char *d)
 {
 	unsigned char	expanded[4];
-	unsigned char	*contracted;
 
-	contracted = (unsigned char *)ft_strnew(2);
 	chunk = remove_chars(chunk);
 	ft_memcpy(expanded, &chunk, 4);
-	contracted[0] = (expanded[0] << 2) | (expanded[1] >> 4);
-	contracted[1] = (expanded[1] << 4) | (expanded[2] >> 2);
-	contracted[2] = (expanded[2] << 6) | expanded[3];
-	return (contracted);
+	d[0] = (expanded[0] << 2) | (expanded[1] >> 4);
+	d[1] = (expanded[1] << 4) | (expanded[2] >> 2);
+	d[2] = (expanded[2] << 6) | expanded[3];
 }

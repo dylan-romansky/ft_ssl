@@ -15,50 +15,38 @@
 #include "ssl_md5_dispatch.h"
 #include "ssl_md5_enums.h"
 
-void			do_ssl(t_ssl_input *input2, char *input, int dis)
-{
-	char			*file;
+/*
+** whole function needs to be rewritten to accomodate new
+** input buffer/read in functionality
+** accomodate given string functionality (-s flag)
+*/
 
-	if (!(input2->len = get_input(open(input, O_RDONLY),
-					input2->flags, input, &file)))
-		bad_input(input);
-	if (input2->len)
+void			do_ssl(t_ssl_input *input, char *infile, int dis)
+{
+	if (infile && !(input->infd = open(infile, O_RDONLY)))
+		bad_input(infile);
+	if (input->flags & q)
+		g_sslfuns[dis].hash(input);
+	else if (input->flags & r)
 	{
-		input2->input = file;
-		if (input2->flags & q)
-			g_sslfuns[dis].hash(input2);
-		else if (input2->flags & r)
-		{
-			g_sslfuns[dis].hash(input2);
-			ft_printf(" %s", input);
-		}
-		else
-		{
-			ft_printf("%s ", g_sslfuns[dis].print);
-			input2->flags & s ? ft_printf("(\"%s\") = ", input) :
-				ft_printf("(%s) = ", input);
-			g_sslfuns[dis].hash(input2);
-		}
-		ft_printf("\n");
+		g_sslfuns[dis].hash(input);
+		ft_printf(" %s", infile);
 	}
+	else
+	{
+		ft_printf("%s ", g_sslfuns[dis].print);
+		input->flags & s ? ft_printf("(\"%*s\") = ", input->read, input->input) :
+			ft_printf("(%s) = ", infile);
+		g_sslfuns[dis].hash(input);
+	}
+	ft_printf("\n");
 }
 
 int				check_stdin(t_ssl_input *input, int dis)
 {
-	char	*file;
-
-	file = NULL;
 	fcntl(0, F_SETFL, O_NONBLOCK);
-	input->len = get_input(0, input->flags, NULL, &file);
-	if (input->len)
-	{
-		input->input = file;
-		if (input->flags & p)
-			ft_printf("%s", file);
-		g_sslfuns[dis].hash(input);
-		ft_printf("\n");
-		free(file);
-	}
+	g_sslfuns[dis].hash(input);
+	ft_printf("\n");
 	return (p);
 }
 
@@ -80,6 +68,8 @@ void			ssl_flags(char **av, t_ssl_input *input, int dis, int j)
 		}
 		else
 		{
+			if (input->flags & p && (input->flags -= p))
+				do_ssl(input, NULL, dis);
 			while (j < input->args)
 				do_ssl(input, av[j++], dis);
 			return ;

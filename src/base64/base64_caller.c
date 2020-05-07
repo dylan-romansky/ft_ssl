@@ -13,40 +13,6 @@
 #include "ft_ssl.h"
 #include "ssl_md5_enums.h"
 
-void	verify_base64(char *s)
-{
-	int		i;
-
-	i = -1;
-	while (s[++i])
-		if (!(('a' <= s[i] && s[i] <= 'z') || ('A' <= s[i] && s[i] <= 'Z') ||
-				('0' <= s[i] && s[i] <= '9') || s[i] == '+' || s[i] == '/' ||
-				s[i] == '='))
-		{
-			ft_printf("error: non-base64 character detected\n");
-			exit(1);
-		}
-}
-
-char	*strip_nl(char *input)
-{
-	char	**stripped;
-	char	*tmp;
-	int		i;
-
-	stripped = ft_strsplit(input, '\n');
-	i = 0;
-	free(input);
-	input = stripped[0];
-	while (stripped[++i])
-	{
-		tmp = ft_strjoin(input, stripped[i]);
-		free(input);
-		input = tmp;
-	}
-	return (input);
-}
-
 int		minus_pad(char *input)
 {
 	int		i;
@@ -79,16 +45,19 @@ int		ft_base64(t_ssl_input *input)
 	b = NULL;
 	if (input->flags & d)
 	{
-		input->input = strip_nl(input->input);
-		verify_base64(input->input);
-		input->len = ft_strlen(input->input);
-		b = ft_base64_d(input->input, input->len);
-		write(input->outfd, b, (3 * (input->len / 4)) -
-				minus_pad(input->input));
+		while (read_base64_d(input))
+		{
+			verify_base64(input->input);
+			ft_base64_d(input);
+			write(input->outfd, input->input,
+					(input->len * 3 / 4) -
+					minus_pad(input->base));
+		}
 	}
 	else
 	{
-		b = ft_base64_e(input->input, input->len);
+		while ((input->read = read(input->infd, input->input, BUFF_SIZE)))
+			ft_base64_e(input);
 		print_base64((char *)b, input->outfd, ft_strlen((char *)b));
 	}
 	return (1);

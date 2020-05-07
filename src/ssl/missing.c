@@ -53,6 +53,9 @@ void	salt_with_pass(t_ssl_input *input)
 	input->key = salt_pass(input, input->pass, input->salt);
 }
 
+//use the below to change some behaviour about des
+//file read-in function
+
 void	get_missing(t_ssl_input *input, int dis)
 {
 	if (!(input->flags & i))
@@ -68,11 +71,11 @@ void	get_missing(t_ssl_input *input, int dis)
 	}
 	else if (dis > 5)
 	{
-		if (input->flags & a)
-			debase64_des(input);
-		if (!input->salt && ft_strnequ(input->input, "Salted__", 8))
-			desalt_des(input);
-		else if (!(input->flags & k) && !input->key)
+//		if (input->flags & a)
+//			debase64_des(input);
+//		if (!input->salt && ft_strnequ(input->input, "Salted__", 8))
+//			desalt_des(input);
+		/*else*/ if (!(input->flags & k) && !input->key)
 			get_key(input, dis);
 	}
 	if (dis > 5 && input->flags & d && input->len % 8)
