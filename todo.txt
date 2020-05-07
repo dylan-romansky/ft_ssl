@@ -8,6 +8,9 @@ an fd
 
 solve padding for arbitrary sized input
 
+hash discrepency between openssl console input and my console input
+---appears to be due to uninitialized data. figure out where the function is going when that happens
+
  move stdin reads to where the main function reads things in
 
  consider a flag check for print_base64 usage in des printing
