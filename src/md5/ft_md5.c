@@ -126,7 +126,8 @@ int				ft_md5(t_ssl_input *input)
 	fixed = ft_memcpy(fixed, input->input, input->len);
 	fixed[input->len] = (unsigned char)128;
 	flen = (int)(input->len * 8);
-	ft_memcpy(fixed + i, &flen, 4);*/
+	ft_memcpy(fixed + i, &flen, 4);
+	consider testing stdin here*/
 	while (read_md5(input, words))
 		split_input_512(input->input, input->read, words);
 	ft_bzero(input->input, BUFF_SIZE);

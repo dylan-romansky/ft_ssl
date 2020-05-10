@@ -59,6 +59,8 @@ int				handle_string(char **av, int j, t_ssl_input *input, int dis)
 		do_ssl(input, NULL, dis);
 	}
 // verify how other ssl projects handle an -s with no string
+// for bufferization with string input, consider copying into
+// the buffer BUFF_SIZE at a time and running it through
 	return (1);
 }
 

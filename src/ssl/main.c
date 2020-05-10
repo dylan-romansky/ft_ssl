@@ -44,9 +44,13 @@ void			do_ssl(t_ssl_input *input, char *infile, int dis)
 
 int				check_stdin(t_ssl_input *input, int dis)
 {
+	int	old;
+
+	old = fcntl(0, F_GETFL);//get old flags
 	fcntl(0, F_SETFL, O_NONBLOCK);
 	input->infd = 0;
 	do_ssl(input, NULL, dis);
+	fcntl(0, F_SETFL, old);//set back to normal
 //	g_sslfuns[dis].hash(input);
 //	ft_printf("\n");
 	return (p);
