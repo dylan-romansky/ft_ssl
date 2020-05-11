@@ -19,25 +19,29 @@
 ** whole function needs to be rewritten to accomodate new
 ** input buffer/read in functionality
 ** accomodate given string functionality (-s flag)
+** idea, hashes return void * to result. goes to printer
+** if it doesnt exist you don't print anything
 */
 
 void			do_ssl(t_ssl_input *input, char *infile, int dis)
 {
+	void	*w;
+
 	if (infile && !(input->infd = open(infile, O_RDONLY)))
 		bad_input(infile);
-	if (input->flags & q)
-		g_sslfuns[dis].hash(input);
-	else if (input->flags & r)
+	if (input->flags & q && (w = g_sslfuns[dis].hash(input)))
+		g_sslfuns[dis].printer(w);
+	else if (input->flags & r && (w = g_sslfuns[dis].hash(input)))
 	{
-		g_sslfuns[dis].hash(input);
+		g_sslfuns[dis].printer(w);
 		ft_printf(" %s", infile);
 	}
-	else
+	else if ((w = g_sslfuns[dis].hash(input)))//still needs s handling
 	{
 		ft_printf("%s ", g_sslfuns[dis].print);
 		input->flags & s ? ft_printf("(\"%*s\") = ", input->read, input->input) :
 			ft_printf("(%s) = ", infile ? infile : "stdin");
-		g_sslfuns[dis].hash(input);
+		g_sslfuns[dis].printer(w);
 	}
 	ft_printf("\n");
 }
@@ -46,11 +50,14 @@ int				check_stdin(t_ssl_input *input, int dis)
 {
 	int	old;
 
-	old = fcntl(0, F_GETFL);//get old flags
-	fcntl(0, F_SETFL, O_NONBLOCK);
-	input->infd = 0;
-	do_ssl(input, NULL, dis);
-	fcntl(0, F_SETFL, old);//set back to normal
+//	if (input->infd == 0)
+//	{
+		old = fcntl(0, F_GETFL);//get old flags
+		fcntl(0, F_SETFL, O_NONBLOCK);
+		input->infd = 0;
+		do_ssl(input, NULL, dis);
+		fcntl(0, F_SETFL, old);//set back to normal
+//	}
 //	g_sslfuns[dis].hash(input);
 //	ft_printf("\n");
 	return (p);
