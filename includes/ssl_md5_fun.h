@@ -66,7 +66,7 @@ void				input_free(t_ssl_input *input);
 ** md5
 */
 
-int					ft_md5(t_ssl_input *input);
+void				*ft_md5(t_ssl_input *input);
 void				hashing_functions_md5(t_md5_words *words, int i,
 		unsigned *chunks);
 uint32_t			left_rotate(uint32_t bits, uint32_t rot);
@@ -76,13 +76,18 @@ int					lessthan32(t_md5_words *words, int i);
 int					lessthan48(t_md5_words *words, int i);
 int					upto64(t_md5_words *words, int i);
 void				split_input_32(char *process, t_md5_words *words);
+void				print_md5(void *w);
+void				print_sha256(void *w);
+void				print_sha224(void *w);
+void				print_sha384(void *w);
+void				print_sha512(void *w);
 
 /*
 ** sha256 and sha224
 */
 
-int					ft_sha256(t_ssl_input *input);
-int					ft_sha224(t_ssl_input *input);
+void				*ft_sha256(t_ssl_input *input);
+void				*ft_sha224(t_ssl_input *input);
 //int					sha_pad(char *input, unsigned len, t_sha_words *words);
 int					read_sha(t_ssl_input *input, t_sha_words *w);
 void				split_padded_512(char *fixed, int len, t_sha_words *words);
@@ -94,8 +99,8 @@ int					sha_pad(char *input, unsigned len, t_sha_words *words);
 ** sha512 and sha384
 */
 
-int					ft_sha512(t_ssl_input *input);
-int					ft_sha384(t_ssl_input *input);
+void				*ft_sha512(t_ssl_input *input);
+void				*ft_sha384(t_ssl_input *input);
 void				process_chunk_512(char *chunk, t_512_words *words);
 int					read_sha_512(t_ssl_input *input, t_512_words *w);
 void				split_padded_1024(char *fixed, int len, t_512_words *words);
@@ -105,7 +110,7 @@ void				split_padded_1024(char *fixed, int len, t_512_words *words);
 ** base64
 */
 
-int					ft_base64(t_ssl_input *input);
+void				*ft_base64(t_ssl_input *input);
 void				ft_base64_e(t_ssl_input *input);
 void				ft_base64_d(t_ssl_input *input);
 int					read_base64_d(t_ssl_input *input);
@@ -119,8 +124,8 @@ int					minus_pad(char *input);
 ** des
 */
 
-int					ft_des_cbc(t_ssl_input *input);
-int					ft_des_ecb(t_ssl_input *input);
+void				*ft_des_cbc(t_ssl_input *input);
+void				*ft_des_ecb(t_ssl_input *input);
 void				ft_des_cbc_e(t_ssl_input *input);
 void				ft_des_cbc_d(t_ssl_input *input);
 void				ft_des_ecb_e(t_ssl_input *input);

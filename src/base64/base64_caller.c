@@ -38,7 +38,7 @@ void	print_base64(char *s, int fd, size_t len)
 	ft_putendl_fd(s + i, fd);
 }
 
-int		ft_base64(t_ssl_input *input)
+void	*ft_base64(t_ssl_input *input)
 {
 	unsigned char	*b;
 
@@ -60,5 +60,5 @@ int		ft_base64(t_ssl_input *input)
 			ft_base64_e(input);
 		print_base64((char *)b, input->outfd, ft_strlen((char *)b));
 	}
-	return (1);
+	return (0);
 }

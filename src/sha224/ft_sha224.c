@@ -12,13 +12,17 @@
 
 #include "ft_ssl.h"
 
-void	print_sha224(t_sha_words *words)
+void	print_sha224(void *w)
 {
+	t_sha_words *words;
+
+	words = (t_sha_words *)w;
 	ft_printf("%08x%08x%08x%08x%08x%08x%08x", words->h0, words->h1,
 	words->h2, words->h3, words->h4, words->h5, words->h6);
+	free(w);
 }
 
-int		ft_sha224(t_ssl_input *input)
+void	*ft_sha224(t_ssl_input *input)
 {
 	t_sha_words		*words;
 
@@ -38,9 +42,13 @@ int		ft_sha224(t_ssl_input *input)
 	}*/
 	while (read_sha(input, words))
 		split_padded_512(input->input, input->read, words);
-	print_sha224(words);
-	free(words);
-	return (0);
+//	print_sha224(words);
+	if (input->read == -1)
+	{
+		free(words);
+		words = NULL;
+	}
+	return (words);
 }
 
 /*

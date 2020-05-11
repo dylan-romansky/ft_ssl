@@ -13,10 +13,14 @@
 #include "ft_ssl.h"
 #include "ssl_md5_enums.h"
 
-void	print_sha256(t_sha_words *words)
+void	print_sha256(void *w)
 {
+	t_sha_words *words;
+
+	words = (t_sha_words *)w;
 	ft_printf("%08x%08x%08x%08x%08x%08x%08x%08x", words->h0, words->h1,
 	words->h2, words->h3, words->h4, words->h5, words->h6, words->h7);
+	free(w);
 }
 
 void	split_padded_512(char *fixed, int len, t_sha_words *words)
@@ -95,7 +99,7 @@ int		read_sha(t_ssl_input *input, t_sha_words *w)
 	return (1);
 }
 
-int		ft_sha256(t_ssl_input *input)
+void	*ft_sha256(t_ssl_input *input)
 {
 	t_sha_words		*words;
 
@@ -115,9 +119,13 @@ int		ft_sha256(t_ssl_input *input)
 	}*/
 	while (read_sha(input, words))
 		split_padded_512(input->input, input->read, words);
-	print_sha256(words);
-	free(words);
-	return (0);
+//	print_sha256(words);
+	if (input->read == -1)
+	{
+		free(words);
+		words = NULL;
+	}
+	return (words);
 }
 
 /*

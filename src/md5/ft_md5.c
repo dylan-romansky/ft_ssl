@@ -17,13 +17,17 @@
 ** will need to verify if this works with binary files
 */
 
-void			print_md5(t_md5_words *words)
+void			print_md5(void *w)
 {
+	t_md5_words *words;
+
+	words = (t_md5_words*)w;
 	words->a0 = flip_end(words->a0);
 	words->b0 = flip_end(words->b0);
 	words->c0 = flip_end(words->c0);
 	words->d0 = flip_end(words->d0);
 	ft_printf("%08x%08x%08x%08x", words->a0, words->b0, words->c0, words->d0);
+	free(w);
 }
 
 void			split_input_32(char *chunk, t_md5_words *word)
@@ -106,7 +110,7 @@ int				read_md5(t_ssl_input *input, t_md5_words *w)
 	return (1);
 }
 
-int				ft_md5(t_ssl_input *input)
+void		*ft_md5(t_ssl_input *input)
 {
 //	int				flen;
 //	size_t			i;
@@ -130,11 +134,16 @@ int				ft_md5(t_ssl_input *input)
 	consider testing stdin here*/
 	while (read_md5(input, words))
 		split_input_512(input->input, input->read, words);
+//	if (input->read != -1)
+//		print_md5(words);
 	ft_bzero(input->input, BUFF_SIZE);
-	print_md5(words);
-	free(words);
+	if (input->read == -1)
+	{
+		free(words);
+		words = NULL;
+	}
 //	free(fixed);
-	return (0);
+	return (words);
 }
 
 /*

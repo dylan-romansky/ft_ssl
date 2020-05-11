@@ -67,7 +67,7 @@ void			des_salt_handling(t_ssl_input *input)
 	}
 }
 
-int				ft_des_ecb(t_ssl_input *input)
+void			*ft_des_ecb(t_ssl_input *input)
 {
 	if (input->salt || input->flags & s2)
 		des_salt_handling(input);
@@ -95,7 +95,7 @@ int				ft_des_ecb(t_ssl_input *input)
 	return (0);
 }
 
-int				ft_des_cbc(t_ssl_input *input)
+void			*ft_des_cbc(t_ssl_input *input)
 {
 	if (input->salt || input->flags & s2)
 		des_salt_handling(input);
