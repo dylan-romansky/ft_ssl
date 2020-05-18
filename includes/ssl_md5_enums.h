@@ -19,7 +19,7 @@ typedef enum e_desenums		t_desenums;
 
 enum	e_sslfenums
 {
-	p = 1, q = 2, r = 4, s = 8, nof = 0x80000000
+	p = 1, q = 2, r = 4, s = 8, nof = 0x80000000, dunp = 0x80000000 >> 1
 };
 
 enum	e_base64enums

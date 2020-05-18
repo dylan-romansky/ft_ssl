@@ -48,25 +48,15 @@ int				do_ssl(t_ssl_input *input, char *infile, int dis)
 	return (1);
 }
 
-void			parse_input(char **av, t_ssl_input *input, int dis, int j)
+int				parse_input(char **av, t_ssl_input *input, int dis, int j)
 {
-	if (j < input->args || input->flags & p || input->sflag)
-	{
-			input->flags &= ~nof;
-			do_ssl(input, NULL, dis);
-			if (input->flags & p)
-				input->flags -= p;
-			if (input->sflag)
-			{
-				input->flags |= s;
-				do_ssl(input, NULL, dis);
-				input->flags -= s;
-			}
-			while (j < input->args)
-				do_ssl(input, av[j++], dis);
-	}
-	else
+	input->flags &= ~nof;
+	if (!(input->flags & dunp))
 		do_ssl(input, NULL, dis);
+	input->flags &= ~(p | dunp);
+	while (j < input->args)
+		do_ssl(input, av[j++], dis);
+	return (j);
 }
 
 void			ssl_flags(char **av, t_ssl_input *input, int dis, int j)
@@ -79,14 +69,17 @@ void			ssl_flags(char **av, t_ssl_input *input, int dis, int j)
 			if (input->flags & s && (j + 1 < input->args ||
 						av[j][chr_index(av[j], 's') + 1]))
 			{
-				j += handle_string(av, j, input);
+				j += handle_string(av, j, input, dis);
 				input->flags -= s;
 			}
+			if ((input->flags & (p | dunp)) == p && do_ssl(input, NULL, dis))
+				input->flags |= dunp;
+			else
+				j = parse_input(av, input, dis, j);
 		}
-		else
-			break ;
 	}
-	parse_input(av, input, dis, j);
+	if (input->flags & nof)
+		do_ssl(input, NULL, dis);
 }
 
 void			cipher_flags(char **av, t_ssl_input *input, int dis, int j)

@@ -27,13 +27,15 @@ unsigned long	flip_end_512(unsigned long n)
 			((n & 0xff00) << 40) | (n << 56));
 }
 
-int				handle_string(char **av, int j, t_ssl_input *input)
+int				handle_string(char **av, int j, t_ssl_input *input, int dis)
 {
 	int			i;
 	int			ret;
+	int			pi;
 
 	i = 0;
-	input->flags &= ~nof;
+	pi = input->flags & p;
+	input->flags &= (~nof & ~p);
 	ret = 0;
 	while (av[j][i] != 's')
 		i++;
@@ -50,5 +52,7 @@ int				handle_string(char **av, int j, t_ssl_input *input)
 	}
 // verify how other ssl projects handle an -s with no string
 // and how others handle multiple -s input
+	do_ssl(input, NULL, dis);
+	input->flags |= pi;
 	return (ret);
 }
