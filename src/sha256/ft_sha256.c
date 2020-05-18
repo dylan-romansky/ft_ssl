@@ -47,26 +47,6 @@ char	*flip(unsigned *padded, int len)
 		padded[j] = flip_end(padded[j]);
 	return ((char *)padded);
 }
-/*
-int		sha_pad(char *input, unsigned len, t_sha_words *words)
-{
-	int				i;
-	unsigned		flen;
-	char			*padded;
-
-	i = 1;
-	while ((len + i + 8) % 64)
-		i++;
-	if (!(padded = ft_strnew(i + len + 8)))
-		return (-1);
-	ft_memcpy(padded, input, len);
-	padded[len] = (unsigned char)128;
-	flen = (len * 8);
-	padded = flip((unsigned *)padded, len + i);
-	ft_memcpy(padded + len + i + 4, &flen, 4);
-	split_padded_512(padded, len + i + 8, words);
-	return (0);
-}*/
 
 void	sha_pad(t_ssl_input *input, void *words)
 {
@@ -109,14 +89,8 @@ void	*ft_sha256(t_ssl_input *input)
 	words->h5 = 0x9b05688c;
 	words->h6 = 0x1f83d9ab;
 	words->h7 = 0x5be0cd19;
-	/*if (sha_pad(input->input, (unsigned)(input->len), words) < 0)
-	{
-		free(words);
-		return (-1);
-	}*/
 	while (read_hash(input, words, &sha_pad) > 0)
 		split_padded_512(input->input, input->read, words);
-//	print_sha256(words);
 	if (input->read == -1)
 	{
 		free(words);
@@ -124,8 +98,3 @@ void	*ft_sha256(t_ssl_input *input)
 	}
 	return (words);
 }
-
-/*
- * instead of sha_pad first, read chunks of 64 bytes
- * on last chunk pad up to 64 as usual
-*/

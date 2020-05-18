@@ -13,10 +13,6 @@
 #include "ft_ssl.h"
 #include "ssl_md5_enums.h"
 
-/*
-** will need to verify if this works with binary files
-*/
-
 void			print_md5(void *w)
 {
 	t_md5_words *words;
@@ -97,16 +93,13 @@ void	md5_pad(t_ssl_input *input, void *words)
 			input->input[pad++] = 0;
 		input->input[input->read] = (unsigned char)128;
 		flen = input->len * 8;
-		ft_memcpy(input->input + pad, &flen, 8); //this may be incorrect so I'm leaving the old adaption below
+		ft_memcpy(input->input + pad, &flen, 8);
 		input->read = pad + 8;
 	}
 }
 
 void		*ft_md5(t_ssl_input *input)
 {
-//	int				flen;
-//	size_t			i;
-//	char			*fixed;
 	t_md5_words		*words;
 
 	words = (t_md5_words *)malloc(sizeof(t_md5_words));
@@ -114,35 +107,13 @@ void		*ft_md5(t_ssl_input *input)
 	words->b0 = 0xefcdab89;
 	words->c0 = 0x98badcfe;
 	words->d0 = 0x10325476;
-/*	i = 1 + input->len;
-	while ((i + 8) % 64)
-		i++;
-	if (!(fixed = ft_strnew(i + 8)))
-		return (-1);
-	fixed = ft_memcpy(fixed, input->input, input->len);
-	fixed[input->len] = (unsigned char)128;
-	flen = (int)(input->len * 8);
-	ft_memcpy(fixed + i, &flen, 4);
-	consider testing stdin here*/
 	while (read_hash(input, words, &md5_pad) > 0)
 		split_input_512(input->input, input->read, words);
-//	if (input->read != -1)
-//		print_md5(words);
 	ft_bzero(input->input, BUFF_SIZE);
 	if (input->read == -1)
 	{
 		free(words);
 		words = NULL;
 	}
-//	free(fixed);
 	return (words);
 }
-
-/*
- * read up to BUFF_SIZE and drop them chunks through md5
- * as soon as a read is less than BUFF_SIZE do the padding
- * - make sure there's consistently enough room to pad
- *   - maybe make the padding be a string?
- *   - or run a few chunks through to make sure there's room
- * then run those chunks through the algo as usual
-*/

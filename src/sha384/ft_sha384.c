@@ -35,15 +35,9 @@ void	*ft_sha384(t_ssl_input *input)
 	words->h5 = 0x8eb44a8768581511;
 	words->h6 = 0xdb0c2e0d64f98fa7;
 	words->h7 = 0x47b5481dbefa4fa4;
-/*	if (sha_pad_512(input->input, (unsigned)(input->len), words) < 0)
-	{
-		free(words);
-		return (-1);
-	}*/
 	while (read_hash(input, words, &sha_512_pad) > 0)
 		split_padded_1024(input->input, input->read, words);
 	ft_printf("%d\n", input->read);
-//	print_sha384(words);
 	if (input->read == -1)
 	{
 		free(words);
@@ -51,7 +45,3 @@ void	*ft_sha384(t_ssl_input *input)
 	}
 	return (words);
 }
-
-/*
- * refer to sha256 for reading changes
-*/

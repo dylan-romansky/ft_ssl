@@ -48,29 +48,6 @@ char	*flip_512(unsigned long *padded, int len)
 	return ((char *)padded);
 }
 
-/*int		sha_pad_512(char *input, unsigned len, t_512_words *words)
-{
-	int				i;
-	unsigned long	flen;
-	char			*padded;
-
-	i = 1;
-	while ((len + i + 8) % 128)
-		i++;
-	if (!(padded = ft_strnew(i + len + 8)))
-		return (-1);
-	padded = ft_memcpy(padded, input, len);
-	padded[len] = (unsigned char)128;
-	flen = (len * 8);
-	padded = flip_512((unsigned long *)padded, len + i);
-	ft_memcpy(padded + len + i, &flen, 8);
-	split_padded_1024(padded, len + i + 8, words);
-	return (0);
-}*/
-
-//if I'm completely wrong about how openssl pads 512
-//then I can ditch this whole thing and just keep a pad section
-
 void	sha_512_pad(t_ssl_input *input, void *words)
 {
 	t_512_words		*w;
@@ -93,7 +70,6 @@ void	sha_512_pad(t_ssl_input *input, void *words)
 			input->input[input->read++] = 0;
 		ft_memcpy(input->input + input->read, &(input->len2), 8);
 		ft_memcpy(input->input + input->read + 8, &(input->len), 8);
-//		ft_printf("%llx %llx\n", input->len2, input->len);
 	}
 	flip_512((unsigned long *)input->input, input->read);
 	if (input->read < BUFF_SIZE)
@@ -115,12 +91,6 @@ void	*ft_sha512(t_ssl_input *input)
 	words->h7 = 0x5be0cd19137e2179;
 	while (read_hash(input, words, &sha_512_pad) > 0)
 		split_padded_1024(input->input, input->read, words);
-/*	if (sha_pad_512(input->input, (unsigned)(input->len), words) < 0)
-	{
-		free(words);
-		return (-1);
-	}*/
-//	print_sha512(words);
 	if (input->read == -1)
 	{
 		free(words);
@@ -128,7 +98,3 @@ void	*ft_sha512(t_ssl_input *input)
 	}
 	return (words);
 }
-
-/*
- * refer to sha256 for reading changes
-*/

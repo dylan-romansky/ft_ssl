@@ -35,14 +35,8 @@ void	*ft_sha224(t_ssl_input *input)
 	words->h5 = 0x68581511;
 	words->h6 = 0x64f98fa7;
 	words->h7 = 0xbefa4fa4;
-/*	if (sha_pad(input->input, (unsigned)(input->len), words) < 0)
-	{
-		free(words);
-		return (-1);
-	}*/
 	while (read_hash(input, words, &sha_pad) > 0)
 		split_padded_512(input->input, input->read, words);
-//	print_sha224(words);
 	if (input->read == -1)
 	{
 		free(words);
@@ -50,7 +44,3 @@ void	*ft_sha224(t_ssl_input *input)
 	}
 	return (words);
 }
-
-/*
- * refer to sha256 ft_sha256.c for reading changes
-*/
