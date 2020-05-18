@@ -49,5 +49,6 @@ int				handle_string(char **av, int j, t_ssl_input *input)
 		input->sstring = av[j + 1];
 	}
 // verify how other ssl projects handle an -s with no string
+// and how others handle multiple -s input
 	return (ret);
 }

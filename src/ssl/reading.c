@@ -57,7 +57,6 @@ int		read_hash(t_ssl_input *input, void *w, void (*pad)(t_ssl_input *, void *))
 		return (input->read);
 	if ((input->flags & (p | s)) == p && input->infd == STDIN_FILENO)
 		write(input->outfd, input->input, input->read);
-	ft_printf("%d\n", input->read);
 	pad(input, w);
 	return (1);
 }
