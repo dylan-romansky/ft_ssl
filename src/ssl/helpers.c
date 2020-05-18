@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+#include "ssl_md5_enums.h"
 
 unsigned		flip_end(unsigned n)
 {
@@ -41,27 +42,29 @@ int				stdin_check(void)
 int				handle_string(char **av, int j, t_ssl_input *input, int dis)
 {
 	int			i;
+	int			ret;
 
 	i = 0;
+	input->flags &= ~nof;
 	while (av[j][i] != 's')
 		i++;
-	if (av[j][i + 1])
+	if (av[j][i + 1] && (ret = 0))
 	{
-		ft_memcpy(input->input, av[j] + i + 1, ft_strlen(av[j] + i + 1));
-		input->read = ft_strlen(av[j] + i + 1);
-		do_ssl(input, NULL, dis);
-		return (0);
+		input->sflag = av[j] + i + 1;
+		input->sstring = av[j] + i + 1;
 	}
-	else if (j + 1 < input->args)
+	else if (j + 1 < input->args && (ret = 1))
 	{
-		ft_memcpy(input->input, av[j + 1], ft_strlen(av[j + 1]));
-		input->read = ft_strlen(av[j] + i + 1);
-		do_ssl(input, NULL, dis);
+		input->sflag = av[j + 1];
+		input->sstring = av[j + 1];
 	}
 // verify how other ssl projects handle an -s with no string
 // for bufferization with string input, consider copying into
 // the buffer BUFF_SIZE at a time and running it through
-	return (1);
+	do_ssl(input, NULL, dis);
+	input->sflag = NULL;
+	input->sstring = NULL;
+	return (ret);
 }
 
 /*

@@ -47,7 +47,7 @@ char	*flip(unsigned *padded, int len)
 		padded[j] = flip_end(padded[j]);
 	return ((char *)padded);
 }
-
+/*
 int		sha_pad(char *input, unsigned len, t_sha_words *words)
 {
 	int				i;
@@ -66,21 +66,16 @@ int		sha_pad(char *input, unsigned len, t_sha_words *words)
 	ft_memcpy(padded + len + i + 4, &flen, 4);
 	split_padded_512(padded, len + i + 8, words);
 	return (0);
-}
+}*/
 
-int		read_sha(t_ssl_input *input, t_sha_words *w)
+void	sha_pad(t_ssl_input *input, void *words)
 {
-	size_t flen;
+	size_t 		flen;
+	t_sha_words	*w;
 
-	ft_bzero(input->input, BUFF_SIZE);
-	input->read = read(input->infd, input->input, BUFF_SIZE);
-	if (input->read == 0)
-		return (0);
-	input->len += input->read;
-	if (input->flags & p && input->infd == 0)
-		write(input->outfd, input->input, input->read);
-	if (input->read < BUFF_SIZE || input->flags & s)
+	if (input->read < BUFF_SIZE)
 	{
+		w = (t_sha_words *)words;
 		if (input->read + 1 > BUFF_SIZE - 8)
 		{
 			flip((unsigned *)input->input, 64);
@@ -95,8 +90,6 @@ int		read_sha(t_ssl_input *input, t_sha_words *w)
 		ft_memcpy(input->input + input->read, &flen, 8);//may be wrong. double check
 		input->read += 8;
 	}
-	flip((unsigned *)input->input, input->read);//the length field might not need to be flipped in which case this can be moved back where it was
-	return (1);
 }
 
 void	*ft_sha256(t_ssl_input *input)
@@ -117,8 +110,11 @@ void	*ft_sha256(t_ssl_input *input)
 		free(words);
 		return (-1);
 	}*/
-	while (read_sha(input, words))
+	while (read_hash(input, words, &sha_pad))
+	{
+		flip((unsigned *)input->input, input->read);//the length field might not need to be flipped
 		split_padded_512(input->input, input->read, words);
+	}
 //	print_sha256(words);
 	if (input->read == -1)
 	{

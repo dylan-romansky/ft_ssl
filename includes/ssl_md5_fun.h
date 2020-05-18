@@ -17,6 +17,7 @@
 unsigned			flip_end(unsigned n);
 unsigned long		flip_end_512(unsigned long n);
 
+int					read_hash(t_ssl_input *input, void *w, void (*pad)(t_ssl_input *, void *));
 int					get_input(int fd, char *input, t_ssl_input *i);
 t_ssl_input			*make_input(int ac);
 
@@ -45,7 +46,7 @@ void				des_len_error(int dis);
 
 int					handle_string(char **av, int j, t_ssl_input *input,
 		int dis);
-void				do_ssl(t_ssl_input *input2, char *input, int dis);
+int					do_ssl(t_ssl_input *input, char *infile, int dis);
 char				*ft_hardjoin(char *s1, int len1, char *s2, int len2);
 
 unsigned long		check_key(char *tmp, int dis);
@@ -93,7 +94,8 @@ int					read_sha(t_ssl_input *input, t_sha_words *w);
 void				split_padded_512(char *fixed, int len, t_sha_words *words);
 uint32_t			rightrotate(uint32_t input, uint32_t amount);
 void				sha_process_chunk(char *chunk, t_sha_words *words);
-int					sha_pad(char *input, unsigned len, t_sha_words *words);
+void				sha_pad(t_ssl_input *input, void *words);
+char				*flip(unsigned *padded, int len);
 
 /*
 ** sha512 and sha384
@@ -105,6 +107,8 @@ void				process_chunk_512(char *chunk, t_512_words *words);
 int					read_sha_512(t_ssl_input *input, t_512_words *w);
 void				split_padded_1024(char *fixed, int len, t_512_words *words);
 //int					sha_pad_512(char *input, unsigned len, t_512_words *words);
+void				sha_512_pad(t_ssl_input *input, void *words);
+char				*flip_512(unsigned long *padded, int len);
 
 /*
 ** base64

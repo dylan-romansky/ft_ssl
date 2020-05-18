@@ -104,6 +104,8 @@ struct	s_ssl_input
 	unsigned long	iv;
 	unsigned long	salt;
 	char			*pass;
+	char			*sflag;
+	char			*sstring;
 };
 
 #endif

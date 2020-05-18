@@ -77,22 +77,15 @@ void			split_input_512(char *input, int len, t_md5_words *word)
 	}
 }
 
-int				read_md5(t_ssl_input *input, t_md5_words *w)
+void	md5_pad(t_ssl_input *input, void *words)
 {
-	size_t	pad;
-	size_t flen;
+	size_t		pad;
+	size_t		flen;
+	t_md5_words	*w;
 
-	ft_bzero(input->input, BUFF_SIZE);
-	input->read = 0;
-	if (!(input->flags & s))
-		input->read = read(input->infd, input->input, BUFF_SIZE);
-	if (input->read <= 0)
-		return (0);
-	input->len += input->read;
-	if (input->flags & p && input->infd == 0)
-		write(input->outfd, input->input, input->read);
-	if (input->read < BUFF_SIZE || input->flags & s)
+	if (input->read < BUFF_SIZE)
 	{
+		w = (t_md5_words *)words;
 		if (input->read + 1 > BUFF_SIZE - 8)
 		{
 			split_input_512(input->input, 64, w);
@@ -107,7 +100,6 @@ int				read_md5(t_ssl_input *input, t_md5_words *w)
 		ft_memcpy(input->input + pad, &flen, 8); //this may be incorrect so I'm leaving the old adaption below
 		input->read = pad + 8;
 	}
-	return (1);
 }
 
 void		*ft_md5(t_ssl_input *input)
@@ -132,7 +124,7 @@ void		*ft_md5(t_ssl_input *input)
 	flen = (int)(input->len * 8);
 	ft_memcpy(fixed + i, &flen, 4);
 	consider testing stdin here*/
-	while (read_md5(input, words))
+	while (read_hash(input, words, &md5_pad) > 0)
 		split_input_512(input->input, input->read, words);
 //	if (input->read != -1)
 //		print_md5(words);

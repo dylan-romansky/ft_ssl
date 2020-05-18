@@ -1,23 +1,13 @@
+find every single use of 1 and 0 as file descriptors and replace with STDOUT_FILENO and STDIN_FILENO
+
 find a way to check stdin for input without changing it to non-blocking behaviour
 
-for hashes with -s flag, consider making a version of each
-function caller that takes the string and manages the buffer
-itself or a field in the struct and a conditional in the read
-function that copies the string to the buffer instead of from
-an fd
+solve issue with reading -s flag strings
 
 solve padding for arbitrary sized input
 
 hash discrepency between openssl console input and my console input
 ---appears to be due to uninitialized data. figure out where the function is going when that happens
-
- move stdin reads to where the main function reads things in
-
- consider a flag check for print_base64 usage in des printing
-
- change all the algorithms to read straight from the fd in question if applicable, files will be opened in main program
- - restructure code to allow block by block reading and encrypting
- - on decryption, it needs to check that what's read is a multiple of the block length otherwise it should error
 
  --make sure des with base64 doesn't print extra new lines
 

@@ -40,8 +40,11 @@ void	*ft_sha384(t_ssl_input *input)
 		free(words);
 		return (-1);
 	}*/
-	while (read_sha_512(input, words))
+	while (read_hash(input, words, &sha_512_pad))
+	{
+		flip_512((unsigned long *)input->input, input->read);
 		split_padded_1024(input->input, input->read, words);
+	}
 	print_sha384(words);
 	if (input->read == -1)
 	{

@@ -16,14 +16,12 @@
 #include "ssl_md5_enums.h"
 
 /*
-** whole function needs to be rewritten to accomodate new
-** input buffer/read in functionality
 ** accomodate given string functionality (-s flag)
-** idea, hashes return void * to result. goes to printer
-** if it doesnt exist you don't print anything
+**
+** modify p behaviour
 */
 
-void			do_ssl(t_ssl_input *input, char *infile, int dis)
+int				do_ssl(t_ssl_input *input, char *infile, int dis)
 {
 	void	*w;
 
@@ -39,28 +37,12 @@ void			do_ssl(t_ssl_input *input, char *infile, int dis)
 	else if ((w = g_sslfuns[dis].hash(input)))//still needs s handling
 	{
 		ft_printf("%s ", g_sslfuns[dis].print);
-		input->flags & s ? ft_printf("(\"%*s\") = ", input->read, input->input) :
+		input->flags & s ? ft_printf("(\"%s\") = ", input->sstring) :
 			ft_printf("(%s) = ", infile ? infile : "stdin");
 		g_sslfuns[dis].printer(w);
 	}
 	ft_printf("\n");
-}
-
-int				check_stdin(t_ssl_input *input, int dis)
-{
-	int	old;
-
-//	if (input->infd == 0)
-//	{
-		old = fcntl(0, F_GETFL);//get old flags
-		fcntl(0, F_SETFL, O_NONBLOCK);
-		input->infd = 0;
-		do_ssl(input, NULL, dis);
-		fcntl(0, F_SETFL, old);//set back to normal
-//	}
-//	g_sslfuns[dis].hash(input);
-//	ft_printf("\n");
-	return (p);
+	return (1);
 }
 
 void			ssl_flags(char **av, t_ssl_input *input, int dis, int j)
@@ -76,19 +58,22 @@ void			ssl_flags(char **av, t_ssl_input *input, int dis, int j)
 				j += handle_string(av, j, input, dis);
 				input->flags -= s;
 			}
-			if (input->flags & p)
-				input->flags -= check_stdin(input, dis);
+			if (input->flags & p && do_ssl(input, NULL, dis))
+				input->flags -= p;
 		}
 		else
 		{
-			if (input->flags & p && (input->flags -= p))
-				do_ssl(input, NULL, dis);
+			input->flags &= ~nof;
+			do_ssl(input, NULL, dis);
+			if (input->flags & p)
+				input->flags -= p;
 			while (j < input->args)
 				do_ssl(input, av[j++], dis);
 			return ;
 		}
 	}
-	check_stdin(input, dis);
+	if (input->flags & nof)
+		do_ssl(input, NULL, dis);
 }
 
 void			cipher_flags(char **av, t_ssl_input *input, int dis, int j)
