@@ -2,6 +2,9 @@ find a way to check stdin for input without changing it to non-blocking behaviou
 
 make sure it doesn't run stdin when it's empty
 make sure it doesn't try to run on nonexistent files
+when you give it stdin, -s, and a file the hashes get messed up
+
+rework logic for when you're done with stuff and running things
 
 --make sure des with base64 doesn't print extra new lines
 

@@ -44,8 +44,7 @@ void				no_read(char *name, char *fun);
 void				get_missing(t_ssl_input *input, int dis);
 void				des_len_error(int dis);
 
-int					handle_string(char **av, int j, t_ssl_input *input,
-		int dis);
+int					handle_string(char **av, int j, t_ssl_input *input);
 int					do_ssl(t_ssl_input *input, char *infile, int dis);
 char				*ft_hardjoin(char *s1, int len1, char *s2, int len2);
 
