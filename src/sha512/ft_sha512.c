@@ -116,7 +116,7 @@ void	*ft_sha512(t_ssl_input *input)
 	words->h5 = 0x9b05688c2b3e6c1f;
 	words->h6 = 0x1f83d9abfb41bd6b;
 	words->h7 = 0x5be0cd19137e2179;
-	while (read_hash(input, words, &sha_512_pad))
+	while (read_hash(input, words, &sha_512_pad) > 0)
 		split_padded_1024(input->input, input->read, words);
 /*	if (sha_pad_512(input->input, (unsigned)(input->len), words) < 0)
 	{

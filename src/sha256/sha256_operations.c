@@ -75,7 +75,7 @@ void		hashing_function_sha(t_sha_words *words, unsigned *w)
 
 void		sha_process_chunk(char *chunk, t_sha_words *words)
 {
-	unsigned		w[16];
+	unsigned		w[64];
 	uint32_t		tmp1;
 	uint32_t		tmp2;
 	int				i;

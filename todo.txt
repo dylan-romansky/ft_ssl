@@ -1,8 +1,8 @@
 find a way to check stdin for input without changing it to non-blocking behaviour
 
-solve padding for arbitrary sized input
+find out why sha512 won't read anything
 
-why is sha stack smashing on large input?
+solve padding for arbitrary sized input
 
 --make sure des with base64 doesn't print extra new lines
 

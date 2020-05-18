@@ -91,13 +91,12 @@ void			hashing_function_512(t_512_words *words, unsigned long *w)
 
 void			process_chunk_512(char *chunk, t_512_words *words)
 {
-	unsigned long	*w;
+	unsigned long	w[80];
 	unsigned long	tmp1;
 	unsigned long	tmp2;
 	int				i;
 
 	i = 15;
-	w = (unsigned long *)ft_strnew(sizeof(unsigned long) * 80);
 	ft_memcpy(w, chunk, 16 * 8);
 	while (++i < 80)
 	{
