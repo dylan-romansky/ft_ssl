@@ -27,7 +27,7 @@ int				do_ssl(t_ssl_input *input, char *infile, int dis)
 	input->len2 = 0;
 	if (infile && !(input->infd = open(infile, O_RDONLY)))
 		bad_input(infile);
-	if (input->flags & (q | p) && (w = g_sslfuns[dis].hash(input)))
+	else if (input->flags & (q | p) && (w = g_sslfuns[dis].hash(input)))
 	{
 		g_sslfuns[dis].printer(w);
 		ft_putchar('\n');
@@ -35,7 +35,7 @@ int				do_ssl(t_ssl_input *input, char *infile, int dis)
 	else if (input->flags & r && (w = g_sslfuns[dis].hash(input)))
 	{
 		g_sslfuns[dis].printer(w);
-		ft_printf(" %s\n", infile);
+		input->flags & s ? ft_printf(" \"%s\"\n", input->sstring) : ft_printf(" %s\n", infile);
 	}
 	else if ((w = g_sslfuns[dis].hash(input)))
 	{
