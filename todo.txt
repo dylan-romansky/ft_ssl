@@ -1,11 +1,5 @@
 find a way to check stdin for input without changing it to non-blocking behaviour
 
-make sure it doesn't run stdin when it's empty
-make sure it doesn't try to run on nonexistent files
-consider moving the -p and -s parsing back into their own sections
-
-rework logic for when you're done with stuff and running things
-
 --make sure des with base64 doesn't print extra new lines
 
 refactor flag parsing (high priority)
@@ -15,7 +9,9 @@ refactor flag parsing (high priority)
 ---verify how openssl reacts to incorrect salt on decrypt
 ---when salt is passed via flag, pad back with 0, not front
 
-md5 fails to work properly on blank input
+md5 currently does nothing with echo -n, openssl does
+
+consider implementing whirlpool
 
 add des3-ecb and des3-cbc
 

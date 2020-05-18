@@ -15,10 +15,6 @@
 #include "ssl_md5_dispatch.h"
 #include "ssl_md5_enums.h"
 
-/*
-** make sure p behaves as expected
-*/
-
 int				do_ssl(t_ssl_input *input, char *infile, int dis)
 {
 	void	*w;
