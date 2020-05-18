@@ -46,6 +46,8 @@ int				do_ssl(t_ssl_input *input, char *infile, int dis)
 		g_sslfuns[dis].printer(w);
 		ft_putchar('\n');
 	}
+	if (input->infd > STDERR_FILENO)
+		close(input->infd);
 	return (1);
 }
 
