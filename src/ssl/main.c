@@ -25,8 +25,11 @@ int				do_ssl(t_ssl_input *input, char *infile, int dis)
 
 	if (infile && !(input->infd = open(infile, O_RDONLY)))
 		bad_input(infile);
-	if (input->flags & q && (w = g_sslfuns[dis].hash(input)))
+	if (input->flags & (q | p) && (w = g_sslfuns[dis].hash(input)))
+	{
 		g_sslfuns[dis].printer(w);
+		ft_putchar('\n');
+	}
 	else if (input->flags & r && (w = g_sslfuns[dis].hash(input)))
 	{
 		g_sslfuns[dis].printer(w);
@@ -63,8 +66,6 @@ void			ssl_flags(char **av, t_ssl_input *input, int dis, int j)
 		{
 			input->flags &= ~nof;
 			do_ssl(input, NULL, dis);
-			if (input->flags & p)
-				input->flags -= p;
 			while (j < input->args)
 				do_ssl(input, av[j++], dis);
 			return ;
