@@ -100,6 +100,7 @@ void	sha_512_pad(t_ssl_input *input, void *words)
 		ft_memcpy(input->input + input->read + 8, &flen1, 8);
 		input->read += 16;
 	}
+	flip_512((unsigned long *)input->input, input->read);//if the length field isn't supposed to be flipped then I'll have to copy len1 before len2 and put this line back at the top
 }
 
 void	*ft_sha512(t_ssl_input *input)
@@ -116,10 +117,7 @@ void	*ft_sha512(t_ssl_input *input)
 	words->h6 = 0x1f83d9abfb41bd6b;
 	words->h7 = 0x5be0cd19137e2179;
 	while (read_hash(input, words, &sha_512_pad))
-	{
-		flip_512((unsigned long *)input->input, input->read);//if the length field isn't supposed to be flipped then I'll have to copy len1 before len2 and put this line back at the top
 		split_padded_1024(input->input, input->read, words);
-	}
 /*	if (sha_pad_512(input->input, (unsigned)(input->len), words) < 0)
 	{
 		free(words);

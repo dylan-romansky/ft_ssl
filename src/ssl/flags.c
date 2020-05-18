@@ -76,7 +76,7 @@ int				j_increment(t_ssl_input *input, char *arg, char *fun, int dis)
 {
 	if (input->flags & i && !input->infd)
 		return (input_file(input, arg, fun, open(arg, O_RDONLY)));
-	if (input->flags & o && input->outfd == 1)
+	if (input->flags & o && input->outfd == STDOUT_FILENO)
 		return (output_file(input, arg));
 	if (input->flags & k && !input->key)
 	{

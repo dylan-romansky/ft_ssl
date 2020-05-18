@@ -87,9 +87,12 @@ void	sha_pad(t_ssl_input *input, void *words)
 		while ((input->read + 8) % 64)
 			input->input[input->read++] = 0;
 		flen = input->len * 8;
+		flen = flen << 32 | flen >> 32;
 		ft_memcpy(input->input + input->read, &flen, 8);//may be wrong. double check
-		input->read += 8;
 	}
+	flip((unsigned *)input->input, input->read);//the length field might not need to be flipped
+	if (input->read < BUFF_SIZE)
+		input->read += 8;
 }
 
 void	*ft_sha256(t_ssl_input *input)
@@ -111,10 +114,7 @@ void	*ft_sha256(t_ssl_input *input)
 		return (-1);
 	}*/
 	while (read_hash(input, words, &sha_pad))
-	{
-		flip((unsigned *)input->input, input->read);//the length field might not need to be flipped
 		split_padded_512(input->input, input->read, words);
-	}
 //	print_sha256(words);
 	if (input->read == -1)
 	{

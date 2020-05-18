@@ -75,14 +75,13 @@ void		hashing_function_sha(t_sha_words *words, unsigned *w)
 
 void		sha_process_chunk(char *chunk, t_sha_words *words)
 {
-	unsigned		*w;
+	unsigned		w[16];
 	uint32_t		tmp1;
 	uint32_t		tmp2;
 	int				i;
 
 	i = 15;
-	w = (unsigned *)ft_strnew(sizeof(unsigned) * 64);
-	ft_memcpy(w, chunk, 16 * 4);
+	ft_memcpy(w, chunk, 16 * sizeof(unsigned));
 	while (++i < 64)
 	{
 		tmp1 = rightrotate(w[i - 15], 7) ^ rightrotate(w[i - 15], 18) ^

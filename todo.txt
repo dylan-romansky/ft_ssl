@@ -1,46 +1,41 @@
-find every single use of 1 and 0 as file descriptors and replace with STDOUT_FILENO and STDIN_FILENO
-
 find a way to check stdin for input without changing it to non-blocking behaviour
-
-solve issue with reading -s flag strings
 
 solve padding for arbitrary sized input
 
-hash discrepency between openssl console input and my console input
----appears to be due to uninitialized data. figure out where the function is going when that happens
+why is sha stack smashing on large input?
 
- --make sure des with base64 doesn't print extra new lines
+--make sure des with base64 doesn't print extra new lines
 
- refactor flag parsing (high priority)
- --when key is given, ignore key from pass
- --when salt is given always append to front
- ---but only append "Salted__" when pass flag is present
- ---verify how openssl reacts to incorrect salt on decrypt
- ---when salt is passed via flag, pad back with 0, not front
+refactor flag parsing (high priority)
+--when key is given, ignore key from pass
+--when salt is given always append to front
+---but only append "Salted__" when pass flag is present
+---verify how openssl reacts to incorrect salt on decrypt
+---when salt is passed via flag, pad back with 0, not front
 
- md5 fails to work properly on blank input
+md5 fails to work properly on blank input
 
- add des3-ecb and des3-cbc
+add des3-ecb and des3-cbc
 
- hexdump -C
+hexdump -C
 
- 2 ^ n - 1
+2 ^ n - 1
 
- "Great work on DES and the code of preprocessing and handling the
- errors and edges case was all located in the front part so he could
- only care about the correct inputs when he need to apply encryption
- and hashing and this is smart. Some parts there should be
- improvements.
- 1. handling with echo -n | ./ft_ssl md5
- 2. echo -n | ./ft_ssl - using some NULL there are some edges cases
-    I don't remember :)
- 3. echo -n asdf | ./ft_ssl -p -k -s a - salt handling got reversed
- 4. handling flags -e works -eee correctly throw error but -ee -ez
-    -ep doens't
- 5. Salted header only used when there is password flag
- 6. base64 works great. But base64 at DES adds extra new lines ...
-    In the counterpart he understands the core concept clearly and
-    knows correctly. There is some issues with his code but he knows
-	how to handle it and as far as he could pass most of more than
-	99% of cases good to go. But still some critical problem should
-	be handled. Good luck."
+"Great work on DES and the code of preprocessing and handling the
+errors and edges case was all located in the front part so he could
+only care about the correct inputs when he need to apply encryption
+and hashing and this is smart. Some parts there should be
+improvements.
+1. handling with echo -n | ./ft_ssl md5
+2. echo -n | ./ft_ssl - using some NULL there are some edges cases
+   I don't remember :)
+3. echo -n asdf | ./ft_ssl -p -k -s a - salt handling got reversed
+4. handling flags -e works -eee correctly throw error but -ee -ez
+   -ep doens't
+5. Salted header only used when there is password flag
+6. base64 works great. But base64 at DES adds extra new lines ...
+   In the counterpart he understands the core concept clearly and
+   knows correctly. There is some issues with his code but he knows
+how to handle it and as far as he could pass most of more than
+99% of cases good to go. But still some critical problem should
+be handled. Good luck."
