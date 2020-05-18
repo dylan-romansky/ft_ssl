@@ -25,7 +25,8 @@ int				do_ssl(t_ssl_input *input, char *infile, int dis)
 
 	input->len = 0;
 	input->len2 = 0;
-	if (infile && !(input->infd = open(infile, O_RDONLY)))
+	input->flags &= ~readed;
+	if (infile && (input->infd = open(infile, O_RDONLY)) < 0)
 		bad_input(infile);
 	else if (input->flags & (q | p) && (w = g_sslfuns[dis].hash(input)))
 	{
@@ -74,9 +75,10 @@ void			ssl_flags(char **av, t_ssl_input *input, int dis, int j)
 			}
 			if ((input->flags & (p | dunp)) == p && do_ssl(input, NULL, dis))
 				input->flags |= dunp;
-			else
-				j = parse_input(av, input, dis, j);
+
 		}
+		else
+			j = parse_input(av, input, dis, j);
 	}
 	if (input->flags & nof)
 		do_ssl(input, NULL, dis);

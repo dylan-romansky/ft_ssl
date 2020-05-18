@@ -57,11 +57,10 @@ vre: fclean
 vreclean: vre
 	make clean
 
-test: clean
+test: reclean
 	gcc -Wall -Werror -Wextra -c $(I) $(SRCS)
 	gcc -Wall -Werror -Wextra -o $(NAME) $(O) $(I) $(L)
 	make clean
-	echo "one more thing" | ./ft_ssl md5 -r -p -s "foo" file -s "bar"
 
 comptest: fclean all
 	make -c libft reclean
