@@ -73,6 +73,7 @@ void	sha_pad(t_ssl_input *input, void *words)
 	size_t 		flen;
 	t_sha_words	*w;
 
+	input->len += input->read;
 	if (input->read < BUFF_SIZE)
 	{
 		w = (t_sha_words *)words;
@@ -88,9 +89,9 @@ void	sha_pad(t_ssl_input *input, void *words)
 			input->input[input->read++] = 0;
 		flen = input->len * 8;
 		flen = flen << 32 | flen >> 32;
-		ft_memcpy(input->input + input->read, &flen, 8);//may be wrong. double check
+		ft_memcpy(input->input + input->read, &flen, 8);
 	}
-	flip((unsigned *)input->input, input->read);//the length field might not need to be flipped
+	flip((unsigned *)input->input, input->read);
 	if (input->read < BUFF_SIZE)
 		input->read += 8;
 }

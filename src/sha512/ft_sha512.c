@@ -26,16 +26,14 @@ void	print_sha512(void *w)
 
 void	split_padded_1024(char *fixed, int len, t_512_words *words)
 {
-	char			*chunk;
+	char			chunk[128];
 	int				i;
 
 	i = 0;
 	while (i < len)
 	{
-		chunk = ft_strnew(128);
 		ft_memcpy(chunk, fixed + i, 128);
 		process_chunk_512(chunk, words);
-		free(chunk);
 		i += 128;
 	}
 }
@@ -45,7 +43,7 @@ char	*flip_512(unsigned long *padded, int len)
 	int				j;
 
 	j = -1;
-	while (++j < ((len) / 4))
+	while (++j < (len / 8))
 		padded[j] = flip_end_512(padded[j]);
 	return ((char *)padded);
 }
@@ -72,15 +70,14 @@ char	*flip_512(unsigned long *padded, int len)
 
 //if I'm completely wrong about how openssl pads 512
 //then I can ditch this whole thing and just keep a pad section
+
 void	sha_512_pad(t_ssl_input *input, void *words)
 {
-	static size_t	flen1;
-	static size_t	flen2;
 	t_512_words		*w;
 
-	if (flen1 + (8 * input->read) < flen1)
-		flen2 += 8;
-	flen1 += (8 * input->read);
+	if (input->len + (8 * input->read) < input->len)
+		input->len2 += 8;
+	input->len += (8 * input->read);
 	if (input->read < BUFF_SIZE)
 	{
 		w = (t_512_words *)words;
@@ -94,13 +91,13 @@ void	sha_512_pad(t_ssl_input *input, void *words)
 		input->input[input->read++] = (unsigned char)128;
 		while ((input->read + 16) % 128)
 			input->input[input->read++] = 0;
-//		flen = input->len2;
-		ft_memcpy(input->input + input->read, &flen2, 8);
-//		flen = input->len1;
-		ft_memcpy(input->input + input->read + 8, &flen1, 8);
-		input->read += 16;
+		ft_memcpy(input->input + input->read, &(input->len2), 8);
+		ft_memcpy(input->input + input->read + 8, &(input->len), 8);
+//		ft_printf("%llx %llx\n", input->len2, input->len);
 	}
-	flip_512((unsigned long *)input->input, input->read);//if the length field isn't supposed to be flipped then I'll have to copy len1 before len2 and put this line back at the top
+	flip_512((unsigned long *)input->input, input->read);
+	if (input->read < BUFF_SIZE)
+		input->read += 16;
 }
 
 void	*ft_sha512(t_ssl_input *input)
@@ -129,7 +126,7 @@ void	*ft_sha512(t_ssl_input *input)
 		free(words);
 		words = NULL;
 	}
-	return (NULL);
+	return (words);
 }
 
 /*

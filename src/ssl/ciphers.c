@@ -26,7 +26,7 @@ t_ssl_input	*make_input(int ac)
 		return (NULL);
 	input->args = ac;
 	input->len = 0;
-	input->len = 0;
+	input->len2 = 0;
 	input->flags = nof;
 	input->infd = STDIN_FILENO;
 	input->outfd = STDOUT_FILENO;

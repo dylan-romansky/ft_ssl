@@ -42,13 +42,14 @@ void	*ft_sha384(t_ssl_input *input)
 	}*/
 	while (read_hash(input, words, &sha_512_pad) > 0)
 		split_padded_1024(input->input, input->read, words);
-	print_sha384(words);
+	ft_printf("%d\n", input->read);
+//	print_sha384(words);
 	if (input->read == -1)
 	{
 		free(words);
 		words = NULL;
 	}
-	return (0);
+	return (words);
 }
 
 /*

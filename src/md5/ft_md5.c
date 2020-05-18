@@ -82,6 +82,7 @@ void	md5_pad(t_ssl_input *input, void *words)
 	size_t		flen;
 	t_md5_words	*w;
 
+	input->len += input->read;
 	if (input->read < BUFF_SIZE)
 	{
 		w = (t_md5_words *)words;

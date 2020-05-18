@@ -105,7 +105,7 @@ int				main(int ac, char **av)
 			dis++;
 		if (!g_sslfuns[dis].name)
 			error_nodis(av[1]);
-		dis < 4 ? ssl_flags(av, input, dis, 1) :
+		dis <= 4 ? ssl_flags(av, input, dis, 1) :
 			cipher_flags(av, input, dis, 1);
 		input_free(input);
 	}

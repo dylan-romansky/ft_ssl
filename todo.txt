@@ -1,6 +1,7 @@
 find a way to check stdin for input without changing it to non-blocking behaviour
 
 find out why sha512 won't read anything
+- not properly entering do_ssl on sha512
 
 solve padding for arbitrary sized input
 

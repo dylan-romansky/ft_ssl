@@ -55,7 +55,6 @@ int		read_hash(t_ssl_input *input, void *w, void (*pad)(t_ssl_input *, void *))
 		input->read = read(input->infd, input->input, BUFF_SIZE);
 	if (input->read <= 0)
 		return (input->read);
-	input->len += input->read;
 	if ((input->flags & (p | s)) == p && input->infd == STDIN_FILENO)
 		write(input->outfd, input->input, input->read);
 	pad(input, w);
