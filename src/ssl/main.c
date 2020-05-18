@@ -16,9 +16,7 @@
 #include "ssl_md5_enums.h"
 
 /*
-** accomodate given string functionality (-s flag)
-**
-** modify p behaviour
+** make sure p behaves as expected
 */
 
 int				do_ssl(t_ssl_input *input, char *infile, int dis)
@@ -32,16 +30,16 @@ int				do_ssl(t_ssl_input *input, char *infile, int dis)
 	else if (input->flags & r && (w = g_sslfuns[dis].hash(input)))
 	{
 		g_sslfuns[dis].printer(w);
-		ft_printf(" %s", infile);
+		ft_printf(" %s\n", infile);
 	}
-	else if ((w = g_sslfuns[dis].hash(input)))//still needs s handling
+	else if ((w = g_sslfuns[dis].hash(input)))
 	{
 		ft_printf("%s ", g_sslfuns[dis].print);
 		input->flags & s ? ft_printf("(\"%s\") = ", input->sstring) :
 			ft_printf("(%s) = ", infile ? infile : "stdin");
 		g_sslfuns[dis].printer(w);
+		ft_putchar('\n');
 	}
-	ft_printf("\n");
 	return (1);
 }
 

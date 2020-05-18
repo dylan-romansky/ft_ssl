@@ -56,25 +56,24 @@ void			split_input_32(char *chunk, t_md5_words *word)
 	word->b0 += word->b;
 	word->c0 += word->c;
 	word->d0 += word->d;
+	ft_bzero(chunks, 16 * sizeof(unsigned));
 }
 
 void			split_input_512(char *input, int len, t_md5_words *word)
 {
-	char			*process;
+	char			process[64];
 	int				i;
 	int				j;
 
-	process = NULL;
 	j = 0;
 	while (j < len)
 	{
 		i = 0;
-		process = ft_strnew(64);
 		while (i < 64)
 			process[i++] = input[j++];
 		split_input_32(process, word);
-		free(process);
 	}
+	ft_bzero(process, 64);
 }
 
 void	md5_pad(t_ssl_input *input, void *words)

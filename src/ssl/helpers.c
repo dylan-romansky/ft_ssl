@@ -46,15 +46,17 @@ int				handle_string(char **av, int j, t_ssl_input *input, int dis)
 
 	i = 0;
 	input->flags &= ~nof;
+	ret = 0;
 	while (av[j][i] != 's')
 		i++;
-	if (av[j][i + 1] && (ret = 0))
+	if (av[j][i + 1])
 	{
 		input->sflag = av[j] + i + 1;
 		input->sstring = av[j] + i + 1;
 	}
-	else if (j + 1 < input->args && (ret = 1))
+	else if (j + 1 < input->args)
 	{
+		ret = 1;
 		input->sflag = av[j + 1];
 		input->sstring = av[j + 1];
 	}

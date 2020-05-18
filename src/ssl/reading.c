@@ -30,10 +30,6 @@ void	read_stdin(t_ssl_input *input)
 		input->read = read(input->infd, input->input, BUFF_SIZE);
 }
 
-//maybe send a pointer to the string into this function
-//so it can handle copying the string to the buffer
-//and hashing
-
 void	read_string(t_ssl_input *input)
 {
 	size_t len;
@@ -60,7 +56,7 @@ int		read_hash(t_ssl_input *input, void *w, void (*pad)(t_ssl_input *, void *))
 	if (input->read <= 0)
 		return (input->read);
 	input->len += input->read;
-	if (input->flags & p && input->infd == STDIN_FILENO)
+	if ((input->flags & (p | s)) == p && input->infd == STDIN_FILENO)
 		write(input->outfd, input->input, input->read);
 	pad(input, w);
 	return (1);
