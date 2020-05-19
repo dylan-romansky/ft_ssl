@@ -18,6 +18,7 @@ unsigned			flip_end(unsigned n);
 unsigned long		flip_end_512(unsigned long n);
 
 int					read_hash(t_ssl_input *input, void *w, void (*pad)(t_ssl_input *, void *));
+int					read_cipher(t_ssl_input *input, void (*pad)(t_ssl_input *));
 int					get_input(int fd, char *input, t_ssl_input *i);
 t_ssl_input			*make_input(int ac);
 

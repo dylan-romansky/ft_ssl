@@ -13,6 +13,7 @@
 #include "ft_ssl.h"
 #include "ssl_md5_enums.h"
 
+/*
 int		cipher_stdin(t_ssl_input *input)
 {
 	fcntl(0, F_SETFL, O_NONBLOCK);
@@ -22,7 +23,7 @@ int		cipher_stdin(t_ssl_input *input)
 	return (input->len);
 }
 
-/*
+*
 ** void	get_iv(t_ssl_input *input, int dis)
 ** {
 **	char	*tmp;
@@ -40,12 +41,6 @@ void	get_key(t_ssl_input *input, int dis)
 	input->key = check_key(tmp, dis);
 }
 
-void	get_input_file(t_ssl_input *input)
-{
-	if (!cipher_stdin(input))
-		input_file(input, NULL, NULL, 0);
-}
-
 void	salt_with_pass(t_ssl_input *input)
 {
 	if (!input->salt)
@@ -58,8 +53,6 @@ void	salt_with_pass(t_ssl_input *input)
 
 void	get_missing(t_ssl_input *input, int dis)
 {
-	if (!(input->flags & i))
-		get_input_file(input);
 	if (dis > 5 && !(input->flags & k) && !(input->flags & d))
 	{
 		if ((input->flags & p || dis != 8) && !input->pass)
@@ -78,6 +71,4 @@ void	get_missing(t_ssl_input *input, int dis)
 		/*else*/ if (!(input->flags & k) && !input->key)
 			get_key(input, dis);
 	}
-	if (dis > 5 && input->flags & d && input->len % 8)
-		des_len_error(dis);
 }

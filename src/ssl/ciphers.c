@@ -41,12 +41,12 @@ t_ssl_input	*make_input(int ac)
 
 char		*pad_iv(char *s)
 {
-	char	*n;
+	int	len;
 
-	n = ft_strdup(s);
-	while (ft_strlen(n) < 16)
-		n = ft_hardjoin(n, ft_strlen(n), "0", 1);
-	return (n);
+	len = ft_strlen(s);
+	while (len < 16)
+		s[len++] = '0';
+	return (s);
 }
 
 void		input_free(t_ssl_input *input)

@@ -13,6 +13,34 @@
 #include "ft_ssl.h"
 #include "ssl_md5_flag_tab.h"
 
+t_sslflags g_sslflags[] =
+{
+	{'p', p},
+	{'q', q},
+	{'r', r},
+	{'s', s},
+	{'\0', 0}
+};
+
+t_sslflags g_base64flags[] =
+{
+	{'d', d},
+	{'e', e},
+	{'i', i},
+	{'o', o},
+	{'\0', 0}
+};
+
+t_sslflags g_desflags[] =
+{
+	{'a', a},
+	{'k', k},
+	{'p', p2},
+	{'s', s2},
+	{'v', v},
+	{'\0', 0}
+};
+
 int				flag_val(char *flags, int dis, char *fun)
 {
 	int				i;
@@ -74,7 +102,7 @@ int				cipher_flag_val(char *flags, int dis, char *fun)
 
 int				j_increment(t_ssl_input *input, char *arg, char *fun, int dis)
 {
-	if (input->flags & i && !input->infd)
+	if (input->flags & i && input->infd == STDIN_FILENO)
 		return (input_file(input, arg, fun, open(arg, O_RDONLY)));
 	if (input->flags & o && input->outfd == STDOUT_FILENO)
 		return (output_file(input, arg));

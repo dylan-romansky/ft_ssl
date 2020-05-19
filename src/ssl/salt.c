@@ -36,16 +36,17 @@ void			salt_error(int dis)
 unsigned long	verify_salt(char *tmp, int dis)
 {
 	int				i;
-	char			*key;
+	char			key[17];
 	unsigned long	done;
 
+	i = ft_strlen(tmp);
+	ft_memcpy(key, tmp, i <= 16 ? i : 16);
 	i = -1;
-	key = (ft_strlen(tmp) <= 16) ? ft_strdup(tmp) : ft_strndup(tmp, 16);
 	while (key[++i])
 		if (!(('a' <= key[i] && key[i] <= 'f') || ('A' <= key[i] &&
 						key[i] <= 'F') || ('0' <= key[i] && key[i] <= '9')))
 			salt_error(dis);
 	done = hex_to_l(key);
-	free(key);
+	ft_bzero(key, 17);
 	return (done);
 }

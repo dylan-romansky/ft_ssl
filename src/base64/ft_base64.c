@@ -27,26 +27,26 @@ unsigned		get_chunk(char *input, int i, int len, int size)
 void			ft_base64_e(t_ssl_input *input)
 {
 	int				chunk;
-	size_t			i;
+	int				i;
 	unsigned char	e[4];
 //	unsigned char	*s;
 
 //	chunk = 0;
 	i = 0;
 //	s = (unsigned char *)ft_strnew(0);
-	while (i < input->len)
+	while (i < input->read)
 	{
-		chunk = get_chunk(input->input, i, input->len, i < input->len - 2 ? 3 : input->len - i);
+		chunk = get_chunk(input->input, i, input->read, i < input->read - 2 ? 3 : input->read - i);
 		ft_bzero(e, 4);
 		expand_base(chunk, e);
 		i += 3;
-		char_swap(e, i > input->len ? i - input->len : 0);
+		char_swap(e, i > input->read ? i - input->read : 0);
 //		s = (unsigned char *)swap_n_free(ft_strjoin((char *)s, (char *)e),
 //				(char **)&s);
 //		free(e);
-		ft_memcpy(input->base + (i / 3 * 4), e, 4);
+		ft_memcpy(input->base + (i / 3 * 4) - 4, e, 4);
 	}
-	input->len = (i / 3 * 4);
+	input->len = input->read / 3 * 4;
 }
 
 void			ft_base64_d(t_ssl_input *input)

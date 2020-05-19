@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+#include "ssl_md5_enums.h"
 
 void	verify_base64(char *s)
 {
@@ -37,6 +38,7 @@ void	strip_nl(t_ssl_input *input)
 	if (!input->read)
 		return ;
 	stripped = ft_strsplit(input->base, '\n');
+	ft_bzero(input->base, BUFF_SIZE / 3 * 4);
 	i = 0;
 	len = 0;
 	total = 0;
@@ -53,12 +55,19 @@ void	strip_nl(t_ssl_input *input)
 
 int		read_base64_d(t_ssl_input *input)
 {
-	input->len = read(input->infd, input->base, BUFF_SIZE / 3 * 4);
-	while (input->len > 0 && input->len < BUFF_SIZE / 3 * 4)
+	size_t	len;
+
+	ft_bzero(input->base, BUFF_SIZE / 3 * 4);
+	input->read = read(input->infd, input->base, BUFF_SIZE / 3 * 4);
+	strip_nl(input);
+	len = ft_strlen(input->base);
+	while (input->read > 0 && len < BUFF_SIZE / 3 * 4)
 	{
-		input->len += input->read;
+		input->read = read(input->infd, input->base + len, (BUFF_SIZE / 3 * 4) - len);
 		strip_nl(input);
-		input->read = read(input->infd, input->base + input->len, (BUFF_SIZE / 3 * 4) - input->read);
+		len = ft_strlen(input->base);
 	}
+	input->len = len;
+	input->flags |= readed;
 	return (input->len);
 }

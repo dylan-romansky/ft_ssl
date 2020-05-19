@@ -13,11 +13,8 @@
 #include "ft_ssl.h"
 #include "ssl_md5_enums.h"
 
-unsigned long	*write_pass_hash(t_md5_words *words)
+unsigned long	*write_pass_hash(t_md5_words *words, unsigned long *salt_hash)
 {
-	unsigned long	*salt_hash;
-
-	salt_hash = (unsigned long *)malloc(sizeof(unsigned long) * 2);
 	salt_hash[0] = flip_end(words->a0);
 	salt_hash[0] <<= 32;
 	salt_hash[0] |= flip_end(words->b0);
@@ -28,33 +25,28 @@ unsigned long	*write_pass_hash(t_md5_words *words)
 	return (salt_hash);
 }
 
-unsigned long	*split_input_salt(char *input, int len, t_md5_words *word)
+unsigned long	*split_input_salt(char *input, int len, t_md5_words *word, unsigned long *hashed)
 {
-	char			*process;
+	char			process[64];
 	int				i;
 	int				j;
 
-	process = NULL;
 	j = 0;
 	while (j < len)
 	{
 		i = 0;
-		process = ft_strnew(64);
 		while (i < 64)
 			process[i++] = input[j++];
 		split_input_32(process, word);
-		free(process);
 	}
-	return (write_pass_hash(word));
+	return (write_pass_hash(word, hashed));
 }
 
-unsigned long	*salt_md5(char *input, size_t len)
+unsigned long	*salt_md5(char *input, size_t len, unsigned long *hashed)
 {
-	int				flen;
+	size_t			flen;
 	size_t			i;
-	char			*fixed;
 	t_md5_words		*words;
-	unsigned long	*hashed;
 
 	words = (t_md5_words *)malloc(sizeof(t_md5_words));
 	words->a0 = 0x67452301;
@@ -64,38 +56,35 @@ unsigned long	*salt_md5(char *input, size_t len)
 	i = 1 + len;
 	while ((i + 8) % 64)
 		i++;
-	if (!(fixed = ft_strnew(i + 8)))
-		return (NULL);
-	fixed = ft_memcpy(fixed, input, len);
-	fixed[len] = (unsigned char)128;
-	flen = (int)(len * 8);
-	ft_memcpy(fixed + i, &flen, 4);
-	hashed = split_input_salt(fixed, i + 8, words);
-	free(fixed);
+	input[len] = (unsigned char)128;
+	flen = len * 8;
+	ft_memcpy(input + i, &flen, 8);
+	split_input_salt(input, i + 8, words, hashed);
 	return (hashed);
 }
 
+/*
+** adapt this later to handle passwords longer than BUFF_LEN
+*/
+
 unsigned long	salt_pass(t_ssl_input *input, char *tmp, unsigned long salt)
 {
-	char			*mix;
 	size_t			size;
-	unsigned long	*salted;
+	unsigned long	salted[2];
 	unsigned long	ret;
 
 	size = ft_strlen(tmp);
-	mix = ft_strnew(size + 8);
-	ft_memcpy(mix, tmp, size);
-	ft_memcpy(mix + size, &salt, 8);
-	if (!(salted = salt_md5(mix, size + 8)))
+	ft_memcpy(input->input, tmp, size);
+	ft_memcpy(input->input + size, &salt, 8);
+	if (!salt_md5(input->input, size + 8, salted))
 	{
 		ft_printf("Error: failed to create key\n");
 		exit(1);
 	}
-	free(mix);
 	if (!input->iv)
 		input->iv = salted[1];
-	ret = *salted;
-	free(salted);
+	ret = salted[0];
+	ft_bzero(salted, 2 * sizeof(unsigned long));
 	return (ret);
 }
 

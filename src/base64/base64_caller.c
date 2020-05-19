@@ -40,25 +40,23 @@ void	print_base64(char *s, int fd, size_t len)
 
 void	*ft_base64(t_ssl_input *input)
 {
-	unsigned char	*b;
-
-	b = NULL;
 	if (input->flags & d)
 	{
 		while (read_base64_d(input))
 		{
-			verify_base64(input->input);
+			verify_base64(input->base);
 			ft_base64_d(input);
 			write(input->outfd, input->input,
-					(input->len * 3 / 4) -
-					minus_pad(input->base));
+					input->len);
 		}
 	}
 	else
 	{
-		while ((input->read = read(input->infd, input->input, BUFF_SIZE)))
+		while (read_cipher(input, NULL) > 0)
+		{
 			ft_base64_e(input);
-		print_base64((char *)b, input->outfd, ft_strlen((char *)b));
+			print_base64(input->base, input->outfd, input->len);
+		}
 	}
 	return (0);
 }

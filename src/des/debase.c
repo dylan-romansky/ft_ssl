@@ -38,7 +38,7 @@ void			desalt_des(t_ssl_input *input)
 	input->flags |= s2;
 	pass_input(input);
 }
-
+/*
 unsigned char	*append_salt(unsigned char *s, t_ssl_input *input)
 {
 	char *new;
@@ -50,4 +50,4 @@ unsigned char	*append_salt(unsigned char *s, t_ssl_input *input)
 	input->len += 16;
 	free(s);
 	return ((unsigned char *)new);
-}
+}*/

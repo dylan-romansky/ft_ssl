@@ -15,6 +15,20 @@
 #include "ssl_md5_dispatch.h"
 #include "ssl_md5_enums.h"
 
+t_sslfuns g_sslfuns[] =
+{
+	{"md5", "MD5", &ft_md5, &print_md5},
+	{"sha224", "SHA224", &ft_sha224, &print_sha224},
+	{"sha256", "SHA256", &ft_sha256, &print_sha256},
+	{"sha384", "SHA384", &ft_sha384, &print_sha384},
+	{"sha512", "SHA512", &ft_sha512, &print_sha512},
+	{"base64", "BASE64", &ft_base64, NULL},
+	{"des", "DES", &ft_des_cbc, NULL},
+	{"des-cbc", "DES-CBC", &ft_des_cbc, NULL},
+	{"des-ecb", "DES-ECB", &ft_des_ecb, NULL},
+	{NULL, NULL, NULL, NULL}
+};
+
 int				do_ssl(t_ssl_input *input, char *infile, int dis)
 {
 	void	*w;

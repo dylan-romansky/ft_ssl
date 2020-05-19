@@ -22,32 +22,4 @@ struct	s_sslflags
 	int		value;
 };
 
-t_sslflags g_sslflags[] =
-{
-	{'p', p},
-	{'q', q},
-	{'r', r},
-	{'s', s},
-	{'\0', 0}
-};
-
-t_sslflags g_base64flags[] =
-{
-	{'d', d},
-	{'e', e},
-	{'i', i},
-	{'o', o},
-	{'\0', 0}
-};
-
-t_sslflags g_desflags[] =
-{
-	{'a', a},
-	{'k', k},
-	{'p', p2},
-	{'s', s2},
-	{'v', v},
-	{'\0', 0}
-};
-
 #endif

@@ -26,19 +26,21 @@ void			key_error(int dis)
 unsigned long	check_key(char *k, int dis)
 {
 	int				i;
-	char			*key;
+	char			key[17];
 	unsigned long	done;
 
+	i = ft_strlen(k);
+	ft_bzero(key, 17);
+	ft_memcpy(key, k, i <= 16 ? i : 16);
 	i = -1;
-	key = (ft_strlen(k) <= 16) ? ft_strdup(k) : ft_strndup(k, 16);
 	while (key[++i])
 		if (!(('a' <= key[i] && key[i] <= 'f') || ('A' <= key[i] &&
 						key[i] <= 'F') || ('0' <= key[i] && key[i] <= '9')))
 			key_error(dis);
-	while (ft_strlen(key) < 16)
-		key = ft_hardjoin(key, ft_strlen(key), "0", 1);
+	while (i < 16)
+		key[i++] = '0';
 	done = hex_to_l(key);
-	free(key);
+	ft_bzero(key, 17);
 	return (done);
 }
 
@@ -53,30 +55,23 @@ void			iv_error(int dis)
 	exit(1);
 }
 
-unsigned long	verify_iv(char *tmp, int dis)
+unsigned long	verify_iv(char *k, int dis)
 {
 	int				i;
-	char			*key;
+	char			key[17];
 	unsigned long	done;
 
+	ft_bzero(key, 17);
+	i = ft_strlen(k);
+	ft_memcpy(key, k, i <= 16 ? i : 16);
+	if (i < 16)
+		pad_iv(key);
 	i = -1;
-	key = (ft_strlen(tmp) <= 16) ? pad_iv(tmp) : ft_strndup(tmp, 16);
 	while (key[++i])
 		if (!(('a' <= key[i] && key[i] <= 'f') || ('A' <= key[i] &&
 						key[i] <= 'F') || ('0' <= key[i] && key[i] <= '9')))
 			iv_error(dis);
 	done = hex_to_l(key);
-	free(key);
+	ft_bzero(key, 17);
 	return (done);
-}
-
-char			*ft_hardjoin(char *s1, int len1, char *s2, int len2)
-{
-	char	*new;
-
-	new = ft_strnew(len1 + len2);
-	ft_memcpy(new, s1, len1);
-	ft_memcpy(new + len1, s2, len2);
-	free(s1);
-	return (new);
 }

@@ -63,3 +63,20 @@ int		read_hash(t_ssl_input *input, void *w, void (*pad)(t_ssl_input *, void *))
 	pad(input, w);
 	return (1);
 }
+
+int		read_cipher(t_ssl_input *input, void (*pad)(t_ssl_input *))
+{
+	if (input->infd == STDIN_FILENO)
+		read_stdin(input);
+	else
+		input->read = read(input->infd, input->input, BUFF_SIZE);
+	if (!(input->flags & readed) && input->read <= 0)
+		input->read = -1;
+	if (input->read <= 0)
+		return (input->read);
+	input->flags |= readed;
+	input->len += input->read;
+	if (pad)
+		pad(input);
+	return (1);
+}
