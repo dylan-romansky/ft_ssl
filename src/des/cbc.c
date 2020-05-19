@@ -39,7 +39,10 @@ void	ft_des_cbc_e(t_ssl_input *input)
 		i += 8;
 	}
 	if (input->flags & a)
+	{
+		input->read = input->len;
 		ft_base64_e(input);
+	}
 //	free(subkeys);
 }
 

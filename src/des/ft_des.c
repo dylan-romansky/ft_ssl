@@ -111,7 +111,7 @@ void			*ft_des_cbc(t_ssl_input *input)
 		else
 		{
 			ft_des_cbc_e(input);
-			input->flags & a ? print_base64((char *)input->input, input->outfd, input->len) :
+			input->flags & a ? print_base64((char *)input->base, input->outfd, input->len) :
 				write(input->outfd, input->input, input->len);
 		}
 	}
