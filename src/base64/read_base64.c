@@ -55,19 +55,16 @@ void	strip_nl(t_ssl_input *input)
 
 int		read_base64_d(t_ssl_input *input)
 {
-	size_t	len;
-
 	ft_bzero(input->base, BUFF_SIZE / 3 * 4);
 	input->read = read(input->infd, input->base, BUFF_SIZE / 3 * 4);
 	strip_nl(input);
-	len = ft_strlen(input->base);
-	while (input->read > 0 && len < BUFF_SIZE / 3 * 4)
+	input->len = ft_strlen(input->base);
+	while (input->read > 0 && input->len < BUFF_SIZE / 3 * 4)
 	{
-		input->read = read(input->infd, input->base + len, (BUFF_SIZE / 3 * 4) - len);
+		input->read = read(input->infd, input->base + input->len, (BUFF_SIZE / 3 * 4) - input->len);
 		strip_nl(input);
-		len = ft_strlen(input->base);
+		input->len = ft_strlen(input->base);
 	}
-	input->len = len;
 	input->flags |= readed;
 	return (input->len);
 }

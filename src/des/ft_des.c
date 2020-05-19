@@ -19,7 +19,6 @@ void			blocksize_error(void)
 	exit(1);
 }
 
-/*
 int				get_len(char *s, int len)
 {
 	int				i;
@@ -34,18 +33,20 @@ int				get_len(char *s, int len)
 			return (len);
 	return (len - i);
 }
-*/
 
 void			des_pad(t_ssl_input *input)
 {
 	unsigned int	val;
 	unsigned		i;
 
-	i = 0;
-	val = 8 - (input->len % 8);
-	while (i < val)
-		input->input[i++ + input->len] = val;
-	input->len += val;
+	if (input->len < BUFF_SIZE && !(input->flags & d))
+	{
+		i = 0;
+		val = 8 - (input->len % 8);
+		while (i < val)
+			input->input[i++ + input->read] = val;
+		input->len += val;
+	}
 }
 
 void			des_salt_handling(t_ssl_input *input)
@@ -71,8 +72,7 @@ void			*ft_des_ecb(t_ssl_input *input)
 {
 	if (input->salt || input->flags & s2)
 		des_salt_handling(input);
-	input->len = read(input->infd, input->input, BUFF_SIZE);
-	while (input->len)
+	while (read_cipher(input, &des_pad) > 0)
 	{
 		if (input->flags & d)
 		{
@@ -81,16 +81,14 @@ void			*ft_des_ecb(t_ssl_input *input)
 			if (input->len % 8)
 				blocksize_error();
 			ft_des_ecb_d(input);
-			write(input->outfd, input->input, input->len);
+			write(input->outfd, input->input, get_len(input->input, input->len));
 		}
 		else
 		{
 			ft_des_ecb_e(input);
-			input->flags & a ? print_base64((char *)input->input, input->outfd, input->len) :
+			input->flags & a ? print_base64((char *)input->base, input->outfd, input->len) :
 				write(input->outfd, input->input, input->len);
 		}
-		if ((input->len = read(input->infd, input->input, BUFF_SIZE)) < BUFF_SIZE)
-			des_pad(input);
 	}
 	return (0);
 }
@@ -99,8 +97,7 @@ void			*ft_des_cbc(t_ssl_input *input)
 {
 	if (input->salt || input->flags & s2)
 		des_salt_handling(input);
-	input->len = read(input->infd, input->input, BUFF_SIZE);
-	while (input->len)
+	while (read_cipher(input, &des_pad) > 0)
 	{
 		if (input->flags & d)
 		{
@@ -109,7 +106,7 @@ void			*ft_des_cbc(t_ssl_input *input)
 			if (input->len % 8)
 				blocksize_error();
 			ft_des_cbc_d(input);
-			write(input->outfd, input->input, input->len);
+			write(input->outfd, input->input, get_len(input->input, input->len));
 		}
 		else
 		{
@@ -117,8 +114,6 @@ void			*ft_des_cbc(t_ssl_input *input)
 			input->flags & a ? print_base64((char *)input->input, input->outfd, input->len) :
 				write(input->outfd, input->input, input->len);
 		}
-		if ((input->len = read(input->infd, input->input, BUFF_SIZE)) < BUFF_SIZE)
-			des_pad(input);
 	}
 	return (0);
 }

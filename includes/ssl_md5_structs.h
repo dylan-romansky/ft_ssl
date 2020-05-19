@@ -16,6 +16,14 @@
 # define BUFF_MULT 4000
 # define BUFF_SIZE MIN_BUFF * BUFF_MULT
 
+/*
+** MIN_BUFF is a multiple of each minimum block size for 
+** each hash and cipher. BUFF_MULT is an arbitrary number
+** to create a sizeable buffer that's smaller than INT_MAX
+** when used for all hashes and ciphers including the
+** expansion and contraction of base64
+*/
+
 typedef struct s_md5_words	t_md5_words;
 typedef struct s_sha_words	t_sha_words;
 typedef struct s_512_words	t_512_words;

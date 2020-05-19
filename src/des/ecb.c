@@ -34,7 +34,10 @@ void	ft_des_ecb_e(t_ssl_input *input)
 		i += 8;
 	}
 	if (input->flags & a)
+	{
+		input->read = input->len;
 		ft_base64_e(input);
+	}
 }
 
 void	ft_des_ecb_d(t_ssl_input *input)

@@ -16,11 +16,14 @@
 void			debase64_des(t_ssl_input *input)
 {
 	ft_memcpy(input->base, input->input, input->len);
-	while (input->len > 0 && input->len < BUFF_SIZE)
+	ft_bzero(input->input, BUFF_SIZE);
+	strip_nl(input);
+	input->len = ft_strlen(input->base);
+	while (input->read > 0 && input->len < BUFF_SIZE / 3 * 4)
 	{
-		input->len += input->read;
+		input->read = read(input->infd, input->base + input->len, (BUFF_SIZE / 3 * 4) - input->len);
 		strip_nl(input);
-		input->read = read(input->infd, input->base + input->len, BUFF_SIZE - input->read);
+		input->len = ft_strlen(input->base);
 	}
 	ft_base64_d(input);
 	ft_bzero(input->base, BUFF_SIZE / 3 * 4);

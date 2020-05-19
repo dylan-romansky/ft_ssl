@@ -64,6 +64,11 @@ int		read_hash(t_ssl_input *input, void *w, void (*pad)(t_ssl_input *, void *))
 	return (1);
 }
 
+/*
+** when the last read fills the buffer this needs to be able
+** to pad properly
+*/
+
 int		read_cipher(t_ssl_input *input, void (*pad)(t_ssl_input *))
 {
 	if (input->infd == STDIN_FILENO)
@@ -75,7 +80,7 @@ int		read_cipher(t_ssl_input *input, void (*pad)(t_ssl_input *))
 	if (input->read <= 0)
 		return (input->read);
 	input->flags |= readed;
-	input->len += input->read;
+	input->len = input->read;
 	if (pad)
 		pad(input);
 	return (1);
