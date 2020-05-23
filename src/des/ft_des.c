@@ -53,15 +53,15 @@ void			des_salt_handling(t_ssl_input *input)
 {
 	if (!(input->flags & d))
 	{
-		if (input->flags & s)
-			write(input->outfd, "salted__", 8);
+		if (input->flags & p)
+			write(input->outfd, "Salted__", 8);
 		if (input->salt)//double check when salt gets added
 			write(input->outfd, &input->salt, 8);
 	}
 	else
 	{
 		input->read = read(input->infd, input->input, 8);
-		if (ft_strncmp(input->input, "salted__", 8))
+		if (ft_strncmp(input->input, "Salted__", 8))
 			input->read = read(input->infd, input->input, 8);
 		if (!input->salt)//verify openssl with salt flag and no salt provided
 			ft_memcpy(&input->salt, input->input, 8);

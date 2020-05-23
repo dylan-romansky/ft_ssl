@@ -40,6 +40,7 @@ unsigned long	verify_salt(char *tmp, int dis)
 	unsigned long	done;
 
 	i = ft_strlen(tmp);
+	ft_bzero(key, 17);
 	ft_memcpy(key, tmp, i <= 16 ? i : 16);
 	i = -1;
 	while (key[++i])

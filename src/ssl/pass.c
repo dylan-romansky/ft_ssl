@@ -94,6 +94,6 @@ void			pass_input(t_ssl_input *input)
 		input->pass = getpass("enter des encryption password: ");
 	if (!input->salt && !(input->flags & s2))
 		getentropy(&(input->salt), 8);
-	input->flags |= s2;
+	input->flags |= (s2 | p);
 	input->key = salt_pass(input, input->pass, input->salt);
 }

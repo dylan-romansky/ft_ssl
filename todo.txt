@@ -8,12 +8,11 @@ refactor flag parsing (high priority)
 ---but only append "Salted__" when pass flag is present
 ---verify how openssl reacts to incorrect salt on decrypt
 ---when salt is passed via flag, pad back with 0, not front
+---salt appears to only be used when iv and key aren't given
 
 md5 currently does nothing with echo -n, openssl does
 
-consider implementing whirlpool
-
-add des3-ecb and des3-cbc
+consider implementing whirlpool, des3-ecb, and des3-cbc
 
 hexdump -C
 
