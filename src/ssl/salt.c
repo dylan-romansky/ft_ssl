@@ -47,7 +47,7 @@ unsigned long	verify_salt(char *tmp, int dis)
 		if (!(('a' <= key[i] && key[i] <= 'f') || ('A' <= key[i] &&
 						key[i] <= 'F') || ('0' <= key[i] && key[i] <= '9')))
 			salt_error(dis);
-	done = hex_to_l(key);
+	done = hex_to_l_salt(key);
 	ft_bzero(key, 17);
 	return (done);
 }
