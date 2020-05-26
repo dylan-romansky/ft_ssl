@@ -15,11 +15,11 @@
 void			key_error(int dis)
 {
 	if (dis == 6)
-		ft_printf("des: error: invalid hex key input.\n");
+		ft_dprintf(STDERR_FILENO, "des: error: invalid hex key input.\n");
 	else if (dis == 7)
-		ft_printf("des-cbc: error: invalid hex key input.\n");
+		ft_dprintf(STDERR_FILENO, "des-cbc: error: invalid hex key input.\n");
 	else if (dis == 8)
-		ft_printf("des-ecb: error: invalid hex key input.\n");
+		ft_dprintf(STDERR_FILENO, "des-ecb: error: invalid hex key input.\n");
 	exit(1);
 }
 
@@ -47,11 +47,11 @@ unsigned long	check_key(char *k, int dis)
 void			iv_error(int dis)
 {
 	if (dis == 6)
-		ft_printf("des: Error: invalid hex iv input.\n");
+		ft_dprintf(STDERR_FILENO, "des: Error: invalid hex iv input.\n");
 	else if (dis == 7)
-		ft_printf("des-cbc: Error: invalid hex iv input.\n");
+		ft_dprintf(STDERR_FILENO, "des-cbc: Error: invalid hex iv input.\n");
 	else if (dis == 8)
-		ft_printf("des-ecb: Error: invalid hex iv input.\n");
+		ft_dprintf(STDERR_FILENO, "des-ecb: Error: invalid hex iv input.\n");
 	exit(1);
 }
 

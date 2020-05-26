@@ -23,7 +23,7 @@ void	verify_base64(char *s)
 				('0' <= s[i] && s[i] <= '9') || s[i] == '+' || s[i] == '/' ||
 				s[i] == '='))
 		{
-			ft_printf("error: non-base64 character detected\n");
+			ft_dprintf(STDERR_FILENO, "error: non-base64 character detected\n");
 			exit(1);
 		}
 }

@@ -20,11 +20,11 @@
 void			salt_error(int dis)
 {
 	if (dis == 6)
-		ft_printf("des: Error: invalid hex salt input.\n");
+		ft_dprintf(STDERR_FILENO, "des: Error: invalid hex salt input.\n");
 	if (dis == 7)
-		ft_printf("des-cbc: Error: invalid hex salt input.\n");
+		ft_dprintf(STDERR_FILENO, "des-cbc: Error: invalid hex salt input.\n");
 	if (dis == 8)
-		ft_printf("des-ecb: Error: invalid hex salt input.\n");
+		ft_dprintf(STDERR_FILENO, "des-ecb: Error: invalid hex salt input.\n");
 	exit(1);
 }
 

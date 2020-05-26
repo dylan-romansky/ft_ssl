@@ -14,41 +14,41 @@
 
 void	flag_error(char *name, char *flag, int dis)
 {
-	ft_printf("%s: illegal option: %s\nusage: %s ", name, flag, name);
+	ft_dprintf(STDERR_FILENO, "%s: illegal option: %s\nusage: %s ", name, flag, name);
 	if (dis <= 4)
-		ft_printf("[-pqr] [-s string] [files ...]\n");
+		ft_dprintf(STDERR_FILENO, "[-pqr] [-s string] [files ...]\n");
 	else if (dis == 5)
-		ft_printf("[-e | -d] [-i infile] [-o outfile]\n");
+		ft_dprintf(STDERR_FILENO, "[-e | -d] [-i infile] [-o outfile]\n");
 	else if (dis <= 8)
 	{
-		ft_printf("[-e | -d] [-a] [-k key] [-v init vector] [-i infile]");
-		ft_printf(" [-o outfile]\n");
+		ft_dprintf(STDERR_FILENO, "[-e | -d] [-a] [-k key] [-v init vector] [-i infile]");
+		ft_dprintf(STDERR_FILENO, " [-o outfile]\n");
 	}
 	exit(1);
 }
 
 void	error_nodis(char *input)
 {
-	ft_printf("ft_ssl: Error: '%s' is an invalid command.\n\nStandard", input);
-	ft_printf(" commands:\n\nMessage Digest commands:\nmd5\nsha224\nsha256\n");
-	ft_printf("sha384\nsha512\n\nCipher commands:\nbase64\ndes\ndes-ecb\n");
-	ft_printf("des-cbc\n");
+	ft_dprintf(STDERR_FILENO, "ft_ssl: Error: '%s' is an invalid command.\n\nStandard", input);
+	ft_dprintf(STDERR_FILENO, " commands:\n\nMessage Digest commands:\nmd5\nsha224\nsha256\n");
+	ft_dprintf(STDERR_FILENO, "sha384\nsha512\n\nCipher commands:\nbase64\ndes\ndes-ecb\n");
+	ft_dprintf(STDERR_FILENO, "des-cbc\n");
 	exit(1);
 }
 
 void	bad_input(char *input)
 {
-	ft_printf("ft_ssl: md5: %s: No such file or directory\n", input);
+	ft_dprintf(STDERR_FILENO, "ft_ssl: md5: %s: No such file or directory\n", input);
 }
 
 void	no_file(char *input, char *fun)
 {
-	ft_printf("%s: Error: can't open file: '%s'\n", fun, input);
+	ft_dprintf(STDERR_FILENO, "%s: Error: can't open file: '%s'\n", fun, input);
 	exit(1);
 }
 
 void	no_read(char *input, char *fun)
 {
-	ft_printf("%s: Error: can't read file: '%s'\n", fun, input);
+	ft_dprintf(STDERR_FILENO, "%s: Error: can't read file: '%s'\n", fun, input);
 	exit(1);
 }

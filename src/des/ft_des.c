@@ -15,7 +15,7 @@
 
 void			blocksize_error(void)
 {
-	ft_printf("Message not multiple of block length\n");
+	ft_dprintf(STDERR_FILENO, "Message not multiple of block length\n");
 	exit(1);
 }
 
@@ -67,7 +67,7 @@ void			des_salt_handling(t_ssl_input *input)
 	{
 		if (input->flags & s2)
 			write(input->outfd, "Salted__", 8);
-		if (input->salt)//double check when salt gets added
+		if (input->salt)
 			put_salt(input);
 	}
 	else
