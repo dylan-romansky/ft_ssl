@@ -73,7 +73,6 @@ unsigned long	salt_pass(t_ssl_input *input, char *tmp, unsigned long salt)
 	unsigned long	salted[2];
 	unsigned long	ret;
 
-	ft_printf("it salty %llx\n", salt);
 	size = ft_strlen(tmp);
 	ft_memcpy(input->input, tmp, size);
 	ft_memcpy(input->input + size, &salt, 8);
@@ -95,6 +94,6 @@ void			pass_input(t_ssl_input *input)
 		input->pass = getpass("enter des encryption password: ");
 	if (!input->salt && !(input->flags & s2))
 		getentropy(&(input->salt), 8);
-	input->flags |= (s2 | p);
+	input->flags |= s2;
 	input->key = salt_pass(input, input->pass, input->salt);
 }
