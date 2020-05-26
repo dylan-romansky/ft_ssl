@@ -49,6 +49,18 @@ void			des_pad(t_ssl_input *input)
 	}
 }
 
+void			put_salt(t_ssl_input *input)
+{
+	unsigned char	*salt;
+	int				i;
+
+	salt = (unsigned char *)&input->salt;
+	i = -1;
+	while (++i < 8)
+		salt[i] = salt[i] << 4 | salt[i] >> 4;
+	write(input->outfd, &input->salt, 8);
+}
+
 void			des_salt_handling(t_ssl_input *input)
 {
 	if (!(input->flags & d))
@@ -56,7 +68,7 @@ void			des_salt_handling(t_ssl_input *input)
 		if (input->flags & s2)
 			write(input->outfd, "Salted__", 8);
 		if (input->salt)//double check when salt gets added
-			write(input->outfd, &input->salt, 8);
+			put_salt(input);
 	}
 	else
 	{

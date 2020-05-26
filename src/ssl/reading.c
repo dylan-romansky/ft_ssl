@@ -21,13 +21,13 @@ void	read_stdin(t_ssl_input *input)
 	{
 		old = fcntl(STDIN_FILENO, F_GETFL);
 		fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);
-		input->read = read(input->infd, input->input, BUFF_SIZE);
+		input->read += read(input->infd, input->input, BUFF_SIZE);
 		fcntl(STDIN_FILENO, F_SETFL, old);
 		if (input->read < 0 && input->flags & nof)
-			input->read = read(input->infd, input->input, BUFF_SIZE);
+			input->read += read(input->infd, input->input, BUFF_SIZE);
 	}
 	else
-		input->read = read(input->infd, input->input, BUFF_SIZE);
+		input->read += read(input->infd, input->input, BUFF_SIZE);
 }
 
 void	read_string(t_ssl_input *input)

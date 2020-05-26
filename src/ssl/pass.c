@@ -73,6 +73,7 @@ unsigned long	salt_pass(t_ssl_input *input, char *tmp, unsigned long salt)
 	unsigned long	salted[2];
 	unsigned long	ret;
 
+	ft_printf("it salty %llx\n", salt);
 	size = ft_strlen(tmp);
 	ft_memcpy(input->input, tmp, size);
 	ft_memcpy(input->input + size, &salt, 8);

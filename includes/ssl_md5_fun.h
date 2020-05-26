@@ -37,7 +37,6 @@ int					output_file(t_ssl_input *input, char *path);
 int					get_pass(t_ssl_input *input, char *pass);
 unsigned char		*append_salt(unsigned char *s, t_ssl_input *input);
 unsigned long long	hex_to_l(char *st);
-unsigned long long	hex_to_l_salt(char *st);
 
 int					stdin_check(void);
 void				bad_input(char *input);

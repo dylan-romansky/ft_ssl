@@ -70,31 +70,6 @@ unsigned long long	hex_to_l(char *st)
 	return (hex);
 }
 
-/*
-** below may look backwards but because I'm treating these as
-** raw numbers, their bytes sit backwards compared to char
-** strings, therefore to get them to face the proper way
-** when written with the write command later, I need to do the
-** conversion backwards
-*/
-
-unsigned long long	hex_to_l_salt(char *st)
-{
-	unsigned long long	hex;
-
-	hex = 0;
-	while (('a' <= *st && *st <= 'f') || ('A' <= *st && *st <= 'F') ||
-			('0' <= *st && *st <= '9'))
-	{
-		hex /= 16;
-		hex += ((unsigned long long)hex_val(*st) << 60);
-		st++;
-	}
-	while (!(hex & 0xffL))
-		hex >>= 8;
-	return (hex);
-}
-
 int					get_pass(t_ssl_input *input, char *pass)
 {
 	input->pass = pass;

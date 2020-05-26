@@ -10,7 +10,11 @@ refactor flag parsing (high priority)
 ---when salt is passed via flag, pad back with 0, not front
 ---salt appears to only be used when iv and key aren't given
 
+salt of 0 causes infinite loop
+
 md5 currently does nothing with echo -n, openssl does
+
+differences between my build of openssl and the mac build of openssl may be to blame
 
 consider implementing whirlpool, des3-ecb, and des3-cbc
 
