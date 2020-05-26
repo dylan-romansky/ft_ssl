@@ -15,11 +15,6 @@
 /*
 ** salted output uses a header that reads "Salted__" + 8 byte salt
 ** --only when -p flag present, otherwise it just gets appended
-** pbkdf(password, salt/last hash, max iterations, output length)
-** output length can probs get discarded since I know output gets
-** halved and stored as key and iv
-**
-** openssl page says it defaults to just sha256
 */
 
 void			salt_error(int dis)

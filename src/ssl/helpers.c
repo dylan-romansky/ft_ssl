@@ -50,8 +50,6 @@ int				handle_string(char **av, int j, t_ssl_input *input, int dis)
 		input->sflag = av[j + 1];
 		input->sstring = av[j + 1];
 	}
-// verify how other ssl projects handle an -s with no string
-// and how others handle multiple -s input
 	do_ssl(input, NULL, dis);
 	input->flags |= pi;
 	return (ret);

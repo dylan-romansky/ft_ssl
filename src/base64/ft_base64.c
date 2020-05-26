@@ -29,11 +29,8 @@ void			ft_base64_e(t_ssl_input *input)
 	int				chunk;
 	int				i;
 	unsigned char	e[4];
-//	unsigned char	*s;
 
-//	chunk = 0;
 	i = 0;
-//	s = (unsigned char *)ft_strnew(0);
 	while (i < input->read)
 	{
 		chunk = get_chunk(input->input, i, input->read, i < input->read - 2 ? 3 : input->read - i);
@@ -41,9 +38,6 @@ void			ft_base64_e(t_ssl_input *input)
 		expand_base(chunk, e);
 		i += 3;
 		char_swap(e, i > input->read ? i - input->read : 0);
-//		s = (unsigned char *)swap_n_free(ft_strjoin((char *)s, (char *)e),
-//				(char **)&s);
-//		free(e);
 		ft_memcpy(input->base + (i / 3 * 4) - 4, e, 4);
 	}
 	input->len = input->read / 3 * 4;
@@ -55,20 +49,16 @@ void			ft_base64_d(t_ssl_input *input)
 	size_t			i;
 	int				dif;
 	unsigned char	d[3];
-//	unsigned char	*s;
 
 	chunk = 0;
 	i = 0;
 	dif = minus_pad(input->base);
 	input->len -= dif;
-//	s = (unsigned char *)ft_strnew(0);
 	while (i < input->len)
 	{
 		ft_bzero(d, 3);
 		chunk = get_chunk(input->base, i, input->len, i < input->len - 3 ? 4 : input->len - i);
 		contract_base(chunk, d);
-//		s = (unsigned char *)ft_hardjoin((char *)s, (3 * (i / 4)),
-//				(char *)d, (i + 4) > len ? (len - i) : 3);
 		ft_memcpy(input->input + (i * 3 / 4), d, (i + 4) > input->len ? input->len - i : 3);
 		i += 4;
 	}
