@@ -102,7 +102,6 @@ int				cipher_flag_val(char *flags, int dis, char *fun)
 
 int				j_increment(t_ssl_input *input, char *arg, char *fun, int dis)
 {
-	input->flags |= input->curr_flag;
 	if (input->curr_flag == i && input->infd == STDIN_FILENO)
 		return (input_file(input, arg, fun, open(arg, O_RDONLY)));
 	if (input->curr_flag == o && input->outfd == STDOUT_FILENO)

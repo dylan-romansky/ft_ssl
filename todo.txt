@@ -1,7 +1,5 @@
 find a way to check stdin for input without changing stdin to non-blocking behaviour
 
---make sure des with base64 doesn't print extra new lines
-
 refactor flag parsing (high priority)
 --when key is given, ignore key from pass
 --when salt is given always append to front

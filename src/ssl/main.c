@@ -84,6 +84,7 @@ void			ssl_flags(char **av, t_ssl_input *input, int dis, int j)
 				j += handle_string(av, j, input, dis);
 			if ((input->flags & (p | dunp)) == p && do_ssl(input, NULL, dis))
 				input->flags |= dunp;
+			input->flags |= input->curr_flag;
 
 		}
 		else
@@ -103,6 +104,7 @@ void			cipher_flags(char **av, t_ssl_input *input, int dis, int j)
 				cipher_flag_val(av[j], dis, g_sslfuns[dis].print);
 			if (j + 1 < input->args)
 				j += j_increment(input, av[j + 1], g_sslfuns[dis].print, dis);
+			input->flags |= input->curr_flag;
 		}
 		else
 			break ;
