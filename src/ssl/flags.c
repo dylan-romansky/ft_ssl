@@ -102,26 +102,27 @@ int				cipher_flag_val(char *flags, int dis, char *fun)
 
 int				j_increment(t_ssl_input *input, char *arg, char *fun, int dis)
 {
-	if (input->flags & i && input->infd == STDIN_FILENO)
+	input->flags |= input->curr_flag;
+	if (input->curr_flag == i && input->infd == STDIN_FILENO)
 		return (input_file(input, arg, fun, open(arg, O_RDONLY)));
-	if (input->flags & o && input->outfd == STDOUT_FILENO)
+	if (input->curr_flag == o && input->outfd == STDOUT_FILENO)
 		return (output_file(input, arg));
-	if (input->flags & k && !input->key)
+	if (input->curr_flag == k && !input->key)
 	{
 		input->key = check_key(arg, dis);
 		return (1);
 	}
-	if (input->flags & p2 && !input->pass)
+	if (input->curr_flag == p2 && !input->pass)
 	{
 		input->pass = ft_strdup(arg);
 		return (1);
 	}
-	if (input->flags & s2 && !input->salt)
+	if (input->curr_flag == s2 && !input->salt)
 	{
 		input->salt = verify_salt(arg, dis);
 		return (1);
 	}
-	if (input->flags & v && !input->iv)
+	if (input->curr_flag == v && !input->iv)
 	{
 		input->iv = verify_iv(arg, dis);
 		return (1);

@@ -1,4 +1,4 @@
-find a way to check stdin for input without changing it to non-blocking behaviour
+find a way to check stdin for input without changing stdin to non-blocking behaviour
 
 --make sure des with base64 doesn't print extra new lines
 
@@ -9,8 +9,6 @@ refactor flag parsing (high priority)
 ---verify how openssl reacts to incorrect salt on decrypt
 ---when salt is passed via flag, pad back with 0, not front
 ---salt appears to only be used when iv and key aren't given
-
-salt of 0 causes infinite loop
 
 md5 currently does nothing with echo -n, openssl does
 

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_params.c                                       :+:      :+:    :+:   */
+/*   convert_params.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -48,7 +48,7 @@ unsigned long long	hex_to_l(char *st)
 		hex += hex_val(*st);
 		st++;
 	}
-	while (!(hex & 0xff00000000000000L))
+	while (hex && !(hex & 0xff00000000000000L))
 		hex <<= 8;
 	return (hex);
 }

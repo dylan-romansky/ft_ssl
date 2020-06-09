@@ -105,6 +105,7 @@ struct	s_ssl_input
 	size_t			len;
 	size_t			len2;
 	int				flags;
+	int				curr_flag;
 	int				infd;
 	int				outfd;
 	unsigned long	key;

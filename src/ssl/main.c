@@ -78,13 +78,10 @@ void			ssl_flags(char **av, t_ssl_input *input, int dis, int j)
 	{
 		if (av[j][0] == '-' && (av[j][1] == 's' || ft_strlen(av[j]) == 2))
 		{
-			input->flags |= flag_val(av[j], dis, g_sslfuns[dis].print);
-			if (input->flags & s && (j + 1 < input->args ||
+			input->curr_flag = flag_val(av[j], dis, g_sslfuns[dis].print);
+			if (input->curr_flag == s && (j + 1 < input->args ||
 						av[j][chr_index(av[j], 's') + 1]))
-			{
 				j += handle_string(av, j, input, dis);
-				input->flags -= s;
-			}
 			if ((input->flags & (p | dunp)) == p && do_ssl(input, NULL, dis))
 				input->flags |= dunp;
 
@@ -102,7 +99,7 @@ void			cipher_flags(char **av, t_ssl_input *input, int dis, int j)
 	{
 		if (av[j][0] == '-')
 		{
-			input->flags |=
+			input->curr_flag =
 				cipher_flag_val(av[j], dis, g_sslfuns[dis].print);
 			if (j + 1 < input->args)
 				j += j_increment(input, av[j + 1], g_sslfuns[dis].print, dis);
