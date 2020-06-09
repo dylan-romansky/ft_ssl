@@ -1,10 +1,11 @@
 ft_ssl is a recoding of some of the features of openssl.
-The project consists of 3 parts: hashing, symmetric
-encryption, and asymmetric encryption. The project is designed
-to be perfectly compatible with the version of openssl
-available on OSX. As such I've noticed a few key differences
-between the openssl available on my linux laptop and the
-openssl available on my school's Mac desktops:
+The project consists of 3 sub-projects, each turned in
+individually: hashing, symmetric encryption, and asymmetric
+encryption. The project is designed to be perfectly compatible
+with the version of openssl available on OSX. As such I've
+noticed a few key differences between the openssl available on
+my linux laptop and the openssl available on my school's Mac
+desktops:
 
 -On my laptop all encryptions appear to be salted. This is not
  the case on my school's Macs.
@@ -26,3 +27,6 @@ will need to get access to the version of openssl used on my
 school's Macs to be able to properly verify. The hashing
 algorithms have been tested and verified working on files
 several gigabytes in size.
+
+At the time of writing this README I also have not yet
+implemented the rsa/asymmetric encryption part of the project.
