@@ -21,8 +21,8 @@ openssl available on my school's Mac desktops:
 I have recently overhauled the bulk of the executable in order
 to bufferize my input, thus allowing me to hash/encrypt files
 of arbitrary length. As a result of this I'm not completely
-sure encryption works as it's supposed to yet. I will need to
-get access to the version of openssl used on my school's Macs
-to be able to properly verify. The hashing algorithms have
-been tested and verified working on files several gigabytes in
-size.
+sure the cipher algorithms work as they're supposed to yet. I
+will need to get access to the version of openssl used on my
+school's Macs to be able to properly verify. The hashing
+algorithms have been tested and verified working on files
+several gigabytes in size.
