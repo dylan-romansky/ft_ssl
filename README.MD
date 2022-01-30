@@ -30,3 +30,6 @@ several gigabytes in size.
 
 At the time of writing this README I also have not yet
 implemented the rsa/asymmetric encryption part of the project.
+
+
+Goals of this project include familiarizing ourselves with bitwise logic and how data is handled at the byte level as well as giving us a rudimentary understanding of algorithms in a security context. Because of the aforementioned, debugging this project is a nightmare as the tiniest difference in behaviour causes a snowball effect, produciing output that gives you no real indication of what the exact mistake is.
